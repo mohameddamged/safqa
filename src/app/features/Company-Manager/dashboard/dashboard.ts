@@ -2,12 +2,13 @@ import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { DashboardService } from '../../../core/services/Company-Manager/Dashboard/dashboardservice';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [BaseChartDirective],
+  imports: [BaseChartDirective,RouterLink],
   templateUrl: './dashboard.html'
 })
 export class Dashboard implements OnInit {
