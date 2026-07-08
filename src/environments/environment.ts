@@ -9,5 +9,5 @@
  */
 export const environment = {
   production: true,
-  apiUrl: 'http://safka.runasp.net/api',
+  apiUrl: 'https://safka.runasp.net/api',
 };
