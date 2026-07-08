@@ -14,7 +14,7 @@ import { SafqaPayments } from './EscrowPayments/safqa-payments/safqa-payments';
 import { VendorTransactionDetails } from './EscrowPayments/vendor-transaction-details/vendor-transaction-details';
 import { ReturnedFunds } from './EscrowPayments/returned-funds/returned-funds';
 import { ReturnedFundDetails } from './EscrowPayments/returned-fund-details/returned-fund-details';
-import { CompaniesList } from './Companies/Companies-list/Companies-list/Companies-list';
+import { CompaniesList } from './Companies/Companies-list/Companies-list/companies-list';
 
 
 export const SYSTEM_ADMIN_ROUTES: Routes = [
