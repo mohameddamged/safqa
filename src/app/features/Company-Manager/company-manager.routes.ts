@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
 import { PrList } from './pr-list/pr-list';
 import { PrDetails } from './pr-details/pr-details';
-import { CompanyDashboardComponent } from './dashboard/dashboard.component';
-import { VendorOffersComponent } from './vendor-offers/vendor-offers.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { ProfileComponent } from './profile/profile.component';
 import { GeneralInfoComponent } from './general-info/general-info.component';
@@ -12,6 +10,7 @@ import { MembersComponent } from './members/members.component';
 import { PoTracking } from './po-tracking/po-tracking';
 import { CompanyInfo } from './company-info/company-info';
 import { Dashboard } from './dashboard/dashboard';
+import { OfferList } from './offer-list/offer-list';
 
 
 
@@ -39,7 +38,7 @@ export const COMPANY_ROUTES: Routes = [
 
   {
     path: 'vendor-offers',
-    component: VendorOffersComponent
+    component: OfferList
   },
   {
     path: 'allpos',

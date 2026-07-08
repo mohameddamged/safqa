@@ -63,7 +63,7 @@ export class PrDetails implements OnInit {
     if (id) {
       this.prService.approvePr(id, 'Approved').subscribe(() => {
         // alert(' Approved ');
-        this.router.navigate(['/Company-manager/pr-list']);
+        this.router.navigate(['/company-manager/pr-list']);
       });
     }
   }
@@ -73,7 +73,7 @@ export class PrDetails implements OnInit {
     if (id) {
       this.prService.rejectPr(id, 'Rejected').subscribe(() => {
         // alert('Rejected ');
-        this.router.navigate(['/Company-manager/pr-list']);
+         this.router.navigate(['/company-manager/pr-list']);
       });
     }
   }

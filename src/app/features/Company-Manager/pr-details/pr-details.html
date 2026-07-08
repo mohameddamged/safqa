@@ -72,14 +72,14 @@
       </div>
     </div>
 
-    <div class="rounded-full p-[1.5px] bg-gradient-to-r from-[#FB904E] to-[#E779F1] mb-8">
+    <!-- <div class="rounded-full p-[1.5px] bg-gradient-to-r from-[#FB904E] to-[#E779F1] mb-8">
       <div class="relative bg-white rounded-full">
         <input readonly formControlName="aiEstimatedCost"
           class="w-full h-16 rounded-full px-5 pt-5 bg-white focus:outline-none bg-gradient-to-r from-[#FB904E] to-[#E779F1] bg-clip-text text-transparent" />
         <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF] bg-white px-1">Estimated Cost By AI based on last
           POs</label>
       </div>
-    </div>
+    </div> -->
 
     <h2 class="text-[36px] font-semibold text-[#25B6AB] mb-6">RFQ Deadline</h2>
 
@@ -97,11 +97,11 @@
   </div>
 
   <div class="max-w-6xl mx-auto flex gap-4 mt-8">
-    <button type="button" (click)="onAccept()"
+    <button type="button" RouterLink="/company-manager/pr-list"  (click)="onAccept()"
       class="flex-1 h-14 rounded-full bg-gradient-to-r from-[#E47C55] to-[#EFA063] text-white font-medium flex items-center justify-center gap-2 hover:opacity-90">
       Accept & Send To Finance →
     </button>
-    <button type="button" (click)="onReject()"
+    <button type="button" RouterLink="/company-manager/pr-list" (click)="onReject()"
       class="flex-1 h-14 rounded-full border border-[#E47C55] text-[#E47C55] bg-white hover:bg-orange-50">
       Reject Request
     </button>
