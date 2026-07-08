@@ -1,0 +1,68 @@
+<app-fm-shell>
+  <div class="fm-list">
+    <h1 class="fm-list__title">Recovered Funds</h1>
+
+    @if (loading()) {
+      <div class="fm-list__loading">
+        <span class="fm-list__spinner" aria-hidden="true"></span>
+      </div>
+    } @else if (errored()) {
+      <div class="fm-list__empty">
+        <app-icon name="circle-x" [size]="32"></app-icon>
+        <p>Could not load recovered funds.</p>
+        <button type="button" class="fm-list__retry" (click)="loadPage(pageNumber())">
+          Try again
+        </button>
+      </div>
+    } @else if (funds().length === 0) {
+      <div class="fm-list__empty">
+        <app-icon name="circle-check" [size]="18"></app-icon>
+        <p>No recovered funds yet.</p>
+      </div>
+    } @else {
+      <table class="fm-table">
+        <thead>
+          <tr>
+            <th>PO ID</th>
+            <th>PO Title</th>
+            <th>Cost</th>
+            <th>Currency</th>
+            <th>Payment Date</th>
+            <th>Recovered Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (fund of funds(); track fund.purchaseOrderId) {
+            <tr>
+              <td>{{ fund.purchaseOrderId }}</td>
+              <td>{{ fund.purchaseOrderTitle }}</td>
+              <td>{{ fund.cost | number:'1.2-2' }}</td>
+              <td>{{ fund.currency }}</td>
+              <td>{{ fund.paymentDate | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ fund.recoveredFundDate ? (fund.recoveredFundDate | date: 'dd/MM/yyyy') : '—' }}</td>
+              <td class="fm-table__actions">
+                <button type="button" class="fm-table__details" (click)="viewDetails(fund)">
+                  Details
+                  <app-icon name="chevron-right" [size]="14"></app-icon>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      @if (totalPages() > 1) {
+        <div class="fm-list__pagination">
+          <button type="button" [disabled]="pageNumber() <= 1" (click)="previousPage()">
+            Previous
+          </button>
+          <span>Page {{ pageNumber() }} of {{ totalPages() }}</span>
+          <button type="button" [disabled]="pageNumber() >= totalPages()" (click)="nextPage()">
+            Next
+          </button>
+        </div>
+      }
+    }
+  </div>
+</app-fm-shell>

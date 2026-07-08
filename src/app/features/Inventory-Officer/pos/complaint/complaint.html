@@ -1,0 +1,142 @@
+<div class="p-8 bg-gray-50 min-h-screen">
+    <div class="flex items-center gap-2 mb-6 text-sm font-medium">
+        <a routerLink="/inventory-officer/upcoming-pos" class="text-[#25B6AB] hover:underline">All POs</a>
+        <span class="text-[#25B6AB]">></span>
+        <a routerLink="/inventory-officer/po-tracking" class="text-[#25B6AB] hover:underline">PO Track Shipping</a>
+        <span class="text-[#25B6AB]">></span>
+        <span class="text-[#25B6AB] underline underline-offset-4">Complaint</span>
+    </div>
+
+    <div class="max-w-4xl mx-auto bg-white p-10 rounded-3xl shadow-sm">
+        @if (!otpResult()) {
+        <h2 class="text-3xl font-bold text-[#2E1911] mb-4 text-center">Complaint</h2>
+
+        @if (poQuantity() !== null) {
+        <p class="text-center text-sm text-gray-500 mb-6">
+            Purchase Order Quantity: <span class="font-bold text-[#2E1911]">{{ poQuantity() }}</span>
+            — the two quantities below must add up to this number.
+        </p>
+        }
+
+        <div class="flex mb-8 border-b border-gray-100 justify-center">
+            <button (click)="setTab('damages')" [class.active-tab]="activeTab() === 'damages'"
+                class="tab-btn pb-4 transition-all text-[#B5B5B5]">
+                There is Damages
+            </button>
+
+            <button (click)="setTab('incomplete')" [class.active-tab]="activeTab() === 'incomplete'"
+                class="tab-btn pb-4 transition-all text-[#B5B5B5]">
+                Order is not Completed
+            </button>
+        </div>
+
+        <div class="space-y-6">
+            <div class="relative">
+                <label class="absolute left-4 top-2 text-[10px] text-[#B5B5B5] uppercase">Complaint Reason</label>
+                <textarea [(ngModel)]="reason" rows="2"
+                    class="w-full pt-6 pb-2 px-4 border border-[#B8EFEB] rounded-3xl bg-white text-[#2E1911] resize-none focus:outline-none focus:border-[#25B6AB]"></textarea>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6 mt-2">
+                @if (activeTab() === 'damages') {
+                <div class="relative">
+                    <label class="absolute left-4 top-2 text-[10px] text-[#B5B5B5] uppercase">Number of good items</label>
+                    <input type="number" min="0" [(ngModel)]="receivedQuantity"
+                        class="w-full pt-6 pb-2 px-4 border border-[#B8EFEB] rounded-4xl bg-white text-[#2E1911] focus:outline-none focus:border-[#25B6AB]">
+                </div>
+                <div class="relative">
+                    <label class="absolute left-4 top-2 text-[10px] text-[#B5B5B5] uppercase">Number of damaged items</label>
+                    <input type="number" min="0" [(ngModel)]="damagedQuantity"
+                        class="w-full pt-6 pb-2 px-4 border border-[#B8EFEB] rounded-4xl bg-white text-[#2E1911] focus:outline-none focus:border-[#25B6AB]">
+                </div>
+                } @else {
+                <div class="relative">
+                    <label class="absolute left-4 top-2 text-[10px] text-[#B5B5B5] uppercase">Number of Received Items</label>
+                    <input type="number" min="0" [(ngModel)]="receivedQuantity"
+                        class="w-full pt-6 pb-2 px-4 border border-[#B8EFEB] rounded-4xl bg-white text-[#2E1911] focus:outline-none focus:border-[#25B6AB]">
+                </div>
+                <div class="relative">
+                    <label class="absolute left-4 top-2 text-[10px] text-[#B5B5B5] uppercase">Number of Dismissed Items</label>
+                    <input type="number" min="0" [(ngModel)]="dismissedQuantity"
+                        class="w-full pt-6 pb-2 px-4 border border-[#B8EFEB] rounded-4xl bg-white text-[#2E1911] focus:outline-none focus:border-[#25B6AB]">
+                </div>
+                }
+            </div>
+
+            @if (poQuantity() !== null) {
+            <p class="text-xs mt-1" [class.text-red-500]="quantityMismatch()" [class.text-gray-400]="!quantityMismatch()">
+                Total entered: {{ currentTotal() }} / {{ poQuantity() }}
+            </p>
+            }
+
+            @if (activeTab() === 'damages') {
+            <div class="mt-6">
+                <p class="text-sm font-medium text-[#2E1911] mb-4">
+                    Upload Complaint Photos (Maximum 10 Photos)
+                </p>
+
+                <div class="flex flex-wrap gap-4">
+                    @for (image of imagePreviews(); track $index) {
+                    <div class="relative">
+                        <img [src]="image" class="w-28 h-28 rounded-2xl object-cover border">
+                        <button type="button" (click)="removeImage($index)"
+                            class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-red-500 text-white text-xs hover:bg-red-600">
+                            ✕
+                        </button>
+                    </div>
+                    }
+
+                    @if (imagePreviews().length < 10) {
+                    <div (click)="fileInput.click()"
+                        class="w-28 h-28 bg-[#F9F9F9] border-2 border-dashed border-[#D1D1D1] rounded-2xl flex items-center justify-center text-4xl text-[#B5B5B5] cursor-pointer hover:border-[#E47C55] hover:text-[#E47C55] transition">
+                        +
+                    </div>
+                    }
+                </div>
+
+                <input #fileInput type="file" multiple accept="image/*" class="hidden" (change)="onImagesSelected($event)">
+            </div>
+            }
+
+            @if (errorMessage()) {
+            <p class="text-sm text-red-500 mt-4 text-center">{{ errorMessage() }}</p>
+            }
+            @if (fieldErrors().length > 0) {
+            <ul class="text-sm text-red-500 mt-2 list-disc list-inside">
+                @for (msg of fieldErrors(); track $index) {
+                <li>{{ msg }}</li>
+                }
+            </ul>
+            }
+
+            <button (click)="submitComplaint()" [disabled]="isSubmitting()"
+                class="w-full h-[52px] py-4 bg-gradient-to-r from-[#EFA063] to-[#E47C55] text-white rounded-4xl font-bold mt-8 shadow-lg shadow-orange-100 transition-all hover:opacity-90 disabled:opacity-60">
+                {{ isSubmitting() ? 'Submitting...' : 'Upload Complaint' }}
+            </button>
+        </div>
+        } @else {
+        <div class="text-center py-6">
+            <div class="w-16 h-16 mx-auto rounded-full bg-[#E0F7FA] flex items-center justify-center mb-6">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#25B6AB" stroke-width="2">
+                    <path d="M20 6L9 17l-5-5" />
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-[#2E1911] mb-3">Complaint Submitted</h2>
+            <p class="text-gray-500 mb-6">
+                A delivery OTP has been sent to the vendor to confirm this complaint.
+            </p>
+            <div class="inline-block bg-[#FFF5F0] rounded-2xl px-8 py-4 mb-6">
+                <p class="text-xs text-[#B5B5B5] uppercase mb-1">OTP Code</p>
+                <p class="text-3xl font-bold tracking-widest text-[#E47C55]">{{ otpResult()?.otpCode }}</p>
+                <p class="text-xs text-gray-400 mt-2">Expires at {{ otpResult()?.expiresAt | date:'dd/MM/yyyy HH:mm' }}</p>
+            </div>
+            <div>
+                <button (click)="goToTracking()"
+                    class="px-8 py-3 bg-gradient-to-r from-[#EFA063] to-[#E47C55] text-white rounded-full font-bold hover:opacity-90 transition-all">
+                    Back to PO Tracking
+                </button>
+            </div>
+        </div>
+        }
+    </div>
+</div>

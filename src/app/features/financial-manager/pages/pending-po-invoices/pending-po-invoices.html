@@ -1,0 +1,54 @@
+<app-fm-shell>
+  <div class="fm-list">
+    <h1 class="fm-list__title">Pending Invoices</h1>
+
+    @if (loading()) {
+      <div class="fm-list__loading">
+        <span class="fm-list__spinner" aria-hidden="true"></span>
+      </div>
+    } @else if (errored()) {
+      <div class="fm-list__empty">
+        <app-icon name="circle-x" [size]="32"></app-icon>
+        <p>Could not load pending PO invoices.</p>
+        <button type="button" class="fm-list__retry" (click)="loadPage(pageNumber())">Try again</button>
+      </div>
+    } @else if (pos().length === 0) {
+      <div class="fm-list__empty">
+        <app-icon name="clock" [size]="32"></app-icon>
+        <p>No pending PO invoices right now.</p>
+      </div>
+    } @else {
+      <table class="fm-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>PO Title</th>
+            <th>PO Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (po of pos(); track po.id) {
+            <tr>
+              <td>{{ po.id }}</td>
+              <td>{{ po.poTitle }}</td>
+              <td>{{ po.poDate | date: 'dd/MM/yyyy' }}</td>
+              <td class="fm-table__actions">
+                <button type="button" class="fm-table__details" (click)="viewDetails(po)">
+                  Update Invoice
+                  <app-icon name="chevron-right" [size]="14"></app-icon>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <div class="fm-list__pagination">
+        <button type="button" [disabled]="pageNumber() <= 1" (click)="previousPage()">Previous</button>
+        <span>Page {{ pageNumber() }} of {{ totalPages() }}</span>
+        <button type="button" [disabled]="pageNumber() >= totalPages()" (click)="nextPage()">Next</button>
+      </div>
+    }
+  </div>
+</app-fm-shell>

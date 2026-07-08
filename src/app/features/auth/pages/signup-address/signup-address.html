@@ -1,0 +1,41 @@
+<app-auth-shell title="Sign up">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="address-form">
+    <app-text-input
+      formControlName="country"
+      label="Country"
+      [required]="true"
+      [errorMessage]="fieldError('country', 'Country')"
+    ></app-text-input>
+
+    <app-text-input
+      formControlName="stateRegion"
+      label="State / Region"
+      [required]="true"
+      [errorMessage]="fieldError('stateRegion', 'State / Region')"
+    ></app-text-input>
+
+    <app-text-input
+      formControlName="city"
+      label="City"
+      [required]="true"
+      [errorMessage]="fieldError('city', 'City')"
+    ></app-text-input>
+
+    <app-text-input
+      formControlName="streetNumber"
+      label="Street"
+      [errorMessage]="fieldError('streetNumber', 'Street')"
+    ></app-text-input>
+
+    <app-text-input
+      formControlName="fullAddress"
+      label="Full Address"
+      [required]="true"
+      [errorMessage]="fieldError('fullAddress', 'Full address')"
+    ></app-text-input>
+
+    <app-primary-button [loading]="loading()">Continue</app-primary-button>
+  </form>
+
+  <app-step-indicator [currentStep]="3" [totalSteps]="3"></app-step-indicator>
+</app-auth-shell>

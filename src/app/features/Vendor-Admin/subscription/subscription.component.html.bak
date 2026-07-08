@@ -1,0 +1,532 @@
+<!-- ════════════════════════════════════
+     MY PLAN VIEW (after successful payment)
+════════════════════════════════════ -->
+<div class="myplan-page" *ngIf="view === 'myPlan'">
+
+  <h1 class="myplan-title">My Plan</h1>
+
+  <!-- Plan Info Card -->
+  <div class="myplan-card">
+    <p class="myplan-desc">
+      You are now on <span class="myplan-pro-label">PRO Plan</span> in Safqa System since
+      {{ currentDate }}. The subscription fees will be payed from your card automatically every
+      month you can change this later at any time.<br />
+      Now You enjoy:
+    </p>
+
+    <ul class="myplan-features">
+      <li>
+        <span class="check-icon">
+          <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
+            <path d="M1 6.5L5.5 11L15 1" stroke="#E8763A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>Unlimited RFQs.</span>
+      </li>
+      <li>
+        <span class="check-icon">
+          <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
+            <path d="M1 6.5L5.5 11L15 1" stroke="#E8763A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>Launch public and private tenders.</span>
+      </li>
+      <li>
+        <span class="check-icon">
+          <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
+            <path d="M1 6.5L5.5 11L15 1" stroke="#E8763A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>Unlimited team roles with approval workflows.</span>
+      </li>
+      <li>
+        <span class="check-icon">
+          <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
+            <path d="M1 6.5L5.5 11L15 1" stroke="#E8763A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>Advanced AI Agent (predictive insights &amp; discount alerts).</span>
+      </li>
+    </ul>
+
+    <div class="myplan-actions">
+      <button class="btn-cancel-subscription" (click)="onCancelSubscription()">Cancel Subscription</button>
+    </div>
+  </div>
+
+  <!-- My Cards Section -->
+  <h2 class="mycards-title">My Cards</h2>
+
+  <div class="mycards-section">
+    <!-- Saved cards list -->
+    <div class="mycards-list">
+      <div
+        class="mycard-row"
+        *ngFor="let card of savedCards; let i = index"
+        [class.selected]="selectedCardIndex === i"
+        (click)="onSelectCard(i)"
+      >
+        <span class="mycard-label">Credit Card</span>
+        <span class="mycard-number">**** **** **** {{ card.last4 }}</span>
+
+        <span class="mycard-thumb">
+          <!-- Credit card visual thumbnail -->
+          <svg width="44" height="30" viewBox="0 0 44 30" fill="none">
+            <rect width="44" height="30" rx="5" fill="url(#cardGrad)"/>
+            <rect x="3" y="11" width="38" height="6" fill="rgba(255,255,255,0.15)"/>
+            <defs>
+              <linearGradient id="cardGrad" x1="0" y1="0" x2="44" y2="30" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#9747FF"/>
+                <stop offset="100%" stop-color="#C84FB0"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+
+        <div class="mycard-menu-wrap">
+          <button class="mycard-menu-btn" (click)="onToggleCardMenu(i, $event)" aria-label="Card options">⋯</button>
+          <div class="mycard-menu-dropdown" *ngIf="openMenuIndex === i">
+            <button class="mycard-menu-item" (click)="onRemoveCard(i, $event)">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Another Card Button -->
+    <button class="btn-add-another-card" (click)="onAddAnotherCardFromPlan()">Add Another Card</button>
+  </div>
+
+</div>
+
+<div class="sub-page" *ngIf="view === 'plans'">
+
+  <h1 class="sub-title">Plans</h1>
+
+  <div class="plans-row">
+
+    <!-- ── Free Plan ── -->
+    <div class="plan-card free-card">
+      <span class="badge badge-default">Default</span>
+
+      <h2 class="plan-name">Free Plan</h2>
+
+      <div class="plan-price">
+        <span class="price-value">0EGP</span>
+        <span class="price-period">/month</span>
+      </div>
+
+      <p class="plan-desc">
+        Perfect for small businesses to start saving on procurement.
+      </p>
+
+      <ul class="plan-features">
+        <li>
+          <span class="check-icon">
+            <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
+              <path d="M1 6.5L5.5 11L15 1" stroke="#E8763A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span>2 RFQs you can send per week.</span>
+        </li>
+        <li>
+          <span class="check-icon">
+            <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
+              <path d="M1 6.5L5.5 11L15 1" stroke="#E8763A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span>Basic AI-powered RFQ summary.</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── Pro Plan ── -->
+    <div class="plan-card pro-card">
+      <span class="badge badge-popular">Popular</span>
+
+      <h2 class="plan-name">Pro Plan</h2>
+
+      <div class="plan-price">
+        <span class="price-value">500EGP</span>
+        <span class="price-period">/month</span>
+      </div>
+
+      <p class="plan-desc">
+        Complete procurement control for high-volume corporate sourcing
+      </p>
+
+      <ul class="plan-features">
+        <li>
+          <span class="check-icon">
+            <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
+              <path d="M1 6.5L5.5 11L15 1" stroke="#E8763A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span>Unlimited RFQs.</span>
+        </li>
+        <li>
+          <span class="check-icon">
+            <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
+              <path d="M1 6.5L5.5 11L15 1" stroke="#E8763A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span>Advanced AI Agent (predictive insights &amp; discount alerts).</span>
+        </li>
+      </ul>
+
+      <div class="plan-footer">
+        <button class="btn-subscribe" (click)="onSubscribe()">Subscribe</button>
+      </div>
+
+      <div class="pro-gradient-bar"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════
+     PAYMENT INFORMATION VIEW
+════════════════════════════════════ -->
+<div class="pay-page" *ngIf="view === 'payment'">
+
+  <!-- Header: simple title once a card exists, full header before that -->
+  <div class="pay-header" *ngIf="savedCards.length === 0">
+    <h1 class="pay-title">
+      Payment Information
+      <svg class="lock-icon" width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <rect x="5" y="11" width="14" height="9" rx="2" stroke="#1A1A2E" stroke-width="1.8"/>
+        <path d="M8 11V7a4 4 0 0 1 7.5-1.9" stroke="#1A1A2E" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </h1>
+    <p class="pay-subtitle">All your Payment information is securely encrypted</p>
+  </div>
+
+  <div class="pay-header-simple" *ngIf="savedCards.length > 0">
+    <h1 class="pay-title-simple">Select Payment Method</h1>
+  </div>
+
+  <div class="pay-row">
+
+    <!-- ── Card panel ── -->
+    <div class="card-panel" *ngIf="savedCards.length === 0">
+      <div class="no-card-state">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+          <rect x="10" y="14" width="44" height="36" rx="8" stroke="#C9C9D6" stroke-width="2.5"/>
+          <line x1="22" y1="38" x2="30" y2="38" stroke="#C9C9D6" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <p class="no-card-text">No Saved Cridit Cards</p>
+      </div>
+
+      <button class="btn-add-card" (click)="onAddCard()">Add Your Credit Card Information</button>
+    </div>
+
+    <!-- ── Saved cards / select payment method panel ── -->
+    <div class="card-panel saved-cards-panel" *ngIf="savedCards.length > 0">
+
+      <div class="saved-cards-list">
+        <div
+          class="saved-card-row"
+          *ngFor="let card of savedCards; let i = index"
+          [class.selected]="selectedCardIndex === i"
+          (click)="onSelectCard(i)"
+        >
+          <span class="card-row-label">Credit Card</span>
+          <span class="card-row-number">**** **** **** {{ card.last4 }}</span>
+
+          <span class="card-row-thumb">
+            <span class="thumb-dot"></span>
+          </span>
+
+          <div class="card-row-menu-wrap">
+            <button class="card-row-menu-btn" (click)="onToggleCardMenu(i, $event)" aria-label="Card options">⋯</button>
+            <div class="card-row-menu-dropdown" *ngIf="openMenuIndex === i">
+              <button class="card-row-menu-item" (click)="onRemoveCard(i, $event)">Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="saved-cards-actions">
+        <button class="btn-pay" [disabled]="selectedCardIndex === null" (click)="onPay()">Pay</button>
+        <button class="btn-add-another" (click)="onAddCard()">Add Another Card
+          <span class="plus-icon">+</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- ── Summary panel ── -->
+    <div class="summary-panel">
+      <h2 class="summary-title">Subscription Summary</h2>
+
+      <div class="summary-line">
+        <div>
+          <div class="summary-label-bold">Pro Plan</div>
+          <div class="summary-sub">Monthly Subscription</div>
+        </div>
+        <div class="summary-value-bold">500EGP</div>
+      </div>
+
+      <hr class="summary-divider" />
+
+      <div class="summary-line">
+        <span class="summary-label">Subtotal</span>
+        <span class="summary-value">500EGP</span>
+      </div>
+
+      <div class="summary-line">
+        <span class="summary-label">Tax</span>
+        <span class="summary-value">0EGP</span>
+      </div>
+
+      <div class="summary-line total-line">
+        <span class="summary-label-bold">Estimated Total</span>
+        <span class="summary-value-bold">500EGP</span>
+      </div>
+
+      <hr class="summary-divider" />
+
+      <div class="ssl-row">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <rect x="5" y="11" width="14" height="9" rx="2" stroke="#6B6B8A" stroke-width="1.8"/>
+          <path d="M8 11V7a4 4 0 0 1 7.5-1.9" stroke="#6B6B8A" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span>SSL Encrypted Payment</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════
+     ADD CREDIT CARD VIEW
+════════════════════════════════════ -->
+<div class="pay-page" *ngIf="view === 'addCard'">
+
+  <div class="pay-header">
+    <h1 class="pay-title">
+      Payment Information
+      <svg class="lock-icon" width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <rect x="5" y="11" width="14" height="9" rx="2" stroke="#1A1A2E" stroke-width="1.8"/>
+        <path d="M8 11V7a4 4 0 0 1 7.5-1.9" stroke="#1A1A2E" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </h1>
+    <p class="pay-subtitle">All your Payment information is securely encrypted</p>
+  </div>
+
+  <div class="addcard-panel">
+    <h2 class="addcard-title">Add Your Credit Card Information</h2>
+
+    <!-- ── Live card preview (flips to back while typing CVC) ── -->
+    <div class="card-preview-wrap" [class.is-flipped]="isCardFlipped">
+      <div class="card-preview-inner">
+
+        <!-- FRONT FACE -->
+        <div class="card-preview card-face-front">
+          <div class="card-preview-top">
+            <span class="card-preview-label">CREDIT CARD</span>
+            <div class="mastercard-logo">
+              <span class="circle circle-red"></span>
+              <span class="circle circle-orange"></span>
+              <span class="mc-text">mastercard</span>
+            </div>
+          </div>
+
+          <div class="card-preview-mid">
+            <svg class="chip-icon" width="34" height="26" viewBox="0 0 34 26" fill="none">
+              <rect x="1" y="1" width="32" height="24" rx="4" stroke="white" stroke-width="1.5" opacity="0.85"/>
+              <line x1="1" y1="13" x2="33" y2="13" stroke="white" stroke-width="1.2" opacity="0.85"/>
+              <line x1="11" y1="1" x2="11" y2="25" stroke="white" stroke-width="1.2" opacity="0.85"/>
+              <line x1="23" y1="1" x2="23" y2="25" stroke="white" stroke-width="1.2" opacity="0.85"/>
+            </svg>
+            <svg class="contactless-icon" width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M7 9a7 7 0 0 1 0 6" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M4 6a11 11 0 0 1 0 12" stroke="white" stroke-width="1.6" stroke-linecap="round" opacity="0.7"/>
+              <path d="M10 11a3.2 3.2 0 0 1 0 2" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <div class="card-preview-number">{{ displayCardNumber }}</div>
+
+          <div class="card-preview-bottom">
+            <div class="card-valid">
+              <span class="valid-label">VALID<br>THRU</span>
+              <span class="valid-value">{{ displayCardExpiry }}</span>
+            </div>
+            <span class="card-holder-name">{{ displayCardName }}</span>
+          </div>
+        </div>
+
+        <!-- BACK FACE -->
+        <div class="card-preview card-face-back">
+          <div class="back-magnetic-stripe"></div>
+          <div class="back-signature-row">
+            <div class="back-signature-strip"></div>
+            <div class="back-cvc-box">{{ displayCardCode }}</div>
+          </div>
+          <div class="back-mc-logo">
+            <span class="circle circle-red"></span>
+            <span class="circle circle-orange"></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ── Form fields ── -->
+    <div class="form-field">
+      <label>Card Number *</label>
+      <input
+        type="text"
+        maxlength="19"
+        placeholder=""
+        [value]="cardNumber"
+        (input)="onCardNumberInput($event)"
+        (blur)="onFieldBlur('cardNumber')"
+        name="cardNumber"
+        inputmode="numeric"
+        [class.has-error]="touched.cardNumber && errors.cardNumber"
+      />
+      <span class="field-error" *ngIf="touched.cardNumber && errors.cardNumber">{{ errors.cardNumber }}</span>
+    </div>
+
+    <div class="form-field">
+      <label>Name *</label>
+      <input
+        type="text"
+        placeholder=""
+        [value]="cardName"
+        (input)="onCardNameInput($event)"
+        (blur)="onFieldBlur('cardName')"
+        name="cardName"
+        [attr.maxlength]="nameMaxLength"
+        [class.has-error]="touched.cardName && errors.cardName"
+      />
+      <span class="field-error" *ngIf="touched.cardName && errors.cardName">{{ errors.cardName }}</span>
+    </div>
+
+    <div class="form-row">
+      <div class="form-field">
+        <label>Expiry Date *</label>
+        <input
+          type="month"
+          [value]="cardExpiry"
+          [min]="minExpiry"
+          (change)="onExpiryChange($event)"
+          (blur)="onFieldBlur('cardExpiry')"
+          name="cardExpiry"
+          [class.has-error]="touched.cardExpiry && errors.cardExpiry"
+        />
+        <span class="field-error" *ngIf="touched.cardExpiry && errors.cardExpiry">{{ errors.cardExpiry }}</span>
+      </div>
+      <div class="form-field">
+        <label>Code (At back) *</label>
+        <input
+          type="text"
+          placeholder=""
+          maxlength="4"
+          [value]="cardCode"
+          (input)="onCardCodeInput($event)"
+          (focus)="onCodeFocus()"
+          (blur)="onCodeBlur()"
+          name="cardCode"
+          inputmode="numeric"
+          [class.has-error]="touched.cardCode && errors.cardCode"
+        />
+        <span class="field-error" *ngIf="touched.cardCode && errors.cardCode">{{ errors.cardCode }}</span>
+      </div>
+    </div>
+
+    <p class="addcard-note">
+      By Providing your card information, you allow Safqa to charge your card for future payments
+      monthly accordance with their terms. You can unsubscribe at any time.
+    </p>
+
+    <button class="btn-save-card" (click)="onSaveCard()">Save Card &amp; Continue</button>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════
+     SUCCESSFUL PAYMENT MODAL
+════════════════════════════════════ -->
+<div class="modal-overlay" *ngIf="showSuccessModal">
+  <div class="success-modal">
+    <h1 class="success-title">Successful Payment</h1>
+
+    <div class="success-check-wrap">
+      <svg class="success-check-icon" width="160" height="160" viewBox="0 0 160 160" fill="none">
+        <path d="M80 8
+                 C86 8 92 12 95 18
+                 C99 14 106 13 112 16
+                 C118 19 122 25 122 32
+                 C129 33 135 38 137 45
+                 C139 52 137 59 132 64
+                 C137 69 139 76 137 83
+                 C135 90 129 95 122 96
+                 C122 103 118 109 112 112
+                 C106 115 99 114 95 110
+                 C92 116 86 120 80 120
+                 C74 120 68 116 65 110
+                 C61 114 54 115 48 112
+                 C42 109 38 103 38 96
+                 C31 95 25 90 23 83
+                 C21 76 23 69 28 64
+                 C23 59 21 52 23 45
+                 C25 38 31 33 38 32
+                 C38 25 42 19 48 16
+                 C54 13 61 14 65 18
+                 C68 12 74 8 80 8 Z"
+              stroke="#3DBE3D" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M58 81 L72 95 L104 63" stroke="#3DBE3D" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <p class="success-text">
+      You are now on <span class="success-highlight">PRO Plan</span> in Safqa System. The
+      subscription fees will be payed from your card automatically every month you can change this
+      later at any time.
+      <br>
+      Now You enjoy:
+    </p>
+
+    <ul class="success-features">
+      <li>
+        <span class="check-icon">
+          <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
+            <path d="M1 6.5L5.5 11L15 1" stroke="#E8763A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>Unlimited RFQs.</span>
+      </li>
+      <li>
+        <span class="check-icon">
+          <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
+            <path d="M1 6.5L5.5 11L15 1" stroke="#E8763A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>Launch public and private tenders.</span>
+      </li>
+      <li>
+        <span class="check-icon">
+          <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
+            <path d="M1 6.5L5.5 11L15 1" stroke="#E8763A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>Unlimited team roles with approval workflows.</span>
+      </li>
+      <li>
+        <span class="check-icon">
+          <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
+            <path d="M1 6.5L5.5 11L15 1" stroke="#E8763A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>Advanced AI Agent (predictive insights &amp; discount alerts).</span>
+      </li>
+    </ul>
+
+    <button class="btn-success-ok" (click)="onCloseSuccessModal()">OK</button>
+  </div>
+</div>

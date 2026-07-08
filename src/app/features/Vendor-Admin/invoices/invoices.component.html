@@ -1,0 +1,73 @@
+<div class="inv-page">
+
+  <h1 class="inv-title">Invoices</h1>
+
+  @if (isLoading) {
+    <div class="inv-state">Loading invoices...</div>
+  }
+  @if (error) {
+    <div class="inv-state inv-state--error">{{ error }}</div>
+  }
+  @if (!isLoading && !error) {
+    <div class="inv-table-wrap">
+      <table class="inv-table">
+        <thead>
+          <tr>
+            <th>PO ID</th>
+            <th>PO Title</th>
+            <th>Net Payout</th>
+            <th>Delivery Date</th>
+            <th>Accept Date</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (inv of invoices; track inv.purchaseOrderId) {
+            <tr>
+              <td class="inv-td-center">{{ inv.purchaseOrderId }}</td>
+              <td>{{ inv.poTitle || '—' }}</td>
+              <td class="inv-td-center">{{ inv.netPayout | number:'1.2-2' }}</td>
+              <td class="inv-td-center">
+                {{ inv.deliveryDate ? (inv.deliveryDate | date:'dd/MM/yyyy') : '—' }}
+              </td>
+              <td class="inv-td-center">
+                {{ inv.acceptonDate ? (inv.acceptonDate | date:'dd/MM/yyyy') : '—' }}
+              </td>
+              <td class="inv-td-center">
+                <span class="inv-badge"
+                  [class.inv-badge-paid]="inv.transactionStatus === 'Paid'"
+                  [class.inv-badge-pending]="inv.transactionStatus !== 'Paid'"
+                >{{ inv.transactionStatus }}</span>
+              </td>
+              <td class="inv-menu-cell">
+                <!-- Overlay to close menu -->
+                @if (isMenuOpen(inv)) {
+                  <div style="position:fixed;inset:0;z-index:10" (click)="closeMenus()"></div>
+                }
+                <button class="inv-menu-btn" (click)="toggleMenu(inv)" aria-label="More actions">
+                  <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </button>
+                @if (isMenuOpen(inv)) {
+                  <div class="inv-dropdown" style="z-index:11;position:relative">
+                    <button class="inv-dropdown-item" (click)="onViewPoDetails(inv)">
+                      View Details
+                    </button>
+                  </div>
+                }
+              </td>
+            </tr>
+          }
+          @if (invoices.length === 0) {
+            <tr><td colspan="7" class="inv-empty">No invoices found.</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+</div>
+
+
+
+

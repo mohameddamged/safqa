@@ -1,0 +1,72 @@
+.offer-details-page { padding: 32px 40px; }
+.breadcrumb { display: flex; align-items: center; gap: 6px; margin-bottom: 24px; }
+.breadcrumb-link { color: #25B6AB; text-decoration: underline; font-size: 14px; }
+.breadcrumb-current { color: #25B6AB; font-weight: 700; font-size: 14px; text-decoration: underline; }
+.state-msg { padding: 40px; text-align: center; color: #9ca3af; }
+.error-msg { color: #ef4444; }
+.card { background: #fff; border-radius: 16px; padding: 32px 36px 36px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.title-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+.rfq-title { font-size: 24px; font-weight: 700; color: #2E1911; margin: 0; }
+.status-badge { background: #dcfce7; color: #16a34a; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+.ai-badge { display: flex; align-items: center; gap: 4px; font-size: 13px; color: #6b7280; margin-left: auto; }
+.ai-val { color: #25B6AB; }
+.section-title { font-size: 18px; font-weight: 700; color: #25B6AB; margin: 20px 0 12px 0; }
+.field-group { margin-bottom: 14px; }
+.field-group.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.full-width { width: 100%; }
+.field-label { font-size: 11px; color: #9ca3af; font-weight: 400; padding: 0 2px; }
+.field-value { border: 1.5px solid #B8EFEB; border-radius: 10px; padding: 12px 16px; font-size: 14px; color: #2E1911; background: #fff; min-height: 44px; }
+.field-value.specs { white-space: pre-line; min-height: 120px; line-height: 1.7; }
+.vendor-box { background: rgba(37,182,171,0.08); border-radius: 12px; padding: 20px; margin: 16px 0; }
+.photos-grid { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.photo-box { width: 80px; height: 80px; border-radius: 8px; overflow: hidden; }
+.photo-placeholder { width: 100%; height: 100%; background: #f3f4f6; border-radius: 8px; }
+.photo-box img { width: 100%; height: 100%; object-fit: cover; }
+.action-error { color: #ef4444; margin: 12px 0; font-size: 13px; }
+.action-success { color: #16a34a; background: #dcfce7; padding: 12px 16px; border-radius: 10px; margin: 12px 0; font-size: 14px; }
+.actions { display: flex; gap: 16px; margin-top: 24px; }
+.btn-accept { flex: 1; height: 52px; background: linear-gradient(90deg, #EFA063, #E47C55); color: #fff; font-size: 16px; font-family: 'Poppins', sans-serif; border: none; border-radius: 28px; cursor: pointer; }
+.btn-accept:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-reject { flex: 1; height: 52px; background: transparent; color: #E47C55; font-size: 16px; font-family: 'Poppins', sans-serif; border: 1.5px solid #E47C55; border-radius: 28px; cursor: pointer; }
+.btn-reject:disabled { opacity: 0.6; cursor: not-allowed; }
+.status-info { text-align: center; color: #6b7280; margin-top: 24px; font-size: 14px; }
+
+/* ── Status badge variants ──────────────────────────────────── */
+.status-submitted { background:#fef9c3; color:#ca8a04; padding:4px 14px; border-radius:20px; font-size:12px; font-weight:500; }
+.status-accepted  { background:#dcfce7; color:#16a34a; padding:4px 14px; border-radius:20px; font-size:12px; font-weight:500; }
+.status-rejected  { background:#fee2e2; color:#dc2626; padding:4px 14px; border-radius:20px; font-size:12px; font-weight:500; }
+.status-draft     { background:#f3f4f6; color:#6b7280; padding:4px 14px; border-radius:20px; font-size:12px; font-weight:500; }
+
+/* ── Negotiate button ───────────────────────────────────────── */
+.btn-negotiate { flex:1; height:52px; display:flex; align-items:center; justify-content:center; background:#fff; color:#25B6AB; font-size:16px; border:1.5px solid #25B6AB; border-radius:28px; cursor:pointer; text-decoration:none; font-weight:600; }
+.btn-negotiate:hover { background:#f0fdfa; }
+
+/* ── Vendor Performance ─────────────────────────────────────── */
+.perf-section { margin-top:24px; border:1.5px solid #e0e4ff; border-radius:14px; overflow:hidden; }
+.perf-header  { display:flex; justify-content:space-between; align-items:center; padding:14px 20px; background:#f8f9ff; cursor:pointer; user-select:none; }
+.perf-header:hover { background:#f0f1ff; }
+.perf-title   { font-size:14px; font-weight:700; color:#4f46e5; }
+.perf-toggle  { color:#6b7280; font-size:12px; }
+.perf-loading { padding:16px 20px; font-size:13px; color:#9ca3af; }
+.perf-body    { padding:20px; }
+
+.perf-scores  { display:flex; gap:16px; margin-bottom:16px; flex-wrap:wrap; }
+.perf-score-card { flex:1; min-width:90px; background:#f8f9ff; border-radius:10px; padding:14px; text-align:center; }
+.perf-score-value { font-size:24px; font-weight:700; color:#4f46e5; }
+.perf-score-label { font-size:11px; color:#6b7280; margin-top:4px; }
+
+.perf-summary        { font-size:13px; color:#4b5563; line-height:1.6; margin:0 0 12px; }
+.perf-recommendation { background:#fef9c3; border:1px solid #fde047; border-radius:8px; padding:10px 14px; font-size:13px; color:#713f12; margin-bottom:16px; }
+
+.perf-sw     { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+.perf-col    {}
+.perf-col-title   { font-size:12px; font-weight:700; margin-bottom:6px; }
+.strength-title   { color:#16a34a; }
+.weakness-title   { color:#dc2626; }
+.perf-item        { font-size:12px; color:#374151; padding:2px 0 2px 8px; }
+
+.perf-metrics { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; }
+.metric-item  { background:#f9fafb; border-radius:8px; padding:10px 12px; }
+.metric-label { font-size:11px; color:#6b7280; display:block; margin-bottom:3px; }
+.metric-value { font-size:14px; font-weight:700; color:#2E1911; }

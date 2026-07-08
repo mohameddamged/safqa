@@ -1,0 +1,131 @@
+.fm-list__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.fm-list__title {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.fm-list__filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--safqa-teal);
+  font-family: var(--safqa-font-body);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.fm-list__loading,
+.fm-list__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 0;
+  color: var(--safqa-text-secondary);
+}
+
+.fm-list__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--safqa-teal-soft);
+  border-top-color: var(--safqa-teal);
+  border-radius: 50%;
+  animation: fm-list-spin 0.7s linear infinite;
+}
+
+@keyframes fm-list-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fm-list__retry {
+  border: 1.5px solid var(--safqa-teal-soft);
+  background: none;
+  border-radius: var(--safqa-radius-pill);
+  padding: 6px 18px;
+  cursor: pointer;
+  color: var(--safqa-teal);
+  font-family: var(--safqa-font-body);
+}
+
+.fm-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--safqa-surface);
+  border-radius: var(--safqa-radius-md);
+  overflow: hidden;
+  font-size: 0.9rem;
+}
+
+.fm-table thead tr {
+  background: var(--safqa-badge-pending-bg);
+}
+
+.fm-table th {
+  text-align: left;
+  padding: 16px 20px;
+  color: var(--safqa-text-primary);
+  font-weight: 600;
+}
+
+.fm-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--safqa-border);
+  color: var(--safqa-text-primary);
+}
+
+.fm-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.fm-table__actions {
+  text-align: right;
+}
+
+.fm-table__details {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  color: var(--safqa-gradient-start);
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--safqa-font-body);
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+.fm-list__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+  font-size: 0.85rem;
+  color: var(--safqa-text-secondary);
+}
+
+.fm-list__pagination button {
+  border: 1.5px solid var(--safqa-teal-soft);
+  background: none;
+  border-radius: var(--safqa-radius-pill);
+  padding: 6px 16px;
+  cursor: pointer;
+  color: var(--safqa-teal);
+  font-family: var(--safqa-font-body);
+}
+
+.fm-list__pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

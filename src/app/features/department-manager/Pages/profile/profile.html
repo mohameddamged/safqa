@@ -1,0 +1,116 @@
+<div class="profile-page">
+
+  <!-- Hidden file input — persistent في الـ DOM -->
+  <input
+    #fileInput
+    type="file"
+    accept="image/*"
+    class="hidden-file-input"
+    (change)="onFileSelected($event)"
+  />
+
+  <div class="section-title-row">
+    <h2 class="section-title">Personal Info</h2>
+    <button type="button" class="icon-btn" aria-label="Edit personal info">
+      <svg xmlns="http://www.w3.org/2000/svg" class="edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div class="avatar-wrapper">
+    <div class="avatar-container" (click)="onAvatarClick()">
+      <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar-circle avatar-img" alt="Profile picture" />
+      <div *ngIf="!avatarUrl" class="avatar-circle"></div>
+
+      <button type="button" class="avatar-edit-btn" aria-label="Change profile picture">
+        <svg xmlns="http://www.w3.org/2000/svg" class="camera-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+          <circle cx="12" cy="13" r="4"></circle>
+        </svg>
+      </button>
+    </div>
+    <p class="avatar-hint"> </p>
+  </div>
+
+  <div class="card mb-card">
+    <div class="field field-accent">
+      <label class="field-label">First Name</label>
+      <input type="text" class="field-input" />
+    </div>
+
+    <div class="field field-accent">
+      <label class="field-label">Last Name</label>
+      <input type="text" class="field-input" />
+    </div>
+
+    <div class="field field-accent">
+      <label class="field-label">Phone Number</label>
+      <input type="text" class="field-input" />
+    </div>
+  </div>
+
+  <h2 class="section-title mb-title">Position Info</h2>
+
+  <div class="card mb-card">
+    <div class="field">
+      <label class="field-label">Work e-mail</label>
+      <input type="text" value="example @email.com" class="field-input field-highlight" />
+    </div>
+
+    <div class="field">
+      <label class="field-label">Title</label>
+      <input type="text" value="Procurement Officer" class="field-input field-highlight" />
+    </div>
+  </div>
+
+  <h2 class="section-title mb-title">My Company Info</h2>
+
+  <div class="card">
+    <div class="field field-accent">
+      <label class="field-label">Company Name</label>
+      <input type="text" value="Lorem Ipsum" class="field-input" />
+    </div>
+
+    <div class="field">
+      <label class="field-label">Company e-mail</label>
+      <input type="text" value="Lorem Ipsum" class="field-input" />
+    </div>
+
+    <div class="field">
+      <label class="field-label">Phone Number</label>
+      <input type="text" value="Lorem Ipsum" class="field-input" />
+    </div>
+
+    <h3 class="subsection-title">Head Office Location</h3>
+
+    <div class="fields-grid">
+      <div class="field">
+        <label class="field-label">Country</label>
+        <input type="text" value="Lorem Ipsum" class="field-input" />
+      </div>
+
+      <div class="field">
+        <label class="field-label">State / Region</label>
+        <input type="text" value="Lorem Ipsum" class="field-input" />
+      </div>
+
+      <div class="field">
+        <label class="field-label">City</label>
+        <input type="text" value="Lorem Ipsum" class="field-input" />
+      </div>
+
+      <div class="field">
+        <label class="field-label">Street</label>
+        <input type="text" value="Lorem Ipsum" class="field-input" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Full Company Address</label>
+      <input type="text" value="Lorem Ipsum" class="field-input" />
+    </div>
+  </div>
+
+</div>

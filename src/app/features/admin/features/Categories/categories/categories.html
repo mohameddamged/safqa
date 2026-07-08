@@ -1,0 +1,105 @@
+<div class="p-8 bg-gray-50 min-h-screen">
+    <div class="max-w-5xl mx-auto">
+
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-[#2E1911]">All Categories</h1>
+            <button (click)="openAddModal()"
+                class="bg-[#EFA063] text-white px-6 py-3 rounded-full font-bold shadow-lg shadow-orange-100 hover:bg-[#E47C55] transition-all">
+                Add Category +
+            </button>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 space-y-4">
+            @for (cat of categories(); track cat.id) {
+            <div
+                class="flex justify-between items-center p-4 px-6 border-2 border-[#E0F7F6] rounded-tr-[3rem] hover:shadow-md transition-all">
+                <span class="font-semibold text-[#2E1911]">{{ cat.name }}</span>
+                <div class="flex gap-6">
+                    <button (click)="openEditModal(cat)" class="text-[#25B6AB] font-bold hover:opacity-70">Edit
+                        ✎</button>
+                    <button (click)="confirmDelete(cat)" class="text-[#EF4444] font-bold hover:opacity-70">🗑</button>
+                </div>
+            </div>
+            } @empty {
+            <p class="text-center text-gray-400 py-10">No categories found.</p>
+            }
+        </div>
+    </div>
+</div>
+
+@if (isModalOpen) {
+<div class="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex justify-center items-center p-4">
+    <form [formGroup]="categoryForm" (ngSubmit)="saveCategory()"
+        class="bg-white p-10 rounded-[3rem] w-full max-w-lg shadow-2xl">
+        <h3 class="text-3xl font-bold text-[#2E1911] mb-8 text-center">
+            {{ editingCategory ? 'Edit Category' : 'Add Category' }}
+        </h3>
+
+        <div class="space-y-6">
+            <div>
+                <label class="block text-sm font-bold text-gray-400 uppercase mb-2 ml-4">Category Name</label>
+                <input formControlName="name" type="text"
+                    class="w-full bg-gray-50 border border-gray-100 rounded-full px-6 py-4 outline-none focus:border-[#25B6AB] transition-colors"
+                    placeholder="Enter name...">
+            </div>
+
+            <div>
+                <label class="block text-sm font-bold text-gray-400 uppercase mb-2 ml-4">Description</label>
+                <textarea formControlName="description"
+                    class="w-full bg-gray-50 border border-gray-100 rounded-3xl px-6 py-4 outline-none focus:border-[#25B6AB] transition-colors h-32"
+                    placeholder="Add description..."></textarea>
+            </div>
+
+            <div class="flex gap-3 mt-8">
+                <button type="button" (click)="isModalOpen = false"
+                    class="flex-1 py-4 rounded-full font-bold text-gray-500 hover:bg-gray-100 transition-colors">
+                    Cancel
+                </button>
+                <button type="submit"
+                    class="flex-1 py-4 rounded-full font-bold text-white shadow-lg shadow-orange-200 transition-all hover:opacity-90"
+                    style="background: linear-gradient(to right, #E47C55, #EFA063);">
+                    {{ editingCategory ? 'Update' : 'Add' }}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+}
+
+@if (isConfirmOpen) {
+<div class="fixed inset-0 bg-black/30 backdrop-blur-sm z-[60] flex justify-center items-center p-4">
+    <div class="bg-white p-8 rounded-[2rem] w-full max-w-sm text-center shadow-2xl">
+        <h3 class="text-xl font-bold text-[#2E1911] mb-4">Are you sure?</h3>
+        <div class="flex gap-3">
+            <button (click)="isConfirmOpen = false"
+                class="flex-1 py-3 rounded-full font-bold bg-gray-100 text-gray-600 hover:bg-gray-200">Cancel</button>
+            <button (click)="executeDelete()"
+                class="flex-1 py-3 rounded-full font-bold bg-red-500 text-white hover:bg-red-600">Delete</button>
+        </div>
+    </div>
+</div>
+}
+
+@if (totalPages > 1) {
+<div class="flex justify-center items-center gap-6 mt-3 mb-5">
+    <span class="text-xl font-bold text-gray-500">
+        {{ currentPage }} / {{ totalPages }}
+    </span>
+
+    <div class="flex gap-3">
+        <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1"
+            class="w-14 h-14 rounded-full flex items-center justify-center border-2 border-gray-200 text-gray-300 disabled:opacity-50 transition-all">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6" />
+            </svg>
+        </button>
+
+        <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages"
+            class="w-14 h-14 rounded-full flex items-center justify-center border-2 border-[#EFA063] text-[#EFA063] disabled:opacity-50 transition-all hover:bg-orange-50">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" />
+            </svg>
+        </button>
+    </div>
+</div>
+}

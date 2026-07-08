@@ -1,0 +1,16 @@
+<button
+  [type]="type"
+  [disabled]="disabled || loading"
+  class="btn"
+  [class.btn--full]="fullWidth"
+  (click)="handleClick()"
+>
+  @if (loading) {
+    <span class="btn__spinner" aria-hidden="true"></span>
+  } @else {
+    <ng-content></ng-content>
+    @if (icon) {
+      <app-icon [name]="icon" [size]="18"></app-icon>
+    }
+  }
+</button>

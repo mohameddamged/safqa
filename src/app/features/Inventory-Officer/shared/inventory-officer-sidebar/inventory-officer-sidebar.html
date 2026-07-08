@@ -1,0 +1,111 @@
+<nav class="h-full w-64 bg-white border-r border-gray-100 flex flex-col text-[#2E1911] ">
+
+    <ul class="space-y-2 flex-grow overflow-y-auto">
+
+        <li>
+            <a routerLink="/inventory-officer/dashboard" routerLinkActive="active-link"
+                [routerLinkActiveOptions]="{exact: true}" [routerLinkActiveOptions]="{exact: true}"
+                class="relative flex items-center gap-3 p-3 transition-all hover:bg-gray-50 rounded-lg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M22 10.9V4.1C22 2.6 21.36 2 19.77 2H15.73C14.14 2 13.5 2.6 13.5 4.1V10.9C13.5 12.4 14.14 13 15.73 13H19.77C21.36 13 22 12.4 22 10.9Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M22 19.9V18.1C22 16.6 21.36 16 19.77 16H15.73C14.14 16 13.5 16.6 13.5 18.1V19.9C13.5 21.4 14.14 22 15.73 22H19.77C21.36 22 22 21.4 22 19.9Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M10.5 13.1V19.9C10.5 21.4 9.86 22 8.27 22H4.23C2.64 22 2 21.4 2 19.9V13.1C2 11.6 2.64 11 4.23 11H8.27C9.86 11 10.5 11.6 10.5 13.1Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M10.5 4.1V5.9C10.5 7.4 9.86 8 8.27 8H4.23C2.64 8 2 7.4 2 5.9V4.1C2 2.6 2.64 2 4.23 2H8.27C9.86 2 10.5 2.6 10.5 4.1Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+                <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1.5 bg-orange-500"></span>
+                <span class="ml-2">Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a routerLink="/inventory-officer/upcoming-pos" routerLinkActive="active-link"
+                class="relative flex items-center gap-3 p-3 transition-all hover:bg-gray-50 rounded-lg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M15 2V12C15 13.1 14.1 14 13 14H2V7.62C2.73 8.49 3.85003 9.03 5.09003 9C6.10003 8.98 7.01 8.59 7.69 7.94C8 7.68 8.26002 7.34999 8.46002 6.98999C8.82002 6.37999 9.02 5.65997 9 4.90997C8.97 3.73997 8.45001 2.71 7.64001 2H15Z"
+                        stroke="#4C291C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M22 14V17C22 18.66 20.66 20 19 20H18C18 18.9 17.1 18 16 18C14.9 18 14 18.9 14 20H10C10 18.9 9.1 18 8 18C6.9 18 6 18.9 6 20H5C3.34 20 2 18.66 2 17V14H13C14.1 14 15 13.1 15 12V5H16.84C17.56 5 18.22 5.39001 18.58 6.01001L20.29 9H19C18.45 9 18 9.45 18 10V13C18 13.55 18.45 14 19 14H22Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M8 22C9.10457 22 10 21.1046 10 20C10 18.8954 9.10457 18 8 18C6.89543 18 6 18.8954 6 20C6 21.1046 6.89543 22 8 22Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M16 22C17.1046 22 18 21.1046 18 20C18 18.8954 17.1046 18 16 18C14.8954 18 14 18.8954 14 20C14 21.1046 14.8954 22 16 22Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M22 12V14H19C18.45 14 18 13.55 18 13V10C18 9.45 18.45 9 19 9H20.29L22 12Z" stroke="#2E1911"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M9 5C9 6.2 8.47001 7.27 7.64001 8C6.93001 8.62 6.01 9 5 9C2.79 9 1 7.21 1 5C1 3.74 1.58 2.61 2.5 1.88C3.19 1.33 4.06 1 5 1C7.21 1 9 2.79 9 5Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M5.25 3.75V5.25L4 6" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+
+                <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1.5 bg-orange-500"></span>
+                <span class="ml-2">Upcoming POs</span>
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="mt-auto pt-6 border-t border-gray-200 flex flex-col gap-2">
+        <a routerLink="/inventory-officer/profile"
+            class="flex items-center gap-3 p-3 text-[#4C291C] hover:bg-orange-50 rounded-xl transition-all">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="16" cy="16" r="16" fill="#D9D9D9" />
+            </svg>
+            <span class="font-medium">Profile</span>
+        </a>
+
+        <button routerLink="/account/change-password"
+            class="flex items-center justify-between p-3 w-full text-[#4C291C] hover:bg-orange-50 rounded-xl transition-all">
+            <div class="flex items-center gap-3">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M19.7897 14.9303C17.7297 16.9803 14.7797 17.6103 12.1897 16.8003L7.47966 21.5003C7.13966 21.8503 6.46966 22.0603 5.98966 21.9903L3.80966 21.6903C3.08966 21.5903 2.41966 20.9103 2.30966 20.1903L2.00966 18.0103C1.93966 17.5303 2.16966 16.8603 2.49966 16.5203L7.19966 11.8203C6.39966 9.22031 7.01966 6.27031 9.07966 4.22031C12.0297 1.27031 16.8197 1.27031 19.7797 4.22031C22.7397 7.17031 22.7397 11.9803 19.7897 14.9303Z"
+                        stroke="#4C291C" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M6.88965 17.4883L9.18965 19.7883" stroke="#4C291C" stroke-width="1.5"
+                        stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M14.5 11C15.3284 11 16 10.3284 16 9.5C16 8.67157 15.3284 8 14.5 8C13.6716 8 13 8.67157 13 9.5C13 10.3284 13.6716 11 14.5 11Z"
+                        stroke="#4C291C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+
+                <span class="font-medium">Change Password</span>
+            </div>
+            <!-- <svg class="w-4 h-4 transition-transform duration-300" [class.rotate-180]="isSettingsOpen()" fill="none"
+                stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg> -->
+        </button>
+
+        <button (click)="logout()"
+            class="flex items-center gap-3 p-3 w-full text-red-500 hover:bg-red-50 rounded-xl transition-all">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M8.90039 7.55828C9.21039 3.95828 11.0604 2.48828 15.1104 2.48828H15.2404C19.7104 2.48828 21.5004 4.27828 21.5004 8.74828V15.2683C21.5004 19.7383 19.7104 21.5283 15.2404 21.5283H15.1104C11.0904 21.5283 9.24039 20.0783 8.91039 16.5383"
+                    stroke="#FC161A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M14.9991 12H3.61914" stroke="#FC161A" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M5.85 8.64844L2.5 11.9984L5.85 15.3484" stroke="#FC161A" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
+            <span class="font-medium">Logout</span>
+        </button>
+    </div>
+</nav>

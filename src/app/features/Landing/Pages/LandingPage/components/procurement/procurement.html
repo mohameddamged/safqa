@@ -1,0 +1,38 @@
+<section class="cta-section">
+
+  <div class="cta-content">
+    <h2 class="cta-heading">
+      Ready to move your company's
+      <span class="highlight">PROCUREMENT</span>
+      for the future?
+    </h2>
+    <p class="cta-subtext">
+      Buy and sell many of products. No credit card required … Instant access!
+    </p>
+  </div>
+
+  <div class="cta-devices-wrapper">
+    <img class="cta-devices-image" src="assets/devices-mockup.svg" alt="Safqa platform on laptop and mobile" />
+  </div>
+
+  <div class="circles-track-wrapper">
+    <div class="circles-track">
+      @for (item of circles; track item.label) {
+      <div class="circle" [title]="item.label">
+        <img [src]="item.icon" [alt]="item.label" />
+      </div>
+      }
+      <!-- نسخة مكررة عشان اللفة تبقى متصلة من غير قطع (seamless loop) -->
+      @for (item of circles; track item.label) {
+      <div class="circle" aria-hidden="true" [title]="item.label">
+        <img [src]="item.icon" [alt]="item.label" />
+      </div>
+      }
+    </div>
+  </div>
+
+  <div class="cta-content">
+    <button class="signup-btn" routerLink="/auth/signup">Sign Up</button>
+  </div>
+
+</section>

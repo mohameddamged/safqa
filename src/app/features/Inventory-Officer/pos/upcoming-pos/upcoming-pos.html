@@ -1,0 +1,89 @@
+<div class="p-8 bg-gray-50 min-h-screen">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-[#2E1911]">Upcoming POs</h1>
+    </div>
+
+    <div class="bg-white rounded-2xl rounded-tr-[3rem] shadow-sm border border-orange-100">
+        @if (isLoading()) {
+        <div class="p-20 text-center text-gray-400">Loading...</div>
+        } @else if (pos().length === 0) {
+        <div class="p-20 text-center text-gray-400">No records found.</div>
+        } @else {
+        <table class="w-full text-left">
+            <thead class="bg-[#FFF5F0] text-[#2E1911] text-sm">
+                <tr>
+                    <th class="p-5 font-semibold rounded-tl-2xl">ID</th>
+                    <th class="p-5 font-semibold">PO Title</th>
+                    <th class="p-5 font-semibold">Estimated Delivery Date</th>
+                    <th class="p-5 font-semibold">Delivery Deadline</th>
+                    <th class="p-5 font-semibold">Status</th>
+                    <th class="p-5 font-semibold rounded-tr-[3rem]"></th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                @for (po of pos(); track po.purchaseOrderId) {
+                <tr class="hover:bg-orange-50/20">
+                    <td class="p-5 text-gray-700">{{ po.purchaseOrderId }}</td>
+                    <td class="p-5 text-gray-800">{{ po.poTitle }}</td>
+                    <td class="p-5 text-gray-700">
+                        {{ isValidDate(po.estimatedDeliveryDate) ? (po.estimatedDeliveryDate | date:'dd/MM/yyyy') : '—' }}
+                    </td>
+                    <td class="p-5 text-gray-700">
+                        {{ isValidDate(po.deliveryDeadline) ? (po.deliveryDeadline | date:'dd/MM/yyyy') : '—' }}
+                    </td>
+                    <td class="p-5">
+                        <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase"
+                            [style.background]="statusStyle(po.deliveryStatus).background"
+                            [style.color]="statusStyle(po.deliveryStatus).color">
+                            {{ formatStatus(po.deliveryStatus) }}
+                        </span>
+                    </td>
+                    <td class="p-5 relative">
+                        <div (click)="toggleDropdown(po.purchaseOrderId, $event)"
+                            class="cursor-pointer text-gray-400 font-bold hover:text-black">
+                            ...
+                        </div>
+
+                        @if (openDropdownId() === po.purchaseOrderId) {
+                        <div class="fixed inset-0 z-40 backdrop-blur-[2px] bg-black/2" (click)="closeDropdown()"></div>
+
+                        <div
+                            class="absolute right-0 top-12 w-48 bg-white rounded-2xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                            <button routerLink="/inventory-officer/upcoming-pos/po-details/{{ po.purchaseOrderId }}"
+                                class="w-full text-left px-4 py-3 hover:bg-orange-50 text-sm font-medium text-gray-700">
+                                View PO Details
+                            </button>
+                            <button routerLink="/inventory-officer/upcoming-pos/po-tracking/{{ po.purchaseOrderId }}"
+                                class="w-full text-left px-4 py-3 hover:bg-orange-50 text-sm font-medium text-gray-700 border-t border-gray-50">
+                                View PO Tracking
+                            </button>
+                        </div>
+                        }
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        }
+    </div>
+
+    @if (totalPages() > 1) {
+    <div class="flex justify-center items-center gap-6 py-8">
+        <span class="text-xl font-bold text-gray-500">{{ currentPage() }} / {{ totalPages() }}</span>
+        <div class="flex gap-3">
+            <button (click)="changePage(currentPage() - 1)" [disabled]="currentPage() === 1"
+                class="w-14 h-14 rounded-full flex items-center justify-center border-2 border-gray-200 text-gray-300 disabled:opacity-50 transition-all">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+            </button>
+            <button (click)="changePage(currentPage() + 1)" [disabled]="currentPage() === totalPages()"
+                class="w-14 h-14 rounded-full flex items-center justify-center border-2 border-[#EFA063] text-[#EFA063] disabled:opacity-50 transition-all hover:bg-orange-50">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6" />
+                </svg>
+            </button>
+        </div>
+    </div>
+    }
+</div>

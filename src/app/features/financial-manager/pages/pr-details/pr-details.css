@@ -1,0 +1,239 @@
+.fm-pr {
+  max-width: 860px;
+}
+
+.fm-pr__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--safqa-teal);
+  margin-bottom: 16px;
+}
+
+.fm-pr__breadcrumb a {
+  color: var(--safqa-teal);
+  text-decoration: none;
+}
+
+.fm-pr__breadcrumb-current {
+  text-decoration: underline;
+}
+
+.fm-pr__loading,
+.fm-pr__empty {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+  color: var(--safqa-text-secondary);
+}
+
+.fm-pr__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--safqa-teal-soft);
+  border-top-color: var(--safqa-teal);
+  border-radius: 50%;
+  animation: fm-pr-spin 0.7s linear infinite;
+}
+
+@keyframes fm-pr-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fm-pr__card {
+  background: var(--safqa-surface);
+  border-radius: var(--safqa-radius-md);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fm-pr__title {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+}
+
+.fm-pr__section-title {
+  font-size: 1.1rem;
+  color: var(--safqa-teal);
+  margin: 12px 0 4px;
+}
+
+.fm-pr__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.fm-pr__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 16px;
+  border: 1.5px solid var(--safqa-teal-soft);
+  border-radius: var(--safqa-radius-pill);
+}
+
+.fm-pr__field--block {
+  border-radius: var(--safqa-radius-md);
+}
+
+.fm-pr__field-label {
+  font-size: 0.72rem;
+  color: var(--safqa-text-muted);
+}
+
+.fm-pr__field-value {
+  font-size: 0.92rem;
+  color: var(--safqa-text-primary);
+  margin: 0;
+  white-space: pre-line;
+}
+
+.fm-pr__actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.fm-pr__reject {
+  border: 1.5px solid var(--safqa-gradient-start);
+  background: none;
+  color: var(--safqa-gradient-start);
+  border-radius: var(--safqa-radius-pill);
+  padding: 14px 32px;
+  font-family: var(--safqa-font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.fm-pr__reject:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .fm-pr__row {
+    grid-template-columns: 1fr;
+  }
+
+  .fm-pr__actions {
+    flex-direction: column;
+  }
+}
+/* ── Notes section ──────────────────────────────────────────── */
+.fm-pr__notes-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.fm-pr__notes-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--safqa-text, #2E1911);
+}
+
+.fm-pr__notes-optional {
+  font-weight: 400;
+  color: var(--safqa-text-secondary, #9ca3af);
+  font-size: 0.8rem;
+}
+
+.fm-pr__notes-textarea {
+  width: 100%;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--safqa-text, #2E1911);
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.fm-pr__notes-textarea:focus {
+  border-color: var(--safqa-teal, #25B6AB);
+}
+
+/* ── Confirmation Dialog ────────────────────────────────────── */
+.fm-pr__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.fm-pr__dialog {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px 32px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.fm-pr__dialog-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--safqa-text, #2E1911);
+  margin: 0 0 8px;
+}
+
+.fm-pr__dialog-notes {
+  font-size: 0.85rem;
+  color: var(--safqa-text-secondary, #6b7280);
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 0 0 8px;
+  font-style: italic;
+}
+
+.fm-pr__dialog-sub {
+  font-size: 0.85rem;
+  color: var(--safqa-text-secondary, #9ca3af);
+  margin: 0 0 20px;
+}
+
+.fm-pr__dialog-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.fm-pr__dialog-cancel {
+  padding: 10px 20px;
+  border: 1.5px solid #d1d5db;
+  background: #fff;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--safqa-text, #2E1911);
+}
+
+.fm-pr__dialog-confirm {
+  padding: 10px 20px;
+  background: var(--safqa-teal, #25B6AB);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fm-pr__dialog-confirm--danger {
+  background: #ef4444;
+}

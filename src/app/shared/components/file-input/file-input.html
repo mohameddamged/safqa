@@ -1,0 +1,26 @@
+<div class="file-field">
+  <button
+    type="button"
+    class="file-button"
+    [class.file-button--filled]="file"
+    [class.has-error]="errorMessage && touched"
+    (click)="openPicker()"
+    [disabled]="disabled"
+  >
+    <span class="file-button__label">{{ file ? file.name : label }}</span>
+    <app-icon [name]="file ? 'file-check' : 'upload'" [size]="16"></app-icon>
+  </button>
+
+  <input
+    #fileRef
+    type="file"
+    [accept]="accept"
+    class="file-field__native"
+    (change)="handleChange($event)"
+    hidden
+  />
+
+  @if (errorMessage && touched) {
+    <p class="file-field__error">{{ errorMessage }}</p>
+  }
+</div>

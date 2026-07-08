@@ -1,0 +1,27 @@
+<div class="shell">
+  @if (showBack) {
+    <button type="button" class="shell__back" (click)="goBack()">
+      <app-icon name="chevron-left" [size]="16"></app-icon>
+      Back
+    </button>
+  }
+
+  <div class="shell__card">
+    
+      <img src="/LOGO.svg" width="150" height="150" alt="Safqa logo" />
+      
+    
+
+    @if (title) {
+      <h1 class="shell__title">{{ title }}</h1>
+    }
+
+    @if (subtitle) {
+      <p class="shell__subtitle">{{ subtitle }}</p>
+    }
+
+    <div class="shell__content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

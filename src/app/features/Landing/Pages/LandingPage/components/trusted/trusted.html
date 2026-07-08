@@ -1,0 +1,41 @@
+<section class="trusted-by-section">
+  <p class="trusted-by-label">Everything you need, in one platform</p>
+
+  <div class="logos-grid">
+    <div class="marquee-row">
+      <div class="marquee-track marquee-track--left">
+        @for (item of features; track item.label) {
+        <div class="logo-item">
+          <img [src]="item.icon" [alt]="item.label" />
+          <span class="logo-item-label">{{ item.label }}</span>
+        </div>
+        }
+        <!-- duplicated for a seamless loop -->
+        @for (item of features; track item.label) {
+        <div class="logo-item" aria-hidden="true">
+          <img [src]="item.icon" [alt]="item.label" />
+          <span class="logo-item-label">{{ item.label }}</span>
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="marquee-row">
+      <div class="marquee-track marquee-track--right">
+        @for (item of featuresReversed; track item.label) {
+        <div class="logo-item">
+          <img [src]="item.icon" [alt]="item.label" />
+          <span class="logo-item-label">{{ item.label }}</span>
+        </div>
+        }
+        <!-- duplicated for a seamless loop -->
+        @for (item of featuresReversed; track item.label) {
+        <div class="logo-item" aria-hidden="true">
+          <img [src]="item.icon" [alt]="item.label" />
+          <span class="logo-item-label">{{ item.label }}</span>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

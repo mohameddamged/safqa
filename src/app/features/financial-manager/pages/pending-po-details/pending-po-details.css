@@ -1,0 +1,181 @@
+.fm-po-pay {
+  max-width: 760px;
+}
+
+.fm-po-pay__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--safqa-teal);
+  margin-bottom: 16px;
+}
+
+.fm-po-pay__breadcrumb a {
+  color: var(--safqa-teal);
+  text-decoration: none;
+}
+
+.fm-po-pay__breadcrumb-current {
+  text-decoration: underline;
+}
+
+.fm-po-pay__loading,
+.fm-po-pay__empty {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+  color: var(--safqa-text-secondary);
+}
+
+.fm-po-pay__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--safqa-teal-soft);
+  border-top-color: var(--safqa-teal);
+  border-radius: 50%;
+  animation: fm-po-pay-spin 0.7s linear infinite;
+}
+
+@keyframes fm-po-pay-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fm-po-pay__card {
+  background: var(--safqa-surface);
+  border-radius: var(--safqa-radius-md);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fm-po-pay__title {
+  font-size: 1.4rem;
+  margin: 0 0 8px;
+}
+
+.fm-po-pay__section-title {
+  font-size: 1.1rem;
+  color: var(--safqa-teal);
+  margin: 12px 0 4px;
+}
+
+.fm-po-pay__row {
+  display: flex;
+  gap: 16px;
+}
+
+.fm-po-pay__row > * {
+  flex: 1;
+}
+
+.fm-po-pay__upload-box {
+  background: var(--safqa-teal-soft);
+  border-radius: var(--safqa-radius-md);
+  padding: 20px;
+  margin-top: 8px;
+}
+
+.fm-po-pay__upload-dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--safqa-surface);
+  border: 1px solid var(--safqa-teal);
+  border-radius: var(--safqa-radius-md);
+  padding: 14px;
+  color: var(--safqa-teal);
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-align: center;
+  word-break: break-all;
+}
+
+.fm-po-pay__upload-hint {
+  font-size: 0.8rem;
+  color: var(--safqa-text-secondary);
+  margin: 8px 0 0;
+}
+
+@media (max-width: 700px) {
+  .fm-po-pay__row {
+    flex-direction: column;
+  }
+}
+
+/* ── New field layouts ──────────────────────────────────────── */
+.fm-po-pay__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fm-po-pay__field--full {
+  grid-column: 1 / -1;
+}
+
+.fm-po-pay__field-label {
+  font-size: 0.75rem;
+  color: var(--safqa-text-secondary, #9ca3af);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.fm-po-pay__field-value {
+  font-size: 0.95rem;
+  color: var(--safqa-text, #2E1911);
+  margin: 0;
+  padding: 10px 14px;
+  border: 1.5px solid #B8EFEB;
+  border-radius: 10px;
+  background: #fff;
+  min-height: 42px;
+}
+
+.fm-po-pay__iban {
+  font-family: monospace;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+.fm-po-pay__status {
+  background: #fef9c3;
+  color: #ca8a04;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.fm-po-pay__bank-box {
+  background: rgba(37, 182, 171, 0.06);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fm-po-pay__actions {
+  margin-top: 8px;
+}
+
+/* ── Pay notice ─────────────────────────────────────────────── */
+.fm-po-pay__pay-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: #6b7280;
+  margin-bottom: 12px;
+}
+
+.fm-po-pay__pay-notice svg {
+  flex-shrink: 0;
+  color: #25B6AB;
+}

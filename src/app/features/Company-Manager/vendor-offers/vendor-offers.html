@@ -1,0 +1,53 @@
+<div class="page-wrapper">
+
+  <div class="page-header">
+    <h1 class="page-title">Vendor Offers on my RFQs</h1>
+  </div>
+
+  @if (isLoading) {
+    <div class="state-msg"><span class="spinner"></span> Loading...</div>
+  }
+  @if (error) {
+    <div class="state-error">{{ error }}</div>
+  }
+
+  @if (!isLoading && !error) {
+    <div class="table-wrapper">
+      <table class="rfq-table">
+        <thead>
+          <tr>
+            <th>RFQ Title</th>
+            <th>Closing Date</th>
+            <th>Number of Offers</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (rfq of offers; track rfq.rfqId) {
+            <tr>
+              <td class="title-cell">{{ rfq.rfqTitle }}</td>
+              <td>{{ formatDate(rfq.rfqDeadline) }}</td>
+              <td class="offers-count">{{ rfq.numberOfOffers ?? 0 }}</td>
+              <td>
+                <a [routerLink]="['/procurement-officer/vendor-offers', rfq.rfqId, 'offers']"
+                  class="details-link">View Offers ▷</a>
+              </td>
+            </tr>
+          }
+          @if (offers.length === 0) {
+            <tr><td colspan="4" class="empty-msg">No RFQs with vendor offers yet.</td></tr>
+          }
+        </tbody>
+      </table>
+
+      @if (totalPages > 1) {
+        <div class="pagination">
+          <button class="page-btn" (click)="prevPage()" [disabled]="currentPage === 1">‹</button>
+          <span class="page-info">{{ currentPage }} / {{ totalPages }}</span>
+          <button class="page-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">›</button>
+        </div>
+      }
+    </div>
+  }
+
+</div>

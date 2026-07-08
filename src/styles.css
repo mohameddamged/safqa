@@ -1,0 +1,122 @@
+/* You can add global styles to this file, and also import other style files */
+
+/**
+ * Fonts (Poppins, Baloo 2) are loaded via <link> tags in index.html rather
+ * than @import here - @import-based Google Fonts loading breaks Angular's
+ * production build font-inlining step in restricted network environments,
+ * and <link> is the standard Angular CLI recommendation for this anyway.
+ */
+
+/**
+ * Design tokens extracted directly from the provided Figma frame exports
+ * (Login, Forgot Password, Sign-up, Change Password, success screens).
+ * Colors were sampled pixel-by-pixel from the rasterized PDFs.
+ */
+ @import 'tailwindcss';
+:root {
+  /* Brand gradient (primary buttons: "Login", "Sign Up", "Continue", "Send Code") */
+  --safqa-gradient-start: #e47c55;
+  --safqa-gradient-end: #ef9f62;
+  --safqa-gradient: linear-gradient(90deg, var(--safqa-gradient-start) 0%, var(--safqa-gradient-end) 100%);
+
+  /* Accent teal (links, focus rings, input borders, step-indicator) */
+  --safqa-teal: #25b6ab;
+  --safqa-teal-soft: #b8eeea;
+  --safqa-teal-100: #e3f7f5;
+
+  /* Success */
+  --safqa-success: #22c55e;
+
+  /* Error */
+  --safqa-error: #e0473e;
+  --safqa-error-soft: #fdecea;
+
+  /* Neutrals */
+  --safqa-text-primary: #422f28;
+  --safqa-text-secondary: #6b5d57;
+  --safqa-text-muted: #9b9290;
+  --safqa-input-bg: #fefcfb;
+  --safqa-surface: #ffffff;
+  --safqa-page-bg: #ffffff;
+  --safqa-border: #e8e2df;
+
+  /* Typography */
+  --safqa-font-display: 'Baloo 2', 'Poppins', sans-serif;
+  --safqa-font-body: 'Poppins', sans-serif;
+
+  /* Shape */
+  --safqa-radius-pill: 999px;
+  --safqa-radius-md: 16px;
+  --safqa-radius-sm: 10px;
+
+  /* Shadows */
+  --safqa-shadow-card: 0 8px 30px rgba(66, 47, 40, 0.06);
+  --safqa-shadow-button: 0 8px 20px rgba(228, 124, 85, 0.35);
+
+  /* Layout */
+  --safqa-content-max-width: 480px;
+
+  /* Dashboard chrome (Financial Manager + future Company Dashboard modules) -
+     a light grey page background behind white cards, distinct from the
+     plain white auth pages, plus status-badge tints sampled from the
+     Pending RFQs / All POs / PO Details design frames. */
+  --safqa-dashboard-bg: #f5f4f3;
+  --safqa-sidebar-active-bg: #fdeee5;
+  --safqa-badge-pending-bg: #fdeee5;
+  --safqa-badge-pending-text: #c97a3e;
+  --safqa-badge-transit-bg: #e3f7f5;
+  --safqa-badge-transit-text: #25b6ab;
+  --safqa-badge-paid-bg: #e7f7ec;
+  --safqa-badge-paid-text: #22c55e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--safqa-font-body);
+  color: var(--safqa-text-primary);
+  background: var(--safqa-page-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--safqa-font-display);
+  margin: 0;
+  color: var(--safqa-text-primary);
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--safqa-teal);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Visible keyboard focus everywhere, including inside components that
+   otherwise reset outlines - accessibility floor regardless of pointer input. */
+:focus-visible {
+  outline: 2px solid var(--safqa-teal);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

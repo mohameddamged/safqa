@@ -1,0 +1,46 @@
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.stepper__node {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.stepper__node--done {
+  background: var(--safqa-gradient-start);
+  color: #ffffff;
+}
+
+.stepper__node--current {
+  border: 1.5px solid var(--safqa-gradient-start);
+  color: var(--safqa-gradient-start);
+  background: #fff;
+}
+
+.stepper__node--upcoming {
+  border: 1.5px solid #f3cdb9;
+  color: #f3cdb9;
+  background: #fff;
+}
+
+.stepper__line {
+  width: 36px;
+  height: 1.5px;
+  background: #f3cdb9;
+}
+
+.stepper__line--done {
+  background: var(--safqa-gradient-start);
+}

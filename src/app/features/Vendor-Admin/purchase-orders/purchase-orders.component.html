@@ -1,0 +1,66 @@
+<div class="po-page">
+
+  <h1 class="po-title">All POs</h1>
+
+  <!-- Loading state -->
+  <div class="po-state" *ngIf="loading">Loading purchase orders...</div>
+
+  <!-- Error state -->
+  <div class="po-state po-state-error" *ngIf="!loading && errorMessage">
+    {{ errorMessage }}
+    <button class="po-retry-btn" (click)="loadPOs()">Retry</button>
+  </div>
+
+  <!-- Empty state -->
+  <div class="po-state" *ngIf="!loading && !errorMessage && pos.length === 0">
+    No purchase orders found.
+  </div>
+
+  <div class="po-table-wrap" *ngIf="!loading && !errorMessage && pos.length > 0">
+    <table class="po-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>PO Title</th>
+          <th>Delivery Deadline</th>
+          <th>Status</th>
+          <th>Delivery Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let po of pos">
+          <td>{{ po.id }}</td>
+          <td>{{ po.title }}</td>
+          <td>{{ formatDate(po.deliveryDeadline) }}</td>
+          <td>
+            <span class="po-badge" [ngClass]="statusClass(po.status)">{{ statusLabel(po.status) }}</span>
+          </td>
+          <td>
+            <span class="po-badge" [ngClass]="statusClass(po.deliveryStatus)">{{ statusLabel(po.deliveryStatus) }}</span>
+          </td>
+          <td class="po-menu-cell">
+            <button class="po-menu-btn" (click)="onToggleMenu(po, $event)" aria-label="More actions">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </button>
+
+            <div class="po-dropdown" [class.drop-up]="po.dropUp" *ngIf="po.menuOpen">
+              <button class="po-dropdown-item" (click)="onViewPoDetails(po)">View PO details</button>
+              <button class="po-dropdown-item" (click)="onPoTracking(po)">PO Tracking</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="po-pagination" *ngIf="totalPages > 1">
+      <button class="po-page-btn" [disabled]="pageNumber === 1" (click)="goToPage(pageNumber - 1)">Prev</button>
+      <span class="po-page-info">Page {{ pageNumber }} of {{ totalPages }} ({{ totalCount }} total)</span>
+      <button class="po-page-btn" [disabled]="pageNumber === totalPages" (click)="goToPage(pageNumber + 1)">Next</button>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,22 @@
+<div class="dashboard">
+  <h1>Welcome{{ user() ? ', ' + user()!.firstName : '' }}!</h1>
+
+  @if (user()) {
+    <dl class="dashboard__details">
+      <dt>Email</dt>
+      <dd>{{ user()!.email }}</dd>
+      <dt>Role</dt>
+      <dd>{{ user()!.role }}</dd>
+      <dt>Phone</dt>
+      <dd>{{ user()!.phoneNumber }}</dd>
+    </dl>
+  }
+
+  <div class="dashboard__actions">
+    <button type="button" (click)="goToChangePassword()">Change Password</button>
+    @if (isCompanyAdmin()) {
+      <button type="button" (click)="goToInvitations()">Manage Invitations</button>
+    }
+    <button type="button" (click)="logout()">Logout</button>
+  </div>
+</div>

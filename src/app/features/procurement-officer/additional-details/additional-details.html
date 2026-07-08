@@ -1,0 +1,60 @@
+<div class="additional-details-page">
+
+  <div class="breadcrumb">
+    <a routerLink="/procurement-officer/all-rfqs" class="breadcrumb-link">All RFQs</a>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#25B6AB"
+      stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+    <a [routerLink]="['/procurement-officer/pr', rfqId, 'details']" class="breadcrumb-link">RFQ Details</a>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#25B6AB"
+      stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+    <span class="breadcrumb-current">Additional Details</span>
+  </div>
+
+  <div *ngIf="isLoading" class="state-msg">Loading...</div>
+
+  <div class="card" *ngIf="!isLoading">
+    <h1 class="page-title">Additional Details of RFQ: {{ rfqTitle }}</h1>
+
+    <div class="field">
+      <label class="field-label">Delivery Deadline *</label>
+      <input type="date" class="field-input" [(ngModel)]="closingDate" />
+    </div>
+
+    <div class="field">
+      <label class="field-label">Additional Notes to Vendor</label>
+      <input type="text" class="field-input"
+        [(ngModel)]="notesToVendors"
+        placeholder="Notes to vendors..." />
+    </div>
+
+    <input type="file" id="fileInput" accept=".pdf" style="display:none"
+      (change)="onFileSelected($event)" />
+    <button class="upload-btn" (click)="triggerFileUpload()">
+      <span>{{ selectedFile ? selectedFile.name : 'Upload Detailed RFQ Attachment (PDF)' }}</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+    </button>
+
+    <div *ngIf="submitError" class="submit-error">{{ submitError }}</div>
+
+    <div class="actions">
+      <button class="btn-primary"
+        [disabled]="isSubmitting || !closingDate"
+        (click)="submit()">
+        {{ isSubmitting ? 'Converting...' : 'Select Vendors' }}
+      </button>
+      <button class="btn-secondary"
+        [routerLink]="['/procurement-officer/pr', rfqId, 'details']">
+        Preview Full RFQ Details
+      </button>
+    </div>
+  </div>
+
+</div>

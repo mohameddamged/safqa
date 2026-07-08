@@ -1,0 +1,46 @@
+<div class="rfqs-page">
+  <h1 class="rfqs-title">RFQs</h1>
+
+  <div class="rfqs-table-wrap">
+    <table class="rfqs-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>RFQ Title</th>
+          <th>Conpany Name</th>
+          <th>RFQ Deadline</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rfq of rfqs">
+          <td>{{ rfq.id }}</td>
+          <td>{{ rfq.title }}</td>
+          <td>{{ rfq.company }}</td>
+          <td>{{ formatDeadline(rfq.deadlineDate) }}</td>
+          <td class="rfqs-menu-cell">
+            <button class="rfqs-menu-btn" (click)="onToggleMenu(rfq, $event)" aria-label="More actions">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </button>
+
+            <!-- OLD NEGOTIATED: View RFQ Details + View Negotiation chat -->
+            <div class="rfqs-dropdown" [class.drop-up]="rfq.dropUp"
+                 *ngIf="rfq.menuOpen && rfq.status === 'negotiated'">
+              <button class="rfqs-dropdown-item" (click)="onViewRfqDetails(rfq)">View RFQ Details</button>
+              <button class="rfqs-dropdown-item" (click)="onViewNegotiationChat(rfq)">View Negotiation chat</button>
+            </div>
+
+            <!-- REQUESTED ONLY: View RFQ Details + Join Negotiation chat -->
+            <div class="rfqs-dropdown" [class.drop-up]="rfq.dropUp"
+                 *ngIf="rfq.menuOpen && rfq.status === 'requested'">
+              <button class="rfqs-dropdown-item" (click)="onViewRfqDetails(rfq)">View RFQ Details</button>
+              <button class="rfqs-dropdown-item" (click)="onJoinNegotiationChat(rfq)">Join Negotiation chat</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+.checkbox {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox__box {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border: 1.5px solid var(--safqa-text-primary);
+  border-radius: 5px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  color: #fff;
+  margin-top: 1px;
+}
+
+.checkbox__box--checked {
+  background: var(--safqa-text-primary);
+  border-color: var(--safqa-text-primary);
+}
+
+.checkbox__label {
+  font-size: 0.88rem;
+  color: var(--safqa-text-primary);
+  line-height: 1.4;
+  text-align: left;
+}
+
+.checkbox__error {
+  margin: 6px 0 0;
+  font-size: 0.78rem;
+  color: var(--safqa-error);
+  text-align: left;
+}

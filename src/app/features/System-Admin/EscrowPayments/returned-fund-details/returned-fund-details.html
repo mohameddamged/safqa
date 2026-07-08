@@ -1,0 +1,152 @@
+<div class="p-8 bg-gray-50 min-h-screen">
+
+  <!-- Breadcrumb -->
+  <nav class="text-sm mb-6">
+    <a routerLink="/system-admin/escrow-payments/returned-funds"
+      class="text-[#25B6AB] hover:opacity-80">Returned Funds</a>
+    <span class="text-[#25B6AB] mx-2">›</span>
+    <span class="text-[#25B6AB] underline">Details</span>
+  </nav>
+
+  @if (isLoading()) {
+    <div class="p-20 text-center text-gray-400">Loading...</div>
+  } @else {
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl font-bold text-[#2E1911]">
+        Returned Fund — PO #{{ poId }}
+      </h1>
+      <span class="px-5 py-1.5 rounded-full text-sm font-semibold" [ngStyle]="statusStyle">
+        {{ status || '—' }}
+      </span>
+    </div>
+
+    <div class="flex gap-8 items-start flex-wrap">
+
+      <!-- Left column: details fields -->
+      <div class="flex-1 flex flex-col gap-5 min-w-[280px] max-w-xl">
+
+        <div>
+          <label class="text-xs font-semibold text-gray-400 uppercase mb-1 block">Company Name</label>
+          <input type="text" [value]="listItem()?.companyName || data()?.companyLegalName || '—'" readonly
+            class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 outline-none">
+        </div>
+
+        <div>
+          <label class="text-xs font-semibold text-gray-400 uppercase mb-1 block">Vendor Name</label>
+          <input type="text" [value]="listItem()?.vendorName || '—'" readonly
+            class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 outline-none">
+        </div>
+
+        <div>
+          <label class="text-xs font-semibold text-gray-400 uppercase mb-1 block">Returned Fund Amount</label>
+          <input type="text"
+            [value]="(data()?.cost ?? listItem()?.returnedFund ?? '—') + (data()?.currency ? ' ' + data()!.currency : '')"
+            readonly
+            class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 outline-none">
+        </div>
+
+        <div>
+          <label class="text-xs font-semibold text-gray-400 uppercase mb-1 block">Delivery Date</label>
+          <input type="text"
+            [value]="listItem()?.deliveryDate ? (listItem()!.deliveryDate | date:'dd/MM/yyyy') : '—'" readonly
+            class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 outline-none">
+        </div>
+
+        <!-- Bank Account Info -->
+        <h2 class="text-lg font-bold text-[#2E1911] mt-2">Company Bank Account</h2>
+
+        <div>
+          <label class="text-xs font-semibold text-gray-400 uppercase mb-1 block">Bank Name</label>
+          <input type="text" [value]="data()?.bankName || '—'" readonly
+            class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 outline-none">
+        </div>
+
+        <div>
+          <label class="text-xs font-semibold text-gray-400 uppercase mb-1 block">IBAN</label>
+          <input type="text" [value]="data()?.iban || '—'" readonly
+            class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 outline-none font-mono text-sm">
+        </div>
+
+        <div>
+          <label class="text-xs font-semibold text-gray-400 uppercase mb-1 block">Account Number</label>
+          <input type="text" [value]="data()?.accountNumber || '—'" readonly
+            class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 outline-none">
+        </div>
+
+      </div>
+
+      <!-- Right column: receipt -->
+      <div class="flex flex-col gap-5 min-w-[260px]">
+
+        <h2 class="text-lg font-bold text-[#2E1911]">Transfer Receipt</h2>
+
+        <!-- Existing receipt image -->
+        @if (data()?.returnReceiptImageUrl) {
+          <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+            <img [src]="data()!.returnReceiptImageUrl!" alt="Receipt"
+              class="w-full max-h-64 object-contain p-4">
+            <p class="text-xs text-center text-gray-400 pb-3">Uploaded receipt</p>
+          </div>
+        }
+
+        <!-- Preview of selected file -->
+        @if (previewUrl) {
+          <div class="bg-white rounded-2xl border border-[#25B6AB]/30 overflow-hidden">
+            <img [src]="previewUrl" alt="New receipt preview"
+              class="w-full max-h-64 object-contain p-4">
+            <p class="text-xs text-center text-gray-400 pb-3">Preview</p>
+          </div>
+        }
+
+        <!-- Upload section — only when pending -->
+        @if (isPending) {
+          <!-- Hidden file input -->
+          <input #fileInput type="file" accept="image/*,application/pdf"
+            class="hidden" (change)="onFileSelected($event)">
+
+          <button (click)="onChooseFile()"
+            class="w-full border-2 border-dashed border-[#25B6AB]/50 rounded-2xl py-8 text-center
+                   text-[#25B6AB] font-medium hover:bg-[#25B6AB]/5 transition-colors cursor-pointer">
+            <svg class="mx-auto mb-2" width="32" height="32" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            {{ selectedFile ? selectedFile.name : 'Click to upload receipt' }}
+          </button>
+
+          @if (uploadSuccess()) {
+            <div class="bg-green-50 text-green-700 text-sm font-medium px-4 py-3 rounded-xl">
+              ✓ Receipt uploaded successfully. Status updated.
+            </div>
+          }
+
+          @if (uploadError()) {
+            <div class="bg-red-50 text-red-600 text-sm px-4 py-3 rounded-xl">
+              {{ uploadError() }}
+            </div>
+          }
+
+          <button
+            (click)="onUploadReceipt()"
+            [disabled]="!selectedFile || isUploading()"
+            class="w-full text-white py-3.5 rounded-full font-bold transition-all hover:opacity-90 disabled:opacity-50"
+            style="background: linear-gradient(to right, #E47C55, #EFA063);">
+            {{ isUploading() ? 'Uploading...' : 'Upload Receipt & Mark as Transferred' }}
+          </button>
+        }
+
+        @if (!isPending && !data()?.returnReceiptImageUrl) {
+          <p class="text-sm text-gray-400 text-center">No receipt uploaded yet.</p>
+        }
+
+      </div>
+
+    </div>
+
+  }
+
+</div>

@@ -1,0 +1,74 @@
+<div class="p-8 bg-gray-50 min-h-screen">
+  <div class="flex items-center gap-2 mb-4 text-sm font-medium">
+    <a routerLink="/inventory-officer/upcoming-pos" class="text-[#25B6AB] hover:underline decoration-2 underline-offset-2 transition duration-300">
+      All POs
+    </a>
+
+    <span class="text-[#25B6AB]">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 18l6-6-6-6" />
+      </svg>
+    </span>
+
+    <span class="text-[#25B6AB] underline decoration-2 underline-offset-2">
+      PO Details
+    </span>
+  </div>
+  <h1 class="text-2xl font-bold text-[#2E1911] mb-6">RFQ title: {{ poData()?.poTitle }}</h1>
+
+  @if (isLoading()) {
+  <div class="p-20 text-center text-gray-400">Loading...</div>
+  } @else if (!poData()) {
+  <div class="p-20 text-center text-gray-400">No PO found.</div>
+  } @else {
+  <div class="bg-white p-8 rounded-3xl shadow-sm space-y-8">
+
+    <section>
+      <h2 class="text-xl font-bold text-[#25B6AB] mb-4">PO Info</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <app-po-field label="Item Name" [value]="poData()?.itemName" />
+        <app-po-field label="Category" [value]="poData()?.categoryName" />
+        <app-po-field label="Quantity" [value]="poData()?.quantity" />
+        <app-po-field label="Unit of Measurement" [value]="poData()?.unit" />
+      </div>
+      <div class="mt-4">
+        <app-po-field label="Technical Specs" [value]="poData()?.technicalSpecifications" />
+      </div>
+      <div class="mt-4">
+        <app-po-field label="Additional Notes" [value]="poData()?.additionalNotes || 'Placeholder'" />
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-[#25B6AB] mb-4">Cost Info</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <app-po-field label="Cost" [value]="poData()?.cost" />
+        <app-po-field label="Currency" [value]="poData()?.currency" />
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-[#25B6AB] mb-4">Delivery Info</h2>
+      <app-po-field label="Delivery Deadline" [value]="poData()?.deliveryDeadline | date:'dd/MM/yyyy'" />
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-[#25B6AB] mb-4">Selected Vendor</h2>
+      <app-po-field label="Vendor" [value]="poData()?.vendorName" />
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-[#25B6AB] mb-4">Product Photos</h2>
+      <div class="flex gap-4 p-6 bg-[#E0F7FA] rounded-2xl">
+        @if (!poData()?.productPhotos?.length) {
+        <span class="text-sm text-gray-400">No photos uploaded.</span>
+        }
+        @for (photo of poData()?.productPhotos; track $index) {
+        <img [src]="photo" class="w-16 h-16 object-cover rounded-lg bg-white border border-gray-100">
+        }
+      </div>
+    </section>
+
+  </div>
+  }
+</div>

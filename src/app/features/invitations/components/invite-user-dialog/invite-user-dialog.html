@@ -1,0 +1,31 @@
+<div class="dialog-backdrop" (click)="close()">
+  <div class="dialog" (click)="$event.stopPropagation()">
+    <button type="button" class="dialog__close" (click)="close()" aria-label="Close">
+      <app-icon name="x" [size]="18"></app-icon>
+    </button>
+
+    <h2 class="dialog__title">Invite a teammate</h2>
+    <p class="dialog__subtitle">They'll receive an e-mail with a link to join your company.</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="dialog__form">
+      <app-text-input
+        formControlName="email"
+        label="E-mail"
+        type="email"
+        [required]="true"
+        [errorMessage]="fieldError('email', 'E-mail')"
+      ></app-text-input>
+
+      <app-select-input
+        formControlName="role"
+        label="Role"
+        placeholder="Select a role"
+        [required]="true"
+        [options]="roleOptions()"
+        [errorMessage]="fieldError('role', 'Role')"
+      ></app-select-input>
+
+      <app-primary-button [loading]="loading() || loadingRoles()">Send Invitation</app-primary-button>
+    </form>
+  </div>
+</div>

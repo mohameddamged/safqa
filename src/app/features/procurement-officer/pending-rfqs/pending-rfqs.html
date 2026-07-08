@@ -1,0 +1,52 @@
+<div class="page-wrapper">
+
+  <div class="page-header">
+    <h1 class="page-title">All Pending PRs</h1>
+  </div>
+
+  <div *ngIf="isLoading" class="state-msg">
+    <span class="spinner"></span> Loading...
+  </div>
+
+  <div *ngIf="error" class="state-error">{{ error }}</div>
+
+  <div class="table-wrapper" *ngIf="!isLoading && !error">
+    <table class="rfq-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>PR Title</th>
+          <th>Date of Publish</th>
+          <th>PR Deadline</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pr of rfqs">
+          <td class="id-cell">{{ pr.id }}</td>
+          <!-- Backend returns itemName as the title (prTitle is empty) -->
+          <td class="title-cell">{{ pr.itemName || pr.prTitle || '—' }}</td>
+          <td>{{ formatDate(pr.createdAt) }}</td>
+          <td>{{ formatDate(pr.requiredDeliveryDate) }}</td>
+          <td>
+            
+<a class="details-link" style="cursor:pointer"
+   (click)="goToDetails(pr)">
+              Details ▷
+            </a>
+          </td>
+        </tr>
+        <tr *ngIf="rfqs.length === 0 && !isLoading">
+          <td colspan="5" class="empty-msg">No pending purchase requests found.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button class="page-btn" (click)="prevPage()" [disabled]="currentPage === 1">‹</button>
+      <span class="page-info">{{ currentPage }} / {{ totalPages }}</span>
+      <button class="page-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">›</button>
+    </div>
+  </div>
+
+</div>

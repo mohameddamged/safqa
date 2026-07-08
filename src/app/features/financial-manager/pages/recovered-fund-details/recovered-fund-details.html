@@ -1,0 +1,77 @@
+<app-fm-shell>
+  <div class="rf-details">
+
+    @if (loading()) {
+      <div class="rf-details__loading">
+        <span class="rf-details__spinner" aria-hidden="true"></span>
+      </div>
+    } @else if (errored() || !details()) {
+      <div class="rf-details__empty">
+        <p>Could not load this record.</p>
+        <a routerLink="/financial-manager/recovered-funds">← Back to Recovered Funds</a>
+      </div>
+    } @else {
+
+      <div class="rf-details__breadcrumb">
+        <a routerLink="/financial-manager/recovered-funds">Recovered Funds</a>
+        <span>›</span>
+        <span class="rf-details__breadcrumb-current">Fund Details</span>
+      </div>
+
+      <div class="rf-details__card">
+
+        <h1 class="rf-details__title">
+          Recovered Fund — {{ details()!.purchaseOrderTitle }}
+        </h1>
+
+        <!-- ── Transaction Receipt ──────────────────────────── -->
+        <h2 class="rf-details__section-title">Transaction Receipt</h2>
+        <div class="rf-details__receipt-box">
+          @if (details()!.receiptImageUrl) {
+            <img
+              [src]="details()!.receiptImageUrl"
+              alt="Transaction Receipt"
+              class="rf-details__receipt-img"
+            />
+          } @else {
+            <div class="rf-details__receipt-placeholder">
+              <span>No receipt available</span>
+            </div>
+          }
+        </div>
+
+        <!-- ── Fund Info ────────────────────────────────────── -->
+        <h2 class="rf-details__section-title">Returned Fund Info</h2>
+        <div class="rf-details__row">
+          <div class="rf-details__field">
+            <span class="rf-details__field-label">Cost</span>
+            <span class="rf-details__field-value">{{ details()!.cost | number:'1.2-2' }}</span>
+          </div>
+          <div class="rf-details__field">
+            <span class="rf-details__field-label">Currency</span>
+            <span class="rf-details__field-value">{{ details()!.currency }}</span>
+          </div>
+        </div>
+        <div class="rf-details__row">
+          <div class="rf-details__field">
+            <span class="rf-details__field-label">Payment Date</span>
+            <span class="rf-details__field-value">{{ formatDate(details()!.paymentDate) }}</span>
+          </div>
+          <div class="rf-details__field">
+            <span class="rf-details__field-label">Recovered Fund Date</span>
+            <span class="rf-details__field-value">{{ formatDate(details()!.recoveredFundDate) }}</span>
+          </div>
+        </div>
+
+        <!-- ── Vendor Info ──────────────────────────────────── -->
+        <h2 class="rf-details__section-title">Vendor Info</h2>
+        <div class="rf-details__field rf-details__field--full">
+          <span class="rf-details__field-label">Vendor Name</span>
+          <span class="rf-details__field-value">{{ details()!.vendorName }}</span>
+        </div>
+
+      </div>
+    }
+
+  </div>
+</app-fm-shell>

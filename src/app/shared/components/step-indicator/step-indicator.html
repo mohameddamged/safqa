@@ -1,0 +1,15 @@
+<div class="stepper">
+  @for (step of steps; track step) {
+    <div class="stepper__node" [class]="'stepper__node--' + stepState(step)">
+      @if (stepState(step) === 'done') {
+        <app-icon name="check" [size]="14"></app-icon>
+      } @else {
+        {{ step }}
+      }
+    </div>
+
+    @if (step !== totalSteps) {
+      <div class="stepper__line" [class.stepper__line--done]="step < currentStep"></div>
+    }
+  }
+</div>

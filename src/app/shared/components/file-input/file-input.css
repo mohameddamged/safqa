@@ -1,0 +1,53 @@
+.file-field {
+  width: 100%;
+}
+
+.file-button {
+  width: 100%;
+  height: 52px;
+  padding: 0 18px;
+  border-radius: var(--safqa-radius-pill);
+  border: 1.5px solid var(--safqa-teal);
+  background: #fff;
+  color: var(--safqa-teal);
+  font-size: 0.88rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+.file-button__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-button:hover:not(:disabled) {
+  background: var(--safqa-teal-100);
+}
+
+.file-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.file-button--filled {
+  border-color: var(--safqa-success);
+  color: var(--safqa-success);
+}
+
+.file-button.has-error {
+  border-color: var(--safqa-error);
+  color: var(--safqa-error);
+}
+
+.file-field__error {
+  margin: 6px 4px 0;
+  font-size: 0.78rem;
+  color: var(--safqa-error);
+}

@@ -1,0 +1,90 @@
+<app-auth-shell title="Sign up">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="signup-form">
+    <div class="signup-form__row">
+      <app-text-input
+        formControlName="firstName"
+        label="First Name"
+        [required]="true"
+        [errorMessage]="fieldError('firstName', 'First name')"
+      ></app-text-input>
+      <app-text-input
+        formControlName="lastName"
+        label="Last Name"
+        [required]="true"
+        [errorMessage]="fieldError('lastName', 'Last name')"
+      ></app-text-input>
+    </div>
+
+    <app-text-input
+      formControlName="vendorName"
+      label="Vendor Name"
+      [required]="true"
+      [errorMessage]="fieldError('vendorName', 'Vendor name')"
+    ></app-text-input>
+
+    <app-text-input
+      formControlName="taxId"
+      label="Tax ID"
+      [required]="true"
+      [errorMessage]="fieldError('taxId', 'Tax ID')"
+    ></app-text-input>
+
+    <div class="signup-form__row">
+      <app-file-input
+        formControlName="taxCardFrontImage"
+        label="Tax ID Photo (Front)"
+        [errorMessage]="fieldError('taxCardFrontImage', 'Tax ID front image')"
+      ></app-file-input>
+      <app-file-input
+        formControlName="taxCardBackImage"
+        label="Tax ID Photo (Back)"
+        [errorMessage]="fieldError('taxCardBackImage', 'Tax ID back image')"
+      ></app-file-input>
+    </div>
+    <p class="signup-form__hint">Please upload a JPG or PNG images (Max size: 10MB)</p>
+
+    <div class="signup-form__row">
+      <app-text-input
+        formControlName="email"
+        label="Work e-mail"
+        type="email"
+        [required]="true"
+        [errorMessage]="fieldError('email', 'Email')"
+      ></app-text-input>
+      <app-text-input
+        formControlName="phoneNumber"
+        label="Phone number"
+        type="tel"
+        [required]="true"
+        [errorMessage]="fieldError('phoneNumber', 'Phone number')"
+      ></app-text-input>
+    </div>
+
+    <div class="signup-form__row">
+      <app-password-input
+        formControlName="password"
+        label="Create password"
+        [required]="true"
+        autocomplete="new-password"
+        [errorMessage]="fieldError('password', 'Password')"
+      ></app-password-input>
+      <app-password-input
+        formControlName="confirmPassword"
+        label="Confirm password"
+        [required]="true"
+        autocomplete="new-password"
+        [errorMessage]="confirmPasswordError"
+      ></app-password-input>
+    </div>
+
+    <app-password-rules [rules]="passwordRuleState()"></app-password-rules>
+
+    <app-checkbox formControlName="agreeToTerms" [errorMessage]="fieldError('agreeToTerms', 'This')">
+      I agree on Brand's <a routerLink="/legal/terms">Terms Of Use</a> consist to data privacy and policy
+    </app-checkbox>
+
+    <app-primary-button [loading]="loading()">Sign Up</app-primary-button>
+  </form>
+
+  <app-step-indicator [currentStep]="1" [totalSteps]="3"></app-step-indicator>
+</app-auth-shell>

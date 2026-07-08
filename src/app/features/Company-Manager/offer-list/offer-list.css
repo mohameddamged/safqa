@@ -1,0 +1,67 @@
+.offer-list-page { padding: 32px 40px; }
+.breadcrumb { display: flex; align-items: center; gap: 6px; margin-bottom: 24px; }
+.breadcrumb-link { color: #25B6AB; text-decoration: underline; font-size: 14px; }
+.breadcrumb-current { color: #25B6AB; font-weight: 700; font-size: 14px; text-decoration: underline; }
+.page-title { font-size: 22px; font-weight: 700; color: #2E1911; margin: 0 0 20px 0; }
+.state-msg { padding: 40px; text-align: center; color: #9ca3af; }
+.error-msg { color: #ef4444; }
+.table-wrapper { background: #fff; border-radius: 16px; padding: 28px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.offer-table { width: 100%; border-collapse: collapse; }
+.offer-table thead tr { background: #FEF0E8; border-radius: 12px; }
+.offer-table th { padding: 14px 16px; text-align: left; font-size: 13px; font-weight: 600; color: #2E1911; }
+.offer-table td { padding: 16px 16px; border-bottom: 1px solid #f3f4f6; font-size: 13px; color: #2E1911; }
+.offer-table tbody tr:last-child td { border-bottom: none; }
+.matching { color: #E47C55; font-weight: 600; }
+.badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+.badge-green { background: #dcfce7; color: #16a34a; }
+.badge-yellow { background: #fef9c3; color: #ca8a04; }
+.badge-gray { background: #f3f4f6; color: #6b7280; }
+.details-link { color: #2E1911; font-size: 18px; cursor: pointer; }
+.empty-msg { text-align: center; color: #9ca3af; padding: 32px; }
+.actions-cell { position: relative; }
+.more-wrapper { position: relative; display: inline-block; }
+.more-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: #2E1911; padding: 4px 8px; border-radius: 6px; }
+.more-btn:hover { background: #f3f4f6; }
+.more-dropdown { position: absolute; right: 0; top: 100%; background: #fff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); z-index: 100; min-width: 160px; padding: 8px 0; }
+.menu-item { display: block; padding: 10px 16px; font-size: 14px; color: #2E1911; text-decoration: none; }
+.menu-item:hover { background: #f9fafb; }
+
+/* ── Badge colours ──────────────────────────────────────────── */
+.badge-red  { background: #fee2e2; color: #dc2626; }
+
+/* ── List header ────────────────────────────────────────────── */
+.list-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+.ai-compare-btn { display: flex; align-items: center; gap: 8px; background: linear-gradient(90deg,#EFA063,#E47C55); color:#fff; border:none; border-radius:24px; padding:10px 20px; font-size:13px; font-weight:600; cursor:pointer; white-space:nowrap; }
+.ai-compare-btn:disabled { opacity:0.6; cursor:not-allowed; }
+.spinner { width:14px; height:14px; border:2px solid rgba(255,255,255,0.4); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; display:inline-block; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.comparison-error { color:#ef4444; font-size:13px; margin-bottom:12px; }
+
+/* ── Comparison Panel ───────────────────────────────────────── */
+.comparison-panel { background:#f8f9ff; border:1.5px solid #e0e4ff; border-radius:14px; padding:20px; margin-bottom:24px; }
+.comparison-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+.comparison-title { font-size:15px; font-weight:700; color:#4f46e5; }
+.comparison-close { background:none; border:none; cursor:pointer; color:#9ca3af; font-size:16px; }
+.comparison-close:hover { color:#374151; }
+.recommended-banner { background:#fef9c3; border:1px solid #fde047; border-radius:8px; padding:10px 14px; font-size:13px; color:#713f12; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.recommended-icon { font-size:16px; color:#ca8a04; }
+.comparison-summary { font-size:13px; color:#4b5563; line-height:1.6; margin:0 0 16px 0; }
+.vendor-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; }
+.vendor-card { background:#fff; border:1.5px solid #e5e7eb; border-radius:12px; padding:16px; }
+.vendor-card-recommended { border-color:#4f46e5; box-shadow:0 0 0 3px rgba(79,70,229,0.08); }
+.vendor-card-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.vendor-card-name { font-size:14px; font-weight:700; color:#2E1911; }
+.rec-badge { background:#ede9fe; color:#4f46e5; font-size:11px; font-weight:600; padding:2px 8px; border-radius:12px; }
+.vendor-scores { display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
+.score-item { display:flex; justify-content:space-between; font-size:12px; }
+.score-label { color:#6b7280; }
+.score-value { font-weight:600; color:#2E1911; }
+.pros-cons { margin-top:8px; }
+.pros-label { font-size:11px; font-weight:700; color:#16a34a; display:block; margin-bottom:3px; }
+.cons-label { font-size:11px; font-weight:700; color:#dc2626; display:block; margin-bottom:3px; }
+.pros-item { font-size:12px; color:#374151; padding:1px 0 1px 8px; }
+.cons-item { font-size:12px; color:#374151; padding:1px 0 1px 8px; }
+
+/* ── Recommended row highlight ──────────────────────────────── */
+.row-recommended { background:#fffbeb; }
+.row-rec-badge { background:#fde047; color:#713f12; font-size:10px; padding:1px 6px; border-radius:10px; margin-left:6px; font-weight:600; }

@@ -1,0 +1,84 @@
+<!-- Breadcrumb -->
+<div class="pot-breadcrumb">
+  <a class="pot-breadcrumb-link" (click)="goToAllPos()">All POs</a>
+  <span class="pot-breadcrumb-sep">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+      <path d="M9 6l6 6-6 6" stroke="#25B6AB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+  <span class="pot-breadcrumb-current">PO Track Shipping</span>
+</div>
+
+<!-- Loading state -->
+<div class="pot-page" *ngIf="loading">
+  <div class="pot-card">
+    <p class="pot-state-text">جاري تحميل بيانات التتبع...</p>
+  </div>
+</div>
+
+<!-- Error state -->
+<div class="pot-page" *ngIf="!loading && errorMessage">
+  <div class="pot-card">
+    <p class="pot-state-text pot-state-error">{{ errorMessage }}</p>
+    <button class="pot-retry-btn" (click)="loadTracking()">إعادة المحاولة</button>
+  </div>
+</div>
+
+<!-- Main content -->
+<div class="pot-page" *ngIf="!loading && !errorMessage && tracking">
+
+  <!-- CARD -->
+  <div class="pot-card">
+
+    <h1 class="pot-title">Track [{{ tracking.poName }}]: {{ tracking.orderNumber }}</h1>
+
+    <div class="pot-row">
+      <span class="pot-row-label">Order Number:</span>
+      <span class="pot-row-value pot-row-value-muted">{{ tracking.orderNumber }}</span>
+    </div>
+
+    <div class="pot-row">
+      <span class="pot-row-label">Date of accepting PO:</span>
+      <span class="pot-row-value pot-row-value-muted">{{ formatAcceptedDate() }}</span>
+    </div>
+
+    <div class="pot-block">
+      <h2 class="pot-block-title">Delivery status:</h2>
+      <span class="pot-status-badge" [ngClass]="'pot-status-' + tracking.deliveryStatus">{{ tracking.deliveryStatus }}</span>
+    </div>
+
+    <div class="pot-block">
+      <h2 class="pot-block-title">Order Delivery Confirmation:</h2>
+      <p class="pot-block-hint">At delivery receive this code from company's inventory officer. It's an evidence that you have deliver the total order.</p>
+      <p class="pot-block-hint" *ngIf="!canEnterOtp">You can only enter the OTP once the delivery status is Fully Delivered, Damaged, or Not Completed.</p>
+
+      <div class="pot-code-row">
+        <input
+          *ngFor="let digit of confirmationDigits; let i = index; trackBy: trackByIndex"
+          class="pot-code-box"
+          type="text"
+          inputmode="numeric"
+          maxlength="1"
+          [value]="digit"
+          [disabled]="!canEnterOtp || otpVerifying || otpVerified"
+          (input)="onDigitInput(i, $event)"
+          (keydown)="onDigitKeydown(i, $event)"
+        />
+      </div>
+
+      <p class="pot-otp-error" *ngIf="otpError">{{ otpError }}</p>
+      <p class="pot-otp-success" *ngIf="otpVerified">تم التحقق من الكود بنجاح، جاري تحويلك للصفحة التالية...</p>
+
+      <button
+        class="pot-verify-btn"
+        [class.pot-verify-btn-done]="otpVerified"
+        [disabled]="!canEnterOtp || !isOtpComplete || otpVerifying || otpVerified"
+        (click)="onVerifyOtp()"
+      >
+        {{ otpVerifying ? 'جاري التحقق...' : (otpVerified ? '✓ تم التحقق' : 'Verify') }}
+      </button>
+    </div>
+
+  </div>
+
+</div>

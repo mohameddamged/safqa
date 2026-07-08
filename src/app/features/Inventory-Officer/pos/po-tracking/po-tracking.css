@@ -1,0 +1,159 @@
+.pot-calendar{
+
+    background:#fff;
+    border-radius:32px;
+    border-top-right-radius:90px;
+
+    padding:12px;
+
+    border:1px solid #F1F1F1;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.04);
+
+}
+
+/*-------------------------*/
+
+.pot-calendar-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+/*-------------------------*/
+
+.pot-calendar-month{
+
+    font-size:34px;
+    font-weight:700;
+    color:#2E1911;
+
+}
+
+/*-------------------------*/
+
+.pot-calendar-nav{
+
+    display:flex;
+    gap:10px;
+
+}
+
+.pot-calendar-nav-btn{
+
+    width:38px;
+    height:38px;
+
+    border:none;
+    background:transparent;
+
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    transition:.2s;
+
+}
+
+.pot-calendar-nav-btn:hover{
+
+    background:#F6F6F6;
+
+}
+
+/*-------------------------*/
+
+.pot-calendar-weekdays{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    place-items:center;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:#9C9CAA;
+
+}
+
+/*-------------------------*/
+
+.pot-calendar-week{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    place-items:center;
+
+    margin-bottom:10px;
+
+}
+
+/*-------------------------*/
+
+.pot-calendar-cell{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    background:transparent;
+
+    border-radius:50%;
+
+    font-size:18px;
+
+    font-weight:500;
+
+    color:#2E1911;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.pot-calendar-cell:hover{
+
+    background:#FFF4EC;
+
+}
+
+/*-------------------------*/
+
+.pot-calendar-cell.selected{
+
+    background:#EFA063;
+
+    color:white;
+
+    font-weight:700;
+
+}
+
+/*-------------------------*/
+
+.pot-calendar-empty{
+
+    width:42px;
+
+    height:42px;
+
+}

@@ -1,0 +1,100 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="bg-[#F8F8F8] min-h-screen py-8 px-6 text-[#2E1911]">
+  
+  <div class="max-w-6xl mx-auto bg-white rounded-2xl p-8 shadow-sm">
+    
+    <h2 class="text-[36px] font-semibold text-[#25B6AB] mb-8">Personal Info</h2>
+
+    @if (errorMessage) {
+    <div class="mb-6 px-4 py-3 rounded-xl bg-red-50 text-red-600 text-sm text-center">{{ errorMessage }}</div>
+    }
+    @if (successMessage) {
+    <div class="mb-6 px-4 py-3 rounded-xl bg-green-50 text-green-600 text-sm text-center">{{ successMessage }}</div>
+    }
+
+    <div class="flex justify-center mb-8">
+      <div (click)="onAvatarClick()"
+        class="w-32 h-32 rounded-full bg-gray-100 border border-[#C9F1EC] flex items-center justify-center overflow-hidden cursor-pointer relative">
+        @if (avatarUrl) {
+        <img [src]="avatarUrl" alt="Profile picture" class="w-full h-full object-cover">
+        } @else {
+        <span class="text-[#9CA3AF] text-sm">Upload</span>
+        }
+        @if (avatarUploading) {
+        <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+          <span class="text-white text-xs">Uploading...</span>
+        </div>
+        }
+      </div>
+    </div>
+    @if (avatarError) {
+    <p class="text-center text-red-500 text-xs -mt-6 mb-6">{{ avatarError }}</p>
+    }
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div class="relative">
+        <input formControlName="firstName" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">First Name</label>
+      </div>
+      <div class="relative">
+        <input formControlName="lastName" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Last Name</label>
+      </div>
+    </div>
+    
+    <div class="relative mb-10">
+      <input formControlName="phone" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+      <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Phone Number</label>
+    </div>
+
+    <h2 class="text-[36px] font-semibold text-[#25B6AB] mb-6">Position Info</h2>
+    <div class="p-6 border border-[#C9F1EC] rounded-3xl bg-[#FDFEFE] mb-10">
+      <div class="grid grid-cols-1 gap-4">
+        <div class="relative">
+          <input readonly formControlName="email" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 bg-transparent focus:outline-none" />
+          <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Work e-mail</label>
+        </div>
+        <div class="relative">
+          <input readonly formControlName="title" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 bg-transparent focus:outline-none" />
+          <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Title</label>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="text-[36px] font-semibold text-[#25B6AB] mb-6">My Company Info</h2>
+    <div class="space-y-4">
+      <div class="relative">
+        <input formControlName="companyName" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Company Name</label>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="relative">
+          <input formControlName="companyEmail" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+          <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Company e-mail</label>
+        </div>
+        <div class="relative">
+          <input formControlName="companyPhone" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+          <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Phone Number</label>
+        </div>
+      </div>
+      
+      <h3 class="text-xl font-semibold text-[#4B3832] mt-6 mb-2">Head Office Location</h3>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="relative"><input formControlName="country" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" /><label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Country</label></div>
+        <div class="relative"><input formControlName="state" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" /><label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">State / Region</label></div>
+        <div class="relative"><input formControlName="city" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" /><label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">City</label></div>
+        <div class="relative"><input formControlName="street" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" /><label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Street</label></div>
+      </div>
+      <div class="relative">
+        <input formControlName="fullAddress" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Full Company Address</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto flex gap-4 mt-8">
+    <button type="submit" [disabled]="isSaving"
+      class="flex-1 h-14 rounded-full bg-gradient-to-r from-[#E47C55] to-[#EFA063] text-white font-medium hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed">
+      {{ isSaving ? 'Saving...' : 'Save Changes' }}
+    </button>
+  </div>
+</form>

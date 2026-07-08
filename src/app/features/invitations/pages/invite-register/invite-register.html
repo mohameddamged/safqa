@@ -1,0 +1,74 @@
+@if (state() === 'loading') {
+  <app-auth-shell title="Checking your invitation..." [showBack]="false">
+    <div class="invite-loading" aria-live="polite">
+      <span class="invite-loading__spinner" aria-hidden="true"></span>
+    </div>
+  </app-auth-shell>
+}
+
+@if (state() === 'invalid') {
+  <app-auth-shell title="Invitation Unavailable" [showBack]="false">
+    <p class="invite-invalid__message">{{ invalidMessage() }}</p>
+    <app-primary-button type="button" (clicked)="router.navigate(['/auth/login'])">
+      Go to Login
+    </app-primary-button>
+  </app-auth-shell>
+}
+
+@if (state() === 'valid' && invitationDetails()) {
+  <app-auth-shell
+    title="Join {{ invitationDetails()!.companyName }}"
+    [subtitle]="'You have been invited as ' + invitationDetails()!.role + '. Complete your details to get started.'"
+  >
+    <form [formGroup]="form" (ngSubmit)="submit()" class="invite-form">
+      <div class="invite-form__readonly">
+        <span class="invite-form__readonly-label">E-mail</span>
+        <span class="invite-form__readonly-value">{{ invitationDetails()!.email }}</span>
+      </div>
+
+      <div class="invite-form__row">
+        <app-text-input
+          formControlName="firstName"
+          label="First name"
+          [required]="true"
+          [errorMessage]="fieldError('firstName', 'First name')"
+        ></app-text-input>
+
+        <app-text-input
+          formControlName="lastName"
+          label="Last name"
+          [required]="true"
+          [errorMessage]="fieldError('lastName', 'Last name')"
+        ></app-text-input>
+      </div>
+
+      <app-text-input
+        formControlName="phoneNumber"
+        label="Phone number"
+        type="tel"
+        [required]="true"
+        [errorMessage]="fieldError('phoneNumber', 'Phone number')"
+      ></app-text-input>
+
+      <app-password-input
+        formControlName="password"
+        label="Create password"
+        [required]="true"
+        autocomplete="new-password"
+        [errorMessage]="fieldError('password', 'Password')"
+      ></app-password-input>
+
+      <app-password-input
+        formControlName="confirmPassword"
+        label="Confirm password"
+        [required]="true"
+        autocomplete="new-password"
+        [errorMessage]="confirmPasswordError"
+      ></app-password-input>
+
+      <app-password-rules [rules]="passwordRuleState()"></app-password-rules>
+
+      <app-primary-button [loading]="loading()">Join Company</app-primary-button>
+    </form>
+  </app-auth-shell>
+}

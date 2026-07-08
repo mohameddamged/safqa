@@ -1,0 +1,60 @@
+<div class="po-list-page">
+  <div class="page-header">
+    <h1 class="page-title">All POs</h1>
+    <div class="filter-wrapper">
+      <button class="filter-btn" (click)="toggleFilter(); $event.stopPropagation()">
+        Filter
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+        </svg>
+      </button>
+      <div class="filter-dropdown" *ngIf="showFilter" (click)="$event.stopPropagation()">
+        <label class="filter-option" (click)="selectFilter('Accepted')">
+          <span class="radio" [class.checked]="pendingFilter === 'Accepted'"></span>
+          Accepted
+        </label>
+        <label class="filter-option" (click)="selectFilter('Rejected')">
+          <span class="radio" [class.checked]="pendingFilter === 'Rejected'"></span>
+          Rejected
+        </label>
+        <button class="apply-btn" (click)="applyFilter()">Apply</button>
+        <button class="reset-btn" (click)="resetFilter()">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="state-msg">Loading...</div>
+  <div *ngIf="error" class="state-msg error-msg">{{ error }}</div>
+
+  <div *ngIf="!isLoading && !error" class="table-wrapper">
+    <table class="po-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>PO Title</th>
+          <th>Delivery Date</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let po of pos">
+          <td>{{ po.id }}</td>
+          <td>{{ po.title }}</td>
+          <td>{{ po.deliveryDeadline ? formatDate(po.deliveryDeadline) : '---' }}</td>
+          <td>
+            <span class="badge" [class]="getStatusClass(po.status)">{{ po.status }}</span>
+          </td>
+          <td>
+            <a [routerLink]="['/procurement-officer/po-list', po.id]" class="details-link">
+              Details ▷
+            </a>
+          </td>
+        </tr>
+        <tr *ngIf="pos.length === 0">
+          <td colspan="5" class="empty-msg">No purchase orders yet.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

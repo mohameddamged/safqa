@@ -1,0 +1,92 @@
+<div class="po-details-page">
+
+  <div class="breadcrumb">
+    <a routerLink="/procurement-officer/po-list" class="breadcrumb-link">All POs</a>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#25B6AB"
+      stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+    <span class="breadcrumb-current">PO Details</span>
+  </div>
+
+  <div *ngIf="isLoading" class="state-msg">Loading...</div>
+  <div *ngIf="error" class="state-msg error-msg">{{ error }}</div>
+
+  <div class="card" *ngIf="po && !isLoading">
+    <div class="title-row">
+      <h1 class="po-title">RFQ title: {{ po.rfqTitle }}</h1>
+      <div class="status-row">
+        <span class="badge" [class]="getStatusClass(po.status)">{{ po.status }}</span>
+        <span class="date-info" *ngIf="po.createdAt">
+          At {{ formatDate(po.createdAt) }}
+        </span>
+      </div>
+    </div>
+
+    <h2 class="section-title">PO Info</h2>
+
+    <div class="field-group two-col">
+      <div class="field">
+        <label class="field-label">Item Name</label>
+        <div class="field-value">{{ po.itemName }}</div>
+      </div>
+      <div class="field">
+        <label class="field-label">Category</label>
+        <div class="field-value">{{ po.categoryName ?? '—' }}</div>
+      </div>
+    </div>
+
+    <div class="field-group two-col">
+      <div class="field">
+        <label class="field-label">Quantity</label>
+        <div class="field-value">{{ po.quantity }}</div>
+      </div>
+      <div class="field">
+        <label class="field-label">Unit of Measurement</label>
+        <div class="field-value">{{ po.unit }}</div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <div class="field full-width">
+        <label class="field-label">Technical Specs</label>
+        <div class="field-value specs">{{ po.technicalSpecification ?? '—' }}</div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <div class="field full-width">
+        <label class="field-label">Additional Notes</label>
+        <div class="field-value">{{ po.additionalNotes ?? '—' }}</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Cost Info</h2>
+    <div class="field-group two-col">
+      <div class="field">
+        <label class="field-label">Cost</label>
+        <div class="field-value">{{ po.totalCost }}</div>
+      </div>
+      <div class="field">
+        <label class="field-label">Currency</label>
+        <div class="field-value">{{ po.currency }}</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Delivery Info</h2>
+    <div class="field-group">
+      <div class="field full-width">
+        <label class="field-label">Delivery Deadline</label>
+        <div class="field-value">{{ formatDate(po.deliveryDeadline) }}</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Selected Vendor</h2>
+    <div class="field-group">
+      <div class="field full-width">
+        <label class="field-label">Vendor</label>
+        <div class="field-value">{{ po.vendorName }}</div>
+      </div>
+    </div>
+  </div>
+</div>

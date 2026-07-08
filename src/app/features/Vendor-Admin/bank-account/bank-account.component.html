@@ -1,0 +1,128 @@
+<div class="bank-page">
+
+  <div class="bank-card">
+
+    <h1 class="card-title">{{ viewMode ? 'Bank Account Details' : 'Bank Account Information' }}</h1>
+
+    <!-- Legal Name -->
+    <div class="field-wrap" [class.field-error]="legalNameError">
+      <label class="field-label">Vendor Legal Name (as recorded in bank) *</label>
+      <input
+        class="field-input"
+        type="text"
+        [(ngModel)]="legalName"
+        placeholder="e.g. Ahmed Mohamed Ali"
+        [readonly]="viewMode"
+        (blur)="submitted && legalName" />
+      <span class="error-msg" *ngIf="legalNameError">{{ legalNameError }}</span>
+    </div>
+
+    <!-- IBAN -->
+    <div class="field-wrap" [class.field-error]="ibanError">
+      <label class="field-label">IBAN *</label>
+      <input
+        class="field-input"
+        type="text"
+        [(ngModel)]="iban"
+        placeholder="e.g. EG380019000500000000263180002"
+        (input)="onIbanInput($event)"
+        [readonly]="viewMode"
+        maxlength="34" />
+      <span class="error-msg" *ngIf="ibanError">{{ ibanError }}</span>
+    </div>
+
+    <!-- Bank Name -->
+    <div class="field-wrap" [class.field-error]="bankNameError">
+      <label class="field-label">Bank Name *</label>
+      <input
+        class="field-input"
+        type="text"
+        [(ngModel)]="bankName"
+        placeholder="e.g. National Bank of Egypt"
+        [readonly]="viewMode" />
+      <span class="error-msg" *ngIf="bankNameError">{{ bankNameError }}</span>
+    </div>
+
+    <!-- Account Number row -->
+    <div class="fields-row">
+      <div class="field-wrap half" [class.field-error]="accountNumberError">
+        <label class="field-label">Account Number *</label>
+        <input
+          class="field-input"
+          type="text"
+          inputmode="numeric"
+          [(ngModel)]="accountNumber"
+          placeholder="Digits only"
+          (input)="onAccountNumberInput($event, 'accountNumber')"
+          [readonly]="viewMode"
+          maxlength="20" />
+        <span class="error-msg" *ngIf="accountNumberError">{{ accountNumberError }}</span>
+      </div>
+      <div class="field-wrap half" [class.field-error]="reAccountNumberError" *ngIf="!viewMode">
+        <label class="field-label">Re-enter Account Number *</label>
+        <input
+          class="field-input"
+          type="text"
+          inputmode="numeric"
+          [(ngModel)]="reAccountNumber"
+          placeholder="Repeat account number"
+          (input)="onAccountNumberInput($event, 'reAccountNumber')"
+          maxlength="20" />
+        <span class="error-msg" *ngIf="reAccountNumberError">{{ reAccountNumberError }}</span>
+      </div>
+    </div>
+
+    <span class="error-msg" *ngIf="saveError">{{ saveError }}</span>
+
+    <button class="btn-save" *ngIf="!viewMode" [disabled]="isSaving" (click)="onSave()">
+      {{ isSaving ? 'Saving...' : 'Save Bank Account Info' }}
+    </button>
+
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════
+     SUCCESS MODAL
+══════════════════════════════ -->
+<div class="modal-overlay" *ngIf="showSuccess" (click)="onOk()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+
+    <h2 class="modal-title">Connected with [{{ bankName || 'bank-Name' }}] Account</h2>
+
+    <div class="badge-wrap">
+      <img src="images/tabler-icon-rosette-discount-check.png" alt="Connected" class="badge-img" />
+    </div>
+
+    <ul class="security-list">
+      <li class="security-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="11" width="18" height="11" rx="2" stroke="#1A1A2E" stroke-width="1.7"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#1A1A2E" stroke-width="1.7" stroke-linecap="round"/>
+        </svg>
+        <span>We don't share your financial data with anyone.</span>
+      </li>
+      <li class="security-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L4 5v6c0 5.25 3.5 10.15 8 11.5C16.5 21.15 20 16.25 20 11V5l-8-3z"
+                stroke="#1A1A2E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 12l2 2 4-4" stroke="#1A1A2E" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Data is encrypted for your protection</span>
+      </li>
+      <li class="security-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"
+                stroke="#1A1A2E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
+                stroke="#1A1A2E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>You can remove it at any time</span>
+      </li>
+    </ul>
+
+    <button class="btn-ok" (click)="onOk()">OK</button>
+
+  </div>
+</div>

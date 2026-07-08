@@ -1,0 +1,66 @@
+<div class="all-rfqs-page">
+
+  <div class="page-header">
+    <h1 class="page-title">All RFQs</h1>
+
+    <div class="filter-wrapper">
+      <button class="filter-btn" (click)="toggleFilter(); $event.stopPropagation()">
+        Filter
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+        </svg>
+      </button>
+
+      <div class="filter-dropdown" *ngIf="showFilter" (click)="$event.stopPropagation()">
+        <label class="filter-option" (click)="selectFilter('SentToVendors')">
+          <span class="radio" [class.checked]="pendingFilter === 'SentToVendors'"></span>
+          Sent to vendors
+        </label>
+        <label class="filter-option" (click)="selectFilter('TurnedToPO')">
+          <span class="radio" [class.checked]="pendingFilter === 'TurnedToPO'"></span>
+          Turned to a PO
+        </label>
+        <button class="apply-btn" (click)="applyFilter()">Apply</button>
+        <button class="reset-btn" (click)="resetFilter()">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="state-msg">Loading...</div>
+  <app-error-state *ngIf="error" [message]="error!"></app-error-state>
+
+  <div class="table-wrapper" *ngIf="!isLoading && !error">
+    <table class="rfq-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>RFQ Title</th>
+          <th>Date of Publish</th>
+          <th>PR Deadline</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rfq of rfqs">
+          <td>{{ rfq.rfqNumber }}</td>
+          <td>{{ rfq.itemName }}</td>
+          <td>{{ formatDate(rfq.createdAt) }}</td>
+          <td>{{ formatDate(rfq.closingDate) }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="{
+              'sent': rfq.status === 'SentToVendors',
+              'po': rfq.status === 'TurnedToPO'
+            }">{{ formatStatus(rfq.status) }}</span>
+          </td>
+          <td>
+            <a [routerLink]="['/procurement-officer/rfq', rfq.id, 'update']" class="details-link">Details ▷</a>
+          </td>
+        </tr>
+        <tr *ngIf="rfqs.length === 0">
+          <td colspan="6" class="empty-msg">No RFQs found.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

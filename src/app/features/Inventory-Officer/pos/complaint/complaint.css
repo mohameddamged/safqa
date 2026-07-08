@@ -1,0 +1,28 @@
+.tab-btn {
+    position: relative;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 18px; 
+    padding : 12px 8px;
+}
+
+.tab-btn.active-tab {
+    color: #E47C55 !important;
+    background-color: #FFF5F0 ;
+}
+
+.tab-btn::after {
+    content: '';
+    position: absolute;
+    top: 0px; 
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: #E47C55; 
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active-tab::after {
+    background-color: #E47C55;
+}

@@ -1,0 +1,114 @@
+<div class="page-wrapper">
+
+  @if (isLoading) {
+    <div class="state-msg"><span class="spinner"></span> Loading...</div>
+  } @else if (error) {
+    <div class="state-error">
+      {{ error }}
+      <button class="back-btn" (click)="goBack()">← Back</button>
+    </div>
+  } @else if (po) {
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a class="breadcrumb-link" (click)="goBack()" style="cursor:pointer">Delivered POs</a>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-current">PO Details</span>
+    </div>
+
+    <div class="card">
+      <h1 class="card-title">PO #{{ po.id }}</h1>
+
+      <!-- Order Info -->
+      <h2 class="section-title">Order Info</h2>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">Vendor Name</label>
+          <div class="field-value">{{ po.vendorName || '—' }}</div>
+        </div>
+        <div class="field">
+          <label class="field-label">Company Name</label>
+          <div class="field-value">{{ po.companyName || '—' }}</div>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">Status</label>
+          <div class="field-value">{{ po.status || '—' }}</div>
+        </div>
+        <div class="field">
+          <label class="field-label">Created At</label>
+          <div class="field-value">{{ formatDate(po.createdAt) }}</div>
+        </div>
+      </div>
+
+      <!-- Item Info (if available) -->
+      @if (po.rfqTitle || po.itemName) {
+        <h2 class="section-title">Item Info</h2>
+        <div class="field-row">
+          @if (po.rfqTitle) {
+            <div class="field">
+              <label class="field-label">RFQ Title</label>
+              <div class="field-value">{{ po.rfqTitle }}</div>
+            </div>
+          }
+          @if (po.itemName) {
+            <div class="field">
+              <label class="field-label">Item Name</label>
+              <div class="field-value">{{ po.itemName }}</div>
+            </div>
+          }
+        </div>
+        @if (po.quantity || po.unit) {
+          <div class="field-row">
+            <div class="field">
+              <label class="field-label">Quantity</label>
+              <div class="field-value">{{ po.quantity || '—' }}</div>
+            </div>
+            <div class="field">
+              <label class="field-label">Unit</label>
+              <div class="field-value">{{ po.unit || '—' }}</div>
+            </div>
+          </div>
+        }
+        @if (po.technicalSpecs) {
+          <div class="field full">
+            <label class="field-label">Technical Specs</label>
+            <div class="field-value specs">{{ po.technicalSpecs }}</div>
+          </div>
+        }
+      }
+
+      <!-- Cost Info -->
+      <h2 class="section-title">Cost Info</h2>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">Cost</label>
+          <div class="field-value">{{ po.cost | number:'1.2-2' }} {{ po.currency }}</div>
+        </div>
+        @if (po.paymentMethod) {
+          <div class="field">
+            <label class="field-label">Payment Method</label>
+            <div class="field-value">{{ po.paymentMethod }}</div>
+          </div>
+        }
+      </div>
+
+      <!-- Delivery Info -->
+      <h2 class="section-title">Delivery Info</h2>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">Delivery Deadline</label>
+          <div class="field-value">{{ formatDate(po.deliveryDeadline) }}</div>
+        </div>
+        <div class="field">
+          <label class="field-label">Payment Date</label>
+          <div class="field-value">{{ formatDate(po.paymentDate) }}</div>
+        </div>
+      </div>
+
+    </div>
+  }
+
+</div>
+

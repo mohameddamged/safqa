@@ -1,0 +1,78 @@
+<form [formGroup]="poForm" class="bg-[#F8F8F8] min-h-screen py-8 px-6">
+  <div class="max-w-6xl mx-auto mb-6 flex items-center gap-2 text-sm">
+    <a routerLink="/company-manager/allpos" class="text-[#25B6AB] hover:underline">All POs</a>
+    <span class="text-[#25B6AB]">&gt;</span>
+    <span class="text-[#25B6AB] underline">PO Details</span>
+  </div>
+
+  <div class="max-w-6xl mx-auto bg-white rounded-2xl p-8 shadow-sm">
+    <h1 class="text-[42px] font-semibold text-[#4B3832] mb-8">
+      RFQ Title: <span class="font-bold">{{ rfqTitle() }}</span>
+    </h1>
+
+    <h2 class="text-[36px] font-semibold text-[#25B6AB] mb-6">PO Info</h2>
+
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div class="relative">
+        <input readonly formControlName="itemName" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Item Name</label>
+      </div>
+      <div class="relative">
+        <input readonly formControlName="categoryName" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Category</label>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mb-5">
+      <div class="relative">
+        <input readonly formControlName="quantity" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Quantity</label>
+      </div>
+      <div class="relative">
+        <input readonly formControlName="unit" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Unit of Measurement</label>
+      </div>
+    </div>
+
+    <div class="relative mb-4">
+      <textarea readonly formControlName="technicalSpecs" rows="6" class="w-full rounded-3xl border border-[#C9F1EC] p-5 pt-8 resize-none focus:outline-none"></textarea>
+      <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF] bg-white px-1">Technical Specs</label>
+    </div>
+
+    <div class="relative mb-4">
+      <input readonly formControlName="reason" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+      <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Why do You need this item?</label>
+    </div>
+
+    <div class="relative mb-8">
+      <input readonly formControlName="additionalNotes" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+      <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Additional Notes</label>
+    </div>
+
+    <h2 class="text-[36px] font-semibold text-[#25B6AB] mb-6">Cost Info</h2>
+
+    <div class="grid grid-cols-2 gap-4 mb-5">
+      <div class="relative">
+        <input readonly formControlName="totalCost" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Total Cost</label>
+      </div>
+      <div class="relative">
+        <input readonly formControlName="currency" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Currency</label>
+      </div>
+    </div>
+
+    <h2 class="text-[36px] font-semibold text-[#25B6AB] mb-6">RFQ Deadline</h2>
+
+    <div class="relative mb-8">
+      <input readonly formControlName="deadline" class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+      <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Required deadline of the PO</label>
+    </div>
+
+    <h2 class="text-[36px] font-semibold text-[#25B6AB] mb-6">Status</h2>
+    <div class="relative mb-8">
+      <input readonly formControlName="status" class="w-full h-16 rounded-full border border-[#25B6AB] px-5 pt-5 text-[#25B6AB] font-bold focus:outline-none" />
+      <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Order Status</label>
+    </div>
+  </div>
+</form>

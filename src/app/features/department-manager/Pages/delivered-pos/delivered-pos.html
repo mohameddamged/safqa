@@ -1,0 +1,75 @@
+<div class="page-wrapper">
+
+  <div class="page-header">
+    <h1 class="page-title">Delivered Purchase Orders</h1>
+  </div>
+
+  <!-- Loading -->
+  @if (isLoading) {
+    <div class="state-msg">
+      <span class="spinner"></span> Loading...
+    </div>
+  }
+
+  <!-- Error -->
+  @if (errorMessage) {
+    <div class="state-error">{{ errorMessage }}</div>
+  }
+
+  <!-- Table -->
+  @if (!isLoading && !errorMessage) {
+    <div class="table-wrapper">
+      <table class="rfq-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Vendor Name</th>
+            <th>Cost</th>
+            <th>Delivery Deadline</th>
+            <th>Payment Date</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (po of deliveredPOs; track po.id) {
+            <tr>
+              <td class="id-cell">{{ po.id }}</td>
+              <td class="title-cell">{{ po.vendorName || '—' }}</td>
+              <td>{{ po.cost | number:'1.2-2' }} {{ po.currency }}</td>
+              <td>{{ formatDate(po.deliveryDeadline) }}</td>
+              <td>{{ formatDate(po.paymentDate) }}</td>
+              <td>
+                <span class="status-badge" [class]="getStatusClass(po.status)">
+                  {{ po.status || '—' }}
+                </span>
+              </td>
+              <td>
+                <button class="details-link" (click)="viewDetails(po)">
+                  Details ▷
+                </button>
+              </td>
+            </tr>
+          }
+          @if (deliveredPOs.length === 0) {
+            <tr>
+              <td colspan="7" class="empty-msg">No purchase orders found.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+      @if (totalPages > 1) {
+        <div class="pagination">
+          <button class="page-btn" (click)="goToPage(pageNumber - 1)"
+            [disabled]="pageNumber <= 1">‹</button>
+          <span class="page-info">{{ pageNumber }} / {{ totalPages }}</span>
+          <button class="page-btn" (click)="goToPage(pageNumber + 1)"
+            [disabled]="pageNumber >= totalPages">›</button>
+        </div>
+      }
+    </div>
+  }
+
+</div>

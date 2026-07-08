@@ -1,0 +1,161 @@
+<div class="offer-list-page">
+
+  <div class="breadcrumb">
+    <a routerLink="/procurement-officer/vendor-offers" class="breadcrumb-link">Vendor Offers</a>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#25B6AB"
+      stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+    <span class="breadcrumb-current">Offers</span>
+  </div>
+
+  @if (isLoading) { <div class="state-msg">Loading...</div> }
+  @if (error)     { <div class="state-msg error-msg">{{ error }}</div> }
+
+  @if (!isLoading && !error) {
+    <div class="table-wrapper">
+
+      <!-- Header row -->
+      <div class="list-header">
+        <h1 class="page-title">Vendor Offers on RFQ: {{ rfqTitle }}</h1>
+        <button class="ai-compare-btn" (click)="compareOffers()" [disabled]="isComparing || offers.length < 2">
+          @if (isComparing) {
+            <span class="spinner"></span> Analysing...
+          } @else {
+            ✦ AI Compare Offers
+          }
+        </button>
+      </div>
+
+      @if (comparisonError) {
+        <div class="comparison-error">{{ comparisonError }}</div>
+      }
+
+      <!-- ── AI Comparison Panel ─────────────────────────────── -->
+      @if (showComparison && comparison) {
+        <div class="comparison-panel">
+          <div class="comparison-header">
+            <span class="comparison-title">✦ AI Offer Comparison</span>
+            <button class="comparison-close" (click)="closeComparison()">✕</button>
+          </div>
+
+          @if (comparison.recommendedVendorName) {
+            <div class="recommended-banner">
+              <span class="recommended-icon">★</span>
+              Recommended Vendor: <strong>{{ comparison.recommendedVendorName }}</strong>
+            </div>
+          }
+
+          @if (comparison.summary) {
+            <p class="comparison-summary">{{ comparison.summary }}</p>
+          }
+
+          <!-- Per-vendor breakdown -->
+          <div class="vendor-cards">
+            @for (v of comparison.vendors; track v.vendorId) {
+              <div class="vendor-card" [class.vendor-card-recommended]="isRecommended(v.vendorId)">
+                <div class="vendor-card-header">
+                  <span class="vendor-card-name">{{ v.vendorName }}</span>
+                  @if (isRecommended(v.vendorId)) {
+                    <span class="rec-badge">★ Recommended</span>
+                  }
+                </div>
+                <div class="vendor-scores">
+                  <div class="score-item">
+                    <span class="score-label">Procurement Score</span>
+                    <span class="score-value">{{ v.procurementScore }}/100</span>
+                  </div>
+                  <div class="score-item">
+                    <span class="score-label">Matching Score</span>
+                    <span class="score-value">{{ v.matchingScore }}/100</span>
+                  </div>
+                  @if (v.topRating) {
+                    <div class="score-item">
+                      <span class="score-label">Top Rating</span>
+                      <span class="score-value">{{ v.topRating }}</span>
+                    </div>
+                  }
+                </div>
+                @if (v.pros?.length) {
+                  <div class="pros-cons">
+                    <span class="pros-label">✓ Pros</span>
+                    @for (p of v.pros; track $index) {
+                      <div class="pros-item">{{ p }}</div>
+                    }
+                  </div>
+                }
+                @if (v.cons?.length) {
+                  <div class="pros-cons">
+                    <span class="cons-label">✗ Cons</span>
+                    @for (c of v.cons; track $index) {
+                      <div class="cons-item">{{ c }}</div>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- ── Offers Table ────────────────────────────────────── -->
+      <table class="offer-table">
+        <thead>
+          <tr>
+            <th>Vendor Name</th>
+            <th>Cost</th>
+            <th>Arrives at</th>
+            <th>Offer Validity</th>
+            <th>Status</th>
+            <th>Negotiation</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (offer of offers; track (offer.offerId ?? offer.id)) {
+            <tr [class.row-recommended]="isRecommended(offer.vendorId ?? offer.recommendedVendorId)">
+              <td>
+                {{ offer.vendorName ?? offer.companyName ?? '—' }}
+                @if (isRecommended(offer.vendorId ?? offer.recommendedVendorId)) {
+                  <span class="row-rec-badge">★</span>
+                }
+              </td>
+              <td>{{ offer.cost ?? offer.totalAmount }} {{ offer.currency }}</td>
+              <td>{{ formatDate(offer.deliveryDeadline) }}</td>
+              <td>{{ formatDate(offer.offerDeadline) }}</td>
+              <td>
+                <span class="badge" [ngClass]="getStatusClass(offer.status)">
+                  {{ offer.status || '—' }}
+                </span>
+              </td>
+              <td>{{ offer.negotiation || 'None' }}</td>
+              <td class="actions-cell">
+                <div class="more-wrapper">
+                  <button class="more-btn"
+                    (click)="toggleMenu(offer.offerId ?? offer.id); $event.stopPropagation()">
+                    ···
+                  </button>
+                  @if (openMenuId === (offer.offerId ?? offer.id)) {
+                    <div class="more-dropdown" (click)="$event.stopPropagation()">
+                      <a [routerLink]="['/procurement-officer/vendor-offers', rfqId, 'offers', offer.offerId ?? offer.id]"
+                        class="menu-item">View Offer Details</a>
+                      <a [routerLink]="['/procurement-officer/rfq', rfqId, 'update']"
+                        class="menu-item">View my RFQ</a>
+                      <a [routerLink]="['/procurement-officer/vendor-offers', rfqId, 'offers', offer.offerId ?? offer.id, 'negotiate']"
+                        class="menu-item">Negotiate</a>
+                    </div>
+                  }
+                </div>
+              </td>
+            </tr>
+          }
+          @if (offers.length === 0) {
+            <tr><td colspan="7" class="empty-msg">No offers submitted yet.</td></tr>
+          }
+        </tbody>
+      </table>
+
+    </div>
+  }
+</div>
+

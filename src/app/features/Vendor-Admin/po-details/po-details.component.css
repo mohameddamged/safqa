@@ -1,0 +1,364 @@
+/* ══════════════════════════════
+   BREADCRUMB
+══════════════════════════════ */
+.pod-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 48px 0;
+}
+
+.pod-breadcrumb-link {
+  font-size: 14px;
+  color: var(--Color-Secondary-secondaryBaseTurq, #25B6AB);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.pod-breadcrumb-link:hover {
+  opacity: 0.75;
+}
+
+.pod-breadcrumb-sep {
+  display: flex;
+  align-items: center;
+}
+
+.pod-breadcrumb-current {
+  font-size: 14px;
+  color: var(--Color-Secondary-secondaryBaseTurq, #25B6AB);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* ══════════════════════════════
+   PAGE
+══════════════════════════════ */
+.pod-page {
+  padding: 24px 48px 60px;
+}
+
+.pod-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 36px 40px;
+  max-width: 1040px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+.pod-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1A1A2E;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+/* ══════════════════════════════
+   SECTION
+══════════════════════════════ */
+.pod-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pod-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--Color-Secondary-secondaryBaseTurq, #25B6AB);
+  margin: 0 0 2px;
+}
+
+/* ══════════════════════════════
+   READ-ONLY FIELDS
+══════════════════════════════ */
+.pod-fields-row {
+  display: flex;
+  gap: 16px;
+}
+
+.pod-fields-row .pod-field {
+  flex: 1;
+}
+
+.pod-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  padding: 12px 18px 14px;
+  background: var(--Color-Primary-primary4, #FCF1ED);
+  border: 1.5px solid #BFE6E2;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.pod-field-full {
+  width: 100%;
+}
+
+.pod-field-tall {
+  min-height: 150px;
+}
+
+.pod-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #9C9CAA;
+}
+
+.pod-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1A1A2E;
+  word-break: break-word;
+}
+
+.pod-value-multiline {
+  white-space: pre-line;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.pod-field-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+
+.pod-field-with-icon {
+  padding-right: 38px;
+}
+
+/* ══════════════════════════════
+   ACTIONS
+══════════════════════════════ */
+.pod-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.pod-btn-accept {
+  flex: 1;
+  padding: 18px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--Color-Secondary-success, #00B209);
+  background: var(--Color-Secondary-successBg, #DBFFDD);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  font-family: inherit;
+}
+
+.pod-btn-accept:hover { opacity: 0.9; }
+.pod-btn-accept:active { transform: scale(0.99); }
+.pod-btn-accept:disabled,
+.pod-btn-reject:disabled,
+.pod-btn-cancel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.pod-btn-reject {
+  flex: 1;
+  padding: 18px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: linear-gradient(90deg, #F0685E 0%, #E25C5C 100%);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  font-family: inherit;
+}
+
+.pod-btn-reject:hover { opacity: 0.9; }
+.pod-btn-reject:active { transform: scale(0.99); }
+
+.pod-btn-cancel {
+  flex: 1;
+  padding: 18px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #6B6B7B;
+  background: #FFFFFF;
+  border: 1.6px solid #E8E8F0;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.pod-btn-cancel:hover {
+  background: #F7F7FA;
+}
+
+.pod-rejected-notice {
+  background: #FFE9E9;
+  color: #E25C5C;
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 14.5px;
+  font-weight: 500;
+}
+
+/* ══════════════════════════════
+   REJECTION MODAL
+══════════════════════════════ */
+.pod-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.pod-modal {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 32px 32px 28px;
+  width: 460px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18);
+  box-sizing: border-box;
+}
+
+.pod-modal-center {
+  align-items: center;
+  text-align: center;
+  width: 380px;
+}
+
+.pod-modal-reject {
+  width: 440px;
+}
+
+.pod-modal-btn-reject,
+.pod-modal-btn-cancel {
+  flex: 1;
+  padding: 14px 18px;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.pod-modal-btn-reject {
+  color: #FFFFFF;
+  background: linear-gradient(90deg, #F0685E 0%, #E25C5C 100%);
+}
+
+.pod-modal-btn-reject:hover:not(:disabled) { opacity: 0.9; }
+.pod-modal-btn-reject:active:not(:disabled) { transform: scale(0.99); }
+
+.pod-modal-btn-cancel {
+  color: #6B6B7B;
+  background: #F7F7FA;
+  border: 1.6px solid #E8E8F0;
+}
+
+.pod-modal-btn-cancel:hover:not(:disabled) { background: #EFEFF4; }
+
+.pod-modal-btn-reject:disabled,
+.pod-modal-btn-cancel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.pod-modal-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1A1A2E;
+  margin: 0;
+}
+
+.pod-modal-text {
+  font-size: 15px;
+  color: #1A1A2E;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.pod-reject-field {
+  background: #FFFFFF;
+  border: 1.5px solid var(--Color-Secondary-secondaryBaseTurq, #25B6AB);
+}
+
+.pod-reject-field .pod-label {
+  color: #1A1A2E;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.pod-reject-textarea {
+  border: none;
+  outline: none;
+  resize: vertical;
+  min-height: 70px;
+  font-size: 15px;
+  font-family: inherit;
+  color: #1A1A2E;
+  background: transparent;
+  padding: 0;
+}
+
+.pod-error-text {
+  font-size: 12px;
+  color: #E25C5C;
+  font-weight: 500;
+  margin-top: -10px;
+}
+
+.pod-modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.pod-modal-ok {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* ══════════════════════════════
+   LOADING / ERROR STATES
+══════════════════════════════ */
+.pod-state {
+  text-align: center;
+  color: #6B6B7B;
+  font-size: 15px;
+  padding: 20px 0;
+}
+
+.pod-state-error {
+  color: #E25C5C;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}

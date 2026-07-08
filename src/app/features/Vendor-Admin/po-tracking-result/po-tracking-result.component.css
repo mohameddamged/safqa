@@ -1,0 +1,197 @@
+/* ══════════════════════════════
+   BREADCRUMB
+══════════════════════════════ */
+.potr-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 48px 0;
+}
+
+.potr-breadcrumb-link {
+  font-size: 14px;
+  color: var(--Color-Secondary-secondaryBaseTurq, #25B6AB);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.potr-breadcrumb-link:hover {
+  opacity: 0.75;
+}
+
+.potr-breadcrumb-sep {
+  display: flex;
+  align-items: center;
+}
+
+.potr-breadcrumb-current {
+  font-size: 14px;
+  color: var(--Color-Secondary-secondaryBaseTurq, #25B6AB);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* ══════════════════════════════
+   PAGE / CARD
+══════════════════════════════ */
+.potr-page {
+  padding: 24px 48px 60px;
+}
+
+.potr-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 36px 40px;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+.potr-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #1A1A2E;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.potr-waiting {
+  font-size: 14.5px;
+  color: #25B6AB;
+  background: #EAF9F7;
+  border-radius: 14px;
+  padding: 16px 20px;
+  line-height: 1.6;
+}
+
+/* ── Sections ── */
+.potr-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.potr-section-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin: 0;
+}
+
+.potr-hint {
+  font-size: 13px;
+  color: #25B6AB;
+  line-height: 1.6;
+  margin: -6px 0 0;
+}
+
+/* ── Status boxes ── */
+.potr-status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.potr-status-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.potr-status-box {
+  border: 1.5px solid #E9E9F0;
+  border-radius: 16px;
+  padding: 22px 12px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: #B9B9C4;
+  line-height: 1.4;
+}
+
+.potr-status-box-active {
+  border-color: #E47C55;
+  color: #1A1A2E;
+}
+
+/* ── Complaint fields ── */
+.potr-field {
+  border: 1.5px solid #D8F0EE;
+  border-radius: 14px;
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.potr-field-label {
+  font-size: 12px;
+  color: #9C9CAA;
+  font-weight: 600;
+}
+
+.potr-field-value {
+  font-size: 15px;
+  color: #1A1A2E;
+  font-weight: 600;
+}
+
+.potr-field-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+/* ── Complaint photos ── */
+.potr-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+.potr-photo {
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #EDEDF2;
+  display: block;
+}
+
+.potr-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Loading / error states ── */
+.potr-state-text {
+  font-size: 15px;
+  color: #9C9CAA;
+  margin: 0;
+}
+
+.potr-state-error {
+  color: #E24C4C;
+}
+
+.potr-retry-btn {
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: 1.5px solid #25B6AB;
+  background: #FFFFFF;
+  color: #25B6AB;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .potr-photos-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

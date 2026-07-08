@@ -1,0 +1,203 @@
+/* ══════════════════════════════
+   PAGE
+══════════════════════════════ */
+.bank-page {
+  padding: 36px 40px 60px;
+  min-height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* ══════════════════════════════
+   CARD
+══════════════════════════════ */
+.bank-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 36px 40px 40px;
+  width: 100%;
+  max-width: 740px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  border: 1px solid #F0EDE8;
+}
+
+.card-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin: 0 0 6px;
+}
+
+/* ══════════════════════════════
+   FIELD
+══════════════════════════════ */
+.field-wrap {
+  position: relative;
+  border: 1.5px solid #25B6AB;
+  border-radius: 50px;
+  padding: 12px 22px 13px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: box-shadow 0.15s;
+}
+
+.field-wrap:focus-within {
+  box-shadow: 0 0 0 3px rgba(37,182,171,0.12);
+}
+
+.field-wrap.half { flex: 1; }
+
+.field-label {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #1A1A2E;
+  letter-spacing: 0.1px;
+}
+
+.field-input {
+  border: none;
+  outline: none;
+  font-size: 15px;
+  font-weight: 400;
+  color: #1A1A2E;
+  background: transparent;
+  padding: 0;
+  width: 100%;
+}
+
+.field-input::placeholder { color: #CCCCCC; }
+
+/* Row for side-by-side fields */
+.fields-row {
+  display: flex;
+  gap: 16px;
+}
+
+/* ══════════════════════════════
+   SAVE BUTTON
+══════════════════════════════ */
+.btn-save {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(90deg, #E47C55 0%, #EFA063 100%);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: opacity 0.18s;
+  margin-top: 6px;
+  letter-spacing: 0.2px;
+}
+
+.btn-save:hover { opacity: 0.9; }
+
+/* ══════════════════════════════
+   SUCCESS MODAL
+══════════════════════════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 36px 32px 28px;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1A1A2E;
+  text-align: center;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Badge + checkmark */
+.badge-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-img {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+}
+
+/* Security list */
+.security-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.security-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14.5px;
+  font-weight: 400;
+  color: #1A1A2E;
+  line-height: 1.4;
+}
+
+.security-item svg {
+  flex-shrink: 0;
+}
+
+/* OK button */
+.btn-ok {
+  width: 100%;
+  padding: 17px;
+  background: linear-gradient(90deg, #E47C55 0%, #EFA063 100%);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: opacity 0.18s;
+  margin-top: 4px;
+}
+
+.btn-ok:hover { opacity: 0.9; }
+
+/* ── Validation error state ── */
+.field-wrap.field-error {
+  border-color: #E53535;
+}
+
+.error-msg {
+  font-size: 11px;
+  font-weight: 500;
+  color: #E53535;
+  margin-top: 2px;
+  display: block;
+}

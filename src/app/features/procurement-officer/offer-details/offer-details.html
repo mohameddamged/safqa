@@ -1,0 +1,216 @@
+<div class="offer-details-page">
+
+  <div class="breadcrumb">
+    <a routerLink="/procurement-officer/vendor-offers" class="breadcrumb-link">Vendor Offers</a>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#25B6AB"
+      stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+    <a [routerLink]="['/procurement-officer/vendor-offers', rfqId, 'offers']"
+      class="breadcrumb-link">Offers</a>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#25B6AB"
+      stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+    <span class="breadcrumb-current">Offer Details</span>
+  </div>
+
+  @if (isLoading) { <div class="state-msg">Loading...</div> }
+  @if (error)     { <div class="state-msg error-msg">{{ error }}</div> }
+
+  @if (offer && !isLoading) {
+    <div class="card">
+
+      <!-- Title row -->
+      <div class="title-row">
+        <h1 class="rfq-title">{{ offer.rfqTitle }}</h1>
+        <span class="status-badge" [ngClass]="'status-' + (offer.status ?? 'draft').toLowerCase()">
+          {{ offer.status }}
+        </span>
+      </div>
+
+      <h2 class="section-title">Offer Info from: [{{ offer.vendorName ?? offer.companyName }}]</h2>
+
+      <div class="field-group two-col">
+        <div class="field full-width">
+          <label class="field-label">Item Name</label>
+          <div class="field-value">{{ offer.itemName ?? offer.productName ?? '—' }}</div>
+        </div>
+      </div>
+
+      <div class="field-group two-col">
+        <div class="field">
+          <label class="field-label">Quantity</label>
+          <div class="field-value">{{ offer.quantity }}</div>
+        </div>
+        <div class="field">
+          <label class="field-label">Unit of Measurement</label>
+          <div class="field-value">{{ offer.unit }}</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <div class="field full-width">
+          <label class="field-label">Technical Specs</label>
+          <div class="field-value specs">{{ offer.technicalSpecification ?? '—' }}</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <div class="field full-width">
+          <label class="field-label">Additional Notes</label>
+          <div class="field-value">{{ offer.additionalNotes ?? '—' }}</div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Cost Info</h2>
+      <div class="field-group two-col">
+        <div class="field">
+          <label class="field-label">Cost</label>
+          <div class="field-value">{{ offer.cost }}</div>
+        </div>
+        <div class="field">
+          <label class="field-label">Currency</label>
+          <div class="field-value">{{ offer.currency }}</div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Delivery Info</h2>
+      <div class="field-group two-col">
+        <div class="field">
+          <label class="field-label">Offer Validity</label>
+          <div class="field-value">{{ formatDate(offer.offerDeadline) }}</div>
+        </div>
+        <div class="field">
+          <label class="field-label">Delivery Deadline</label>
+          <div class="field-value">{{ formatDate(offer.deliveryDeadline) }}</div>
+        </div>
+      </div>
+
+      <!-- ── Vendor Performance Panel (AI) ────────────────────── -->
+      @if (vendorPerf || isPerfLoading) {
+        <div class="perf-section">
+          <div class="perf-header" (click)="togglePerfPanel()">
+            <span class="perf-title">✦ AI Vendor Performance Analysis</span>
+            <span class="perf-toggle">{{ showPerfPanel ? '▲' : '▼' }}</span>
+          </div>
+
+          @if (isPerfLoading) {
+            <div class="perf-loading">Analysing vendor performance...</div>
+          }
+
+          @if (showPerfPanel && vendorPerf && !isPerfLoading) {
+            <div class="perf-body">
+
+              <!-- Scores -->
+              <div class="perf-scores">
+                <div class="perf-score-card">
+                  <div class="perf-score-value">{{ vendorPerf.aiOverallScore | number:'1.0-1' }}</div>
+                  <div class="perf-score-label">Overall Score</div>
+                </div>
+                <div class="perf-score-card">
+                  <div class="perf-score-value">{{ vendorPerf.negotiationScore | number:'1.0-1' }}</div>
+                  <div class="perf-score-label">Negotiation</div>
+                </div>
+                <div class="perf-score-card">
+                  <div class="perf-score-value">{{ vendorPerf.deliveryScore | number:'1.0-1' }}</div>
+                  <div class="perf-score-label">Delivery</div>
+                </div>
+              </div>
+
+              @if (vendorPerf.summary) {
+                <p class="perf-summary">{{ vendorPerf.summary }}</p>
+              }
+
+              @if (vendorPerf.recommendation) {
+                <div class="perf-recommendation">
+                  <strong>AI Recommendation:</strong> {{ vendorPerf.recommendation }}
+                </div>
+              }
+
+              <!-- Strengths / Weaknesses -->
+              <div class="perf-sw">
+                @if (vendorPerf.strengths?.length) {
+                  <div class="perf-col">
+                    <div class="perf-col-title strength-title">✓ Strengths</div>
+                    @for (s of vendorPerf.strengths; track $index) {
+                      <div class="perf-item">{{ s }}</div>
+                    }
+                  </div>
+                }
+                @if (vendorPerf.weaknesses?.length) {
+                  <div class="perf-col">
+                    <div class="perf-col-title weakness-title">✗ Weaknesses</div>
+                    @for (w of vendorPerf.weaknesses; track $index) {
+                      <div class="perf-item">{{ w }}</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Metrics -->
+              @if (vendorPerf.metrics) {
+                <div class="perf-metrics">
+                  <div class="metric-item">
+                    <span class="metric-label">Completed Orders</span>
+                    <span class="metric-value">{{ vendorPerf.metrics.completedOrders }}</span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-label">On-Time Deliveries</span>
+                    <span class="metric-value">{{ vendorPerf.metrics.onTimeDeliveries }}</span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-label">Late Deliveries</span>
+                    <span class="metric-value">{{ vendorPerf.metrics.lateDeliveries }}</span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-label">Avg Delay (days)</span>
+                    <span class="metric-value">{{ vendorPerf.metrics.averageDelayDays | number:'1.0-1' }}</span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-label">RFQ Response Rate</span>
+                    <span class="metric-value">{{ vendorPerf.metrics.rfqResponseRate | number:'1.0-0' }}%</span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-label">Complaint Rate</span>
+                    <span class="metric-value">{{ vendorPerf.metrics.complaintRate | number:'1.0-1' }}%</span>
+                  </div>
+                </div>
+              }
+
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Actions -->
+      @if (actionError)   { <div class="action-error">{{ actionError }}</div> }
+      @if (actionSuccess) { <div class="action-success">{{ actionSuccess }}</div> }
+
+      @if (canAct && !actionSuccess) {
+        <div class="actions">
+          <button class="btn-accept" [disabled]="isAccepting || isRejecting" (click)="accept()">
+            {{ isAccepting ? 'Processing...' : 'Turn To A PO' }}
+          </button>
+          <a [routerLink]="['/procurement-officer/vendor-offers', rfqId, 'offers', offerId, 'negotiate']"
+            class="btn-negotiate">
+            Negotiate
+          </a>
+          <button class="btn-reject" [disabled]="isAccepting || isRejecting" (click)="reject()">
+            {{ isRejecting ? 'Rejecting...' : 'Reject' }}
+          </button>
+        </div>
+      }
+
+      @if (!canAct && !actionSuccess) {
+        <div class="status-info">
+          This offer is <strong>{{ offer.status }}</strong> and cannot be acted upon.
+          @if (isUnderNegotiation) {
+            — Negotiation: <strong>{{ offer.negotiation }}</strong>
+          }
+        </div>
+      }
+
+    </div>
+  }
+</div>

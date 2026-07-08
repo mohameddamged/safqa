@@ -1,0 +1,41 @@
+.dashboard {
+  max-width: 480px;
+  margin: 64px auto;
+  padding: 32px;
+  text-align: center;
+}
+
+.dashboard__details {
+  margin: 24px 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 16px;
+  text-align: left;
+}
+
+.dashboard__details dt {
+  font-weight: 600;
+  color: var(--safqa-text-secondary);
+}
+
+.dashboard__actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.dashboard__actions button {
+  height: 44px;
+  padding: 0 20px;
+  border-radius: var(--safqa-radius-pill);
+  border: 1.5px solid var(--safqa-teal);
+  background: #fff;
+  color: var(--safqa-teal);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.dashboard__actions button:hover {
+  background: var(--safqa-teal-100);
+}

@@ -1,0 +1,237 @@
+<nav class="h-full w-64 bg-white border-r border-gray-100 flex flex-col text-[#2E1911]">
+
+  <ul class="space-y-1 flex-grow overflow-y-auto py-2">
+
+    <!-- Profile -->
+    <li>
+      <a routerLink="/system-admin/dashboard" routerLinkActive="active-link"
+        class="relative flex items-center gap-3 p-3 transition-all hover:bg-gray-50 rounded-lg">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20.5899 22C20.5899 18.13 16.7399 15 11.9999 15C7.25991 15 3.40991 18.13 3.40991 22" stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1.5 bg-orange-500"></span>
+        <span class="ml-2">Dashboard</span>
+      </a>
+    </li>
+
+    <!-- Verification -->
+    <li>
+      <button (click)="isVerificationOpen = !isVerificationOpen"
+        class="flex items-center w-full gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#4C291C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7.75 11.9999L10.58 14.8299L16.25 9.16992" stroke="#4C291C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="ml-2">Verification</span>
+        <span class="ml-auto text-[10px]">{{ isVerificationOpen ? '▲' : '▼' }}</span>
+      </button>
+      @if (isVerificationOpen) {
+      <ul class="pl-12 mt-1 space-y-1">
+        <li>
+          <a routerLink="/system-admin/verifications/companies" routerLinkActive="active-link"
+            class="relative flex items-center gap-3 p-2 text-sm text-gray-500 hover:text-orange-500 rounded-lg transition-colors">
+            <svg width="16" height="23" viewBox="0 0 16 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.5 22.5H4.5C2.29086 22.5 0.5 20.7091 0.5 18.5V0.5" stroke="#B5B5B5" stroke-linecap="round"/>
+            </svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.5 7.66952V6.69952C7.5 4.44952 9.31 2.23952 11.56 2.02952C14.24 1.76952 16.5 3.87952 16.5 6.50952V7.88952" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9.0008 22H15.0008C19.0208 22 19.7408 20.39 19.9508 18.43L20.7008 12.43C20.9708 9.99 20.2708 8 16.0008 8H8.0008C3.7308 8 3.0308 9.99 3.3008 12.43L4.0508 18.43C4.2608 20.39 4.9808 22 9.0008 22Z" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1 bg-orange-500"></span>
+            <span>Companies</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/system-admin/verifications/vendors" routerLinkActive="active-link"
+            class="relative flex items-center gap-3 p-2 text-sm text-gray-500 hover:text-orange-500 rounded-lg transition-colors">
+            <svg width="16" height="23" viewBox="0 0 16 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.5 22.5H4.5C2.29086 22.5 0.5 20.7091 0.5 18.5V0.5" stroke="#B5B5B5" stroke-linecap="round"/>
+            </svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4.17038 15.2998L8.70038 19.8298C10.5604 21.6898 13.5804 21.6898 15.4504 19.8298L19.8404 15.4398C21.7004 13.5798 21.7004 10.5598 19.8404 8.6898L15.3004 4.1698C14.3504 3.2198 13.0404 2.7098 11.7004 2.7798L6.70038 3.0198C4.70038 3.1098 3.11038 4.6998 3.01038 6.6898L2.77038 11.6898C2.71038 13.0398 3.22038 14.3498 4.17038 15.2998Z" stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9.5 12C10.8807 12 12 10.8807 12 9.5C12 8.11929 10.8807 7 9.5 7C8.11929 7 7 8.11929 7 9.5C7 10.8807 8.11929 12 9.5 12Z" stroke="#2E1911" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1 bg-orange-500"></span>
+            <span>Vendors</span>
+          </a>
+        </li>
+      </ul>
+      }
+    </li>
+
+    <!-- Companies -->
+    <li>
+      <a routerLink="/system-admin/companies" routerLinkActive="active-link"
+        class="relative flex items-center gap-3 p-3 transition-all hover:bg-gray-50 rounded-lg">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.5 7.66952V6.69952C7.5 4.44952 9.31 2.23952 11.56 2.02952C14.24 1.76952 16.5 3.87952 16.5 6.50952V7.88952" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9.0008 22H15.0008C19.0208 22 19.7408 20.39 19.9508 18.43L20.7008 12.43C20.9708 9.99 20.2708 8 16.0008 8H8.0008C3.7308 8 3.0308 9.99 3.3008 12.43L4.0508 18.43C4.2608 20.39 4.9808 22 9.0008 22Z" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15.4945 12H15.5035" stroke="#2E1911" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8.49451 12H8.50349" stroke="#2E1911" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1.5 bg-orange-500"></span>
+        <span class="ml-2">Companies</span>
+      </a>
+    </li>
+
+    <!-- Vendors -->
+    <li>
+      <a routerLink="/system-admin/vendors" routerLinkActive="active-link"
+        class="relative flex items-center gap-3 p-3 transition-all hover:bg-gray-50 rounded-lg">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.17038 15.2998L8.70038 19.8298C10.5604 21.6898 13.5804 21.6898 15.4504 19.8298L19.8404 15.4398C21.7004 13.5798 21.7004 10.5598 19.8404 8.6898L15.3004 4.1698C14.3504 3.2198 13.0404 2.7098 11.7004 2.7798L6.70038 3.0198C4.70038 3.1098 3.11038 4.6998 3.01038 6.6898L2.77038 11.6898C2.71038 13.0398 3.22038 14.3498 4.17038 15.2998Z" stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9.5 12C10.8807 12 12 10.8807 12 9.5C12 8.11929 10.8807 7 9.5 7C8.11929 7 7 8.11929 7 9.5C7 10.8807 8.11929 12 9.5 12Z" stroke="#2E1911" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1.5 bg-orange-500"></span>
+        <span class="ml-2">Vendors</span>
+      </a>
+    </li>
+
+    <!-- Subscriptions -->
+    <li>
+      <a routerLink="/system-admin/subscriptions" routerLinkActive="active-link"
+        class="relative flex items-center gap-3 p-3 transition-all hover:bg-gray-50 rounded-lg">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14.8 8.99918C14.6188 8.68494 14.3557 8.42588 14.0386 8.24973C13.7215 8.07358 13.3625 7.98698 13 7.99918H11C10.4696 7.99918 9.96086 8.20989 9.58579 8.58497C9.21071 8.96004 9 9.46875 9 9.99918C9 10.5296 9.21071 11.0383 9.58579 11.4134C9.96086 11.7885 10.4696 11.9992 11 11.9992H13C13.5304 11.9992 14.0391 12.2099 14.4142 12.585C14.7893 12.96 15 13.4687 15 13.9992C15 14.5296 14.7893 15.0383 14.4142 15.4134C14.0391 15.7885 13.5304 15.9992 13 15.9992H11C10.6375 16.0114 10.2785 15.9248 9.96142 15.7486C9.64435 15.5725 9.38115 15.3134 9.2 14.9992M12 7V17M3 12C3 13.1819 3.23279 14.3522 3.68508 15.4442C4.13738 16.5361 4.80031 17.5282 5.63604 18.364C6.47177 19.1997 7.46392 19.8626 8.55585 20.3149C9.64778 20.7672 10.8181 21 12 21C13.1819 21 14.3522 20.7672 15.4442 20.3149C16.5361 19.8626 17.5282 19.1997 18.364 18.364C19.1997 17.5282 19.8626 16.5361 20.3149 15.4442C20.7672 14.3522 21 13.1819 21 12C21 10.8181 20.7672 9.64778 20.3149 8.55585C19.8626 7.46392 19.1997 6.47177 18.364 5.63604C17.5282 4.80031 16.5361 4.13738 15.4442 3.68508C14.3522 3.23279 13.1819 3 12 3C10.8181 3 9.64778 3.23279 8.55585 3.68508C7.46392 4.13738 6.47177 4.80031 5.63604 5.63604C4.80031 6.47177 4.13738 7.46392 3.68508 8.55585C3.23279 9.64778 3 10.8181 3 12Z" stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1.5 bg-orange-500"></span>
+        <span class="ml-2">Subscriptions</span>
+      </a>
+    </li>
+
+    <!-- RFQs -->
+    <li>
+      <a routerLink="/system-admin/rfqs" routerLinkActive="active-link"
+        class="relative flex items-center gap-3 p-3 transition-all hover:bg-gray-50 rounded-lg">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 3V7C14 7.26522 14.1054 7.51957 14.2929 7.70711C14.4804 7.89464 14.7348 8 15 8H19M19 8L14 3H7C6.46957 3 5.96086 3.21071 5.58579 3.58579C5.21071 3.96086 5 4.46957 5 5V19C5 19.5304 5.21071 20.0391 5.58579 20.4142C5.96086 20.7893 6.46957 21 7 21H17C17.5304 21 18.0391 20.7893 18.4142 20.4142C18.7893 20.0391 19 19.5304 19 19V8ZM9 17H15M9 13H15" stroke="#4C291C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1.5 bg-orange-500"></span>
+        <span class="ml-2">RFQs</span>
+      </a>
+    </li>
+
+    <!-- Tenders -->
+    <!-- <li>
+      <a routerLink="/system-admin/tenders" routerLinkActive="active-link"
+        class="relative flex items-center gap-3 p-3 transition-all hover:bg-gray-50 rounded-lg">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 6H16M8 10H16M8 14H12M5 3H19C19.5523 3 20 3.44772 20 4V20C20 20.5523 19.5523 21 19 21H5C4.44772 21 4 20.5523 4 20V4C4 3.44772 4.44772 3 5 3Z" stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1.5 bg-orange-500"></span>
+        <span class="ml-2">Tenders</span>
+      </a>
+    </li> -->
+
+    <!-- Categories -->
+    <li>
+      <a routerLink="/system-admin/categories" routerLinkActive="active-link"
+        class="relative flex items-center gap-3 p-3 transition-all hover:bg-gray-50 rounded-lg">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22 8.27V4.23C22 2.64 21.36 2 19.77 2H15.73C14.14 2 13.5 2.64 13.5 4.23V8.27C13.5 9.86 14.14 10.5 15.73 10.5H19.77C21.36 10.5 22 9.86 22 8.27Z" stroke="#4C291C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M10.5 8.52V3.98C10.5 2.57 9.86 2 8.27 2H4.23C2.64 2 2 2.57 2 3.98V8.51C2 9.93 2.64 10.49 4.23 10.49H8.27C9.86 10.5 10.5 9.93 10.5 8.52Z" stroke="#4C291C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M10.5 19.77V15.73C10.5 14.14 9.86 13.5 8.27 13.5H4.23C2.64 13.5 2 14.14 2 15.73V19.77C2 21.36 2.64 22 4.23 22H8.27C9.86 22 10.5 21.36 10.5 19.77Z" stroke="#4C291C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14.5 17.5H20.5" stroke="#4C291C" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M17.5 20.5V14.5" stroke="#2E1911" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1.5 bg-orange-500"></span>
+        <span class="ml-2">Categories</span>
+      </a>
+    </li>
+
+    <!-- Escrow Payments -->
+    <li>
+      <button (click)="isEscrowOpen = !isEscrowOpen"
+        class="flex items-center w-full gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 9.5V14.5C2 17 3.5 18.5 6 18.5H18C20.5 18.5 22 17 22 14.5V9.5C22 7 20.5 5.5 18 5.5H6C3.5 5.5 2 7 2 9.5Z" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 2.5V5.5" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 2.5V5.5" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M17 2.5V5.5" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 13H8" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11 13H16" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 18.5L2 21.5" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 18.5V21.5" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="ml-2">Escrow Payments</span>
+        <span class="ml-auto text-[10px]">{{ isEscrowOpen ? '▲' : '▼' }}</span>
+      </button>
+      @if (isEscrowOpen) {
+      <ul class="pl-12 mt-1 space-y-1">
+        <li>
+          <a routerLink="/system-admin/escrow-payments/companies" routerLinkActive="active-link"
+            class="relative flex items-center gap-3 p-2 text-sm text-gray-500 hover:text-orange-500 rounded-lg transition-colors">
+            <svg width="16" height="23" viewBox="0 0 16 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.5 22.5H4.5C2.29086 22.5 0.5 20.7091 0.5 18.5V0.5" stroke="#B5B5B5" stroke-linecap="round"/>
+            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 9.5V14.5C3 17 4 18 6.5 18H17.5C20 18 21 17 21 14.5V9.5C21 7 20 6 17.5 6H6.5C4 6 3 7 3 9.5Z" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 3V6" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7 3V6" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M17 3V6" stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1 bg-orange-500"></span>
+            <span>Companies</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/system-admin/escrow-payments/safqa" routerLinkActive="active-link"
+            class="relative flex items-center gap-3 p-2 text-sm text-gray-500 hover:text-orange-500 rounded-lg transition-colors">
+            <svg width="16" height="23" viewBox="0 0 16 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.5 22.5H4.5C2.29086 22.5 0.5 20.7091 0.5 18.5V0.5" stroke="#B5B5B5" stroke-linecap="round"/>
+            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 7H3C2.44772 7 2 7.44772 2 8V17C2 17.5523 2.44772 18 3 18H21C21.5523 18 22 17.5523 22 17V8C22 7.44772 21.5523 7 21 7Z" stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16 13C16 14.1046 15.1046 15 14 15H10C8.89543 15 8 14.1046 8 13C8 11.8954 8.89543 11 10 11H14C15.1046 11 16 11.8954 16 13Z" stroke="#2E1911" stroke-width="1.5"/>
+            </svg>
+            <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1 bg-orange-500"></span>
+            <span>Safqa Payments</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/system-admin/escrow-payments/returned-funds" routerLinkActive="active-link"
+            class="relative flex items-center gap-3 p-2 text-sm text-gray-500 hover:text-orange-500 rounded-lg transition-colors">
+            <svg width="16" height="23" viewBox="0 0 16 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.5 22.5H4.5C2.29086 22.5 0.5 20.7091 0.5 18.5V0.5" stroke="#B5B5B5" stroke-linecap="round"/>
+            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 9L3 15L9 21" stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3 15H16C18.7614 15 21 12.7614 21 10V3" stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1 bg-orange-500"></span>
+            <span>Returned Funds</span>
+          </a>
+        </li>
+      </ul>
+      }
+    </li>
+
+    <!-- Support & Disputes -->
+    <!-- <li>
+      <a routerLink="/system-admin/support" routerLinkActive="active-link"
+        class="relative flex items-center gap-3 p-3 transition-all hover:bg-gray-50 rounded-lg">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.4901 2.23055L5.50015 4.10054C4.35015 4.53054 3.41016 5.89053 3.41016 7.12053V14.5505C3.41016 15.7305 4.19017 17.2805 5.14017 17.9905L9.44016 21.2005C10.8502 22.2605 13.1701 22.2605 14.5801 21.2005L18.8802 17.9905C19.8302 17.2805 20.6101 15.7305 20.6101 14.5505V7.12053C20.6101 5.89053 19.6701 4.53054 18.5201 4.10054L13.5302 2.23055C12.6802 1.92055 11.3201 1.92055 10.4901 2.23055Z" stroke="#4C291C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11.9997 10.9204C11.9597 10.9204 11.9097 10.9204 11.8697 10.9204C10.9297 10.8904 10.1797 10.1104 10.1797 9.1604C10.1797 8.1904 10.9697 7.40039 11.9397 7.40039C12.9097 7.40039 13.6997 8.1904 13.6997 9.1604C13.6897 10.1204 12.9397 10.8904 11.9997 10.9204Z" stroke="#4C291C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M10.0091 13.7213C9.04906 14.3613 9.04906 15.4113 10.0091 16.0513C11.0991 16.7813 12.8891 16.7813 13.9791 16.0513C14.9391 15.4113 14.9391 14.3613 13.9791 13.7213C12.8991 12.9913 11.1091 12.9913 10.0091 13.7213Z" stroke="#4C291C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1.5 bg-orange-500"></span>
+        <span class="ml-2">Support & Disputes</span>
+      </a>
+    </li> -->
+
+  </ul>
+
+  <div class="mt-auto pt-4 border-t border-gray-100">
+    <button (click)="logout()"
+      class="flex items-center gap-3 p-3 w-full text-red-500 hover:bg-red-50 rounded-lg transition-all">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.90039 7.56023C9.21039 3.96023 11.0604 2.49023 15.1104 2.49023H15.2404C19.7104 2.49023 21.5004 4.28023 21.5004 8.75023V15.2702C21.5004 19.7402 19.7104 21.5302 15.2404 21.5302H15.1104C11.0904 21.5302 9.24039 20.0802 8.91039 16.5402" stroke="#FC161A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14.9991 12H3.61914" stroke="#FC161A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M5.85 8.65039L2.5 12.0004L5.85 15.3504" stroke="#FC161A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="font-medium">Logout</span>
+    </button>
+  </div>
+</nav>

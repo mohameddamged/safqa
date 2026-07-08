@@ -1,0 +1,128 @@
+.fm-pr {
+  max-width: 860px;
+}
+
+.fm-pr__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--safqa-teal);
+  margin-bottom: 16px;
+}
+
+.fm-pr__breadcrumb a {
+  color: var(--safqa-teal);
+  text-decoration: none;
+}
+
+.fm-pr__breadcrumb-current {
+  text-decoration: underline;
+}
+
+.fm-pr__loading,
+.fm-pr__empty {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+  color: var(--safqa-text-secondary);
+}
+
+.fm-pr__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--safqa-teal-soft);
+  border-top-color: var(--safqa-teal);
+  border-radius: 50%;
+  animation: fm-pr-spin 0.7s linear infinite;
+}
+
+@keyframes fm-pr-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fm-pr__card {
+  background: var(--safqa-surface);
+  border-radius: var(--safqa-radius-md);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fm-pr__title {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+}
+
+.fm-pr__section-title {
+  font-size: 1.1rem;
+  color: var(--safqa-teal);
+  margin: 12px 0 4px;
+}
+
+.fm-pr__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.fm-pr__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 16px;
+  border: 1.5px solid var(--safqa-teal-soft);
+  border-radius: var(--safqa-radius-pill);
+}
+
+.fm-pr__field--block {
+  border-radius: var(--safqa-radius-md);
+}
+
+.fm-pr__field-label {
+  font-size: 0.72rem;
+  color: var(--safqa-text-muted);
+}
+
+.fm-pr__field-value {
+  font-size: 0.92rem;
+  color: var(--safqa-text-primary);
+  margin: 0;
+  white-space: pre-line;
+}
+
+.fm-pr__actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.fm-pr__reject {
+  border: 1.5px solid var(--safqa-gradient-start);
+  background: none;
+  color: var(--safqa-gradient-start);
+  border-radius: var(--safqa-radius-pill);
+  padding: 14px 32px;
+  font-family: var(--safqa-font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.fm-pr__reject:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .fm-pr__row {
+    grid-template-columns: 1fr;
+  }
+
+  .fm-pr__actions {
+    flex-direction: column;
+  }
+}

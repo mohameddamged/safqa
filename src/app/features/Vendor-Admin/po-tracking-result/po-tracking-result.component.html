@@ -1,0 +1,117 @@
+<!-- Breadcrumb -->
+<div class="potr-breadcrumb">
+  <a class="potr-breadcrumb-link" (click)="goToAllPos()">All POs</a>
+  <span class="potr-breadcrumb-sep">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+      <path d="M9 6l6 6-6 6" stroke="#25B6AB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+  <span class="potr-breadcrumb-current">PO Track Shipping</span>
+</div>
+
+<!-- Loading state -->
+<div class="potr-page" *ngIf="loading">
+  <div class="potr-card">
+    <p class="potr-state-text">جاري تحميل حالة الطلب...</p>
+  </div>
+</div>
+
+<!-- Error state -->
+<div class="potr-page" *ngIf="!loading && errorMessage">
+  <div class="potr-card">
+    <p class="potr-state-text potr-state-error">{{ errorMessage }}</p>
+    <button class="potr-retry-btn" (click)="load()">إعادة المحاولة</button>
+  </div>
+</div>
+
+<!-- Main content -->
+<div class="potr-page" *ngIf="!loading && !errorMessage && tracking">
+  <div class="potr-card">
+
+    <h1 class="potr-title">Track [{{ tracking.poName }}]: {{ tracking.orderNumber }}</h1>
+
+    <!-- Still on the way, no final outcome yet -->
+    <div class="potr-waiting" *ngIf="isStillOnTheWay()">
+      الشحنة لسه في الطريق. هيظهر هنا وضع التسليم النهائي بمجرد ما الشركة تأكد استلام الطلب.
+    </div>
+
+    <ng-container *ngIf="!isStillOnTheWay()">
+
+      <!-- Delivery status -->
+      <div class="potr-section">
+        <h2 class="potr-section-title">Delivery Status</h2>
+        <p class="potr-hint">
+          This status is recorded by Company. If there is any complains Safqa team will review this as soon as
+          possible in 7 work-days then will pay you your order according to delivery actual status. Once transaction
+          is successful the invoice will be shown in Invoices screen.
+        </p>
+
+        <div class="potr-status-grid">
+          <div class="potr-status-box" [class.potr-status-box-active]="isDeliveredSuccessfully()">
+            Delivered<br />Successfully
+          </div>
+          <div class="potr-status-box" [class.potr-status-box-active]="isPartiallyDelivered()">
+            Partially<br />Delivered
+          </div>
+          <div class="potr-status-box" [class.potr-status-box-active]="isDeliveredWithDamages()">
+            Delivered<br />with demages
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment status -->
+      <div class="potr-section">
+        <h2 class="potr-section-title">Payment Status</h2>
+
+        <div class="potr-status-grid potr-status-grid-2">
+          <div class="potr-status-box" [class.potr-status-box-active]="isPendingPayment()">
+            Pending<br />Payment
+          </div>
+          <div class="potr-status-box" [class.potr-status-box-active]="isSuccessfulPayment()">
+            Successful Payment
+          </div>
+        </div>
+      </div>
+
+      <!-- Complaint details -->
+      <div class="potr-section" *ngIf="hasComplaint()">
+        <h2 class="potr-section-title">Complaint details</h2>
+
+        <div class="potr-field">
+          <span class="potr-field-label">Complaint Reason</span>
+          <span class="potr-field-value">{{ tracking.complaintDetails?.complaintReason || '-' }}</span>
+        </div>
+
+        <div class="potr-field-row">
+          <div class="potr-field">
+            <span class="potr-field-label">{{ isPartiallyDelivered() ? 'Number of Received Items' : 'Number of good items' }}</span>
+            <span class="potr-field-value">{{ tracking.complaintDetails?.receivedQuantity ?? '-' }}</span>
+          </div>
+          <div class="potr-field">
+            <span class="potr-field-label">{{ isPartiallyDelivered() ? 'Number of Dismissed Items' : 'Number of damaged items' }}</span>
+            <span class="potr-field-value">{{ tracking.complaintDetails?.damagedQuantity ?? '-' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Complaint photos -->
+      <div class="potr-section" *ngIf="isDeliveredWithDamages() && tracking.complaintPhotoUrls?.length">
+        <h2 class="potr-section-title">Complaint Photos</h2>
+
+        <div class="potr-photos-grid">
+          <a
+            class="potr-photo"
+            *ngFor="let photo of tracking.complaintPhotoUrls"
+            [href]="photoUrl(photo)"
+            target="_blank"
+            rel="noopener"
+          >
+            <img [src]="photoUrl(photo)" alt="Complaint photo" />
+          </a>
+        </div>
+      </div>
+
+    </ng-container>
+
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<app-fm-shell>
+  <div class="fm-pr">
+    <div class="fm-pr__breadcrumb">
+      <a routerLink="/financial-manager/paid-invoices">All Paid Invoices</a>
+      <span>›</span>
+      <span class="fm-pr__breadcrumb-current">Invoice Details</span>
+    </div>
+
+    @if (loading()) {
+      <div class="fm-pr__loading">
+        <span class="fm-pr__spinner" aria-hidden="true"></span>
+      </div>
+    } @else if (errored() || !details()) {
+      <div class="fm-pr__empty"><p>Could not load this invoice.</p></div>
+    } @else {
+      <div class="fm-pr__card">
+        <h1 class="fm-pr__title">Payment of: {{ poTitle() }}</h1>
+
+        <h2 class="fm-pr__section-title">Cost Info</h2>
+        <div class="fm-pr__row">
+          <div class="fm-pr__field">
+            <span class="fm-pr__field-label">Total Cost</span>
+            <p class="fm-pr__field-value">{{ details()!.totalCost | number:'1.2-2' }}</p>
+          </div>
+          <div class="fm-pr__field">
+            <span class="fm-pr__field-label">Currency</span>
+            <p class="fm-pr__field-value">{{ details()!.currency }}</p>
+          </div>
+        </div>
+
+        <h2 class="fm-pr__section-title">Safqa Bank Account Info</h2>
+        <div class="fm-pr__field fm-pr__field--block">
+          <span class="fm-pr__field-label">IBAN</span>
+          <p class="fm-pr__field-value">{{ details()!.safqaBankAccount?.iban || '—' }}</p>
+        </div>
+        <div class="fm-pr__field fm-pr__field--block">
+          <span class="fm-pr__field-label">Bank Name</span>
+          <p class="fm-pr__field-value">{{ details()!.safqaBankAccount?.bankName || '—' }}</p>
+        </div>
+        <div class="fm-pr__field fm-pr__field--block">
+          <span class="fm-pr__field-label">Account Holder</span>
+          <p class="fm-pr__field-value">{{ details()!.safqaBankAccount?.accountHolderName || '—' }}</p>
+        </div>
+
+        <h2 class="fm-pr__section-title">Vendor Info</h2>
+        <div class="fm-pr__field fm-pr__field--block">
+          <span class="fm-pr__field-label">Vendor Name</span>
+          <p class="fm-pr__field-value">{{ details()!.vendorName }}</p>
+        </div>
+
+        <div class="fm-pr__field fm-pr__field--block">
+          <span class="fm-pr__field-label">Status</span>
+          <p class="fm-pr__field-value">{{ details()!.status }}</p>
+        </div>
+      </div>
+    }
+  </div>
+</app-fm-shell>

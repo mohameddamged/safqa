@@ -1,0 +1,140 @@
+<div class="p-8 bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            @for (stat of stats(); track stat.title) {
+            <div
+                class="bg-white p-6 rounded-tr-[3rem] rounded-bl-[1rem] rounded-tl-[1rem] rounded-br-[1rem] border border-[#FAD7C5] shadow-sm flex justify-between items-end relative overflow-hidden transition-all hover:shadow-md">
+                <div class="relative z-10">
+                    <h3 class="text-[#2E1911] text-sm font-medium mb-1 opacity-80 uppercase tracking-wide">
+                        {{ stat.title }}
+                    </h3>
+                    <p class="text-[32px] font-bold text-[#25B6AB]">
+                        {{ stat.value }}
+                    </p>
+                </div>
+                <div class="relative z-10">
+                    <img [src]="stat.icon" class="w-10 h-10 object-contain opacity-90">
+                </div>
+                <div class="absolute -bottom-4 -right-4 w-20 h-20 bg-orange-50 rounded-full opacity-50"></div>
+            </div>
+            }
+        </div>
+
+        <div class="rounded-tr-[3rem] flex justify-between items-center mb-5">
+            <h2 class="text-xl font-bold text-[#2E1911]">All RFQs</h2>
+
+            <button (click)="isFilterOpen = true"
+                class="text-[#25B6AB] font-bold text-sm flex items-center gap-2 hover:opacity-80 transition-opacity">
+
+                Filter
+
+                <img src="/filter-edit.png" class="w-5 h-5 object-contain">
+            </button>
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+            <table class="w-full text-left">
+                <thead class="bg-[#FFF5F0]">
+                    <tr>
+                        <th class="p-6 text-gray-600 font-medium">ID</th>
+                        <th class="p-6 text-gray-600 font-medium">Company Name</th>
+                        <th class="p-6 text-gray-600 font-medium">Category</th>
+                        <th class="p-6 text-gray-600 font-medium">No. of offers</th>
+                        <th class="p-6 text-gray-600 font-medium">Status</th>
+                        <th class="p-6 text-gray-600 font-medium">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    @for (item of rfqs(); track item.id) {
+                    <tr>
+                        <td class="p-6">{{ item.id }}</td>
+                        <td class="p-6 font-semibold">{{ item.companyName }}</td>
+                        <td class="p-6 text-gray-600">{{ item.categoryName }}</td>
+                        <td class="p-6">{{ item.noOfOffers }}</td>
+                        <td class="p-4">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider"
+                                [ngStyle]="{
+      'background-color':
+        item.status === 'active' ? '#D4F6F3' :
+        item.status === 'closed' ? '#E6E6E6' :
+        item.status === 'pending' ? '#FCF1ED' :
+        item.status === 'expired' ? '#F9DBFA' :
+        '#D5E5F6',
+
+      'color':
+        item.status === 'active' ? '#25B6AB' :
+        item.status === 'closed' ? '#919191' :
+        item.status === 'pending' ? '#E779F1' :
+        item.status === 'expired' ? '#E87AED' :
+        '#13365C'
+    }">
+                                {{ item.status }}
+                            </span>
+                        </td>
+                        <td class="p-6 text-gray-500">{{ item.date | date:'dd/MM/yyyy' }}</td>
+                    </tr>
+                    } @empty {
+                    <tr>
+                        <td colspan="6" class="p-10 text-center text-gray-400">No data available</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@if (isFilterOpen) {
+<div class="fixed inset-0 bg-black/40 z-50 flex justify-center items-center p-4 backdrop-blur-sm">
+    <div class="bg-white p-8 rounded-3xl w-full max-w-sm shadow-2xl animate-in fade-in zoom-in duration-200">
+        <h3 class="font-bold text-lg mb-6 text-gray-800">Filter RFQs</h3>
+        <div class="flex flex-col gap-4">
+            @for (status of ['Active', 'Pending', 'Closed', 'Expired']; track status) {
+            <label
+                class="flex items-center gap-4 text-[16px] font-medium cursor-pointer text-[#4C291C] hover:text-orange-600 transition-colors py-1">
+                <input type="radio" name="status" (change)="selectedStatus = status" [value]="status"
+                    class="w-5 h-5 accent-[#4D4D4D] cursor-pointer">
+                {{ status }}
+            </label>
+            }
+            <div class="flex flex-col gap-3 mt-6">
+                <button (click)="applyFilter()"
+                    class="w-full text-white py-3 rounded-xl font-bold transition-all hover:opacity-90"
+                    style="background: linear-gradient(to right, #E47C55, #EFA063);">
+                    Apply
+                </button>
+
+                <button (click)="resetFilter()"
+                    class="w-full py-3 rounded-xl font-bold transition-all border border-[#E47C55] text-[#E47C55] hover:bg-[#FFF5F0]">
+                    Reset
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+
+@if (totalPages > 1) {
+<div class="flex justify-center items-center gap-6 py-6">
+    <span class="text-xl font-bold text-gray-500">
+        {{ currentPage }} / {{ totalPages }}
+    </span>
+
+    <div class="flex gap-3">
+        <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1"
+            class="w-14 h-14 rounded-full flex items-center justify-center border-2 border-gray-200 text-gray-300 disabled:opacity-50 transition-all">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6" />
+            </svg>
+        </button>
+
+        <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages"
+            class="w-14 h-14 rounded-full flex items-center justify-center border-2 border-[#EFA063] text-[#EFA063] disabled:opacity-50 transition-all hover:bg-orange-50">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" />
+            </svg>
+        </button>
+    </div>
+</div>
+}

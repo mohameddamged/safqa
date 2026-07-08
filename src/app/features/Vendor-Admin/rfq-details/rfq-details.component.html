@@ -1,0 +1,126 @@
+<!-- Breadcrumb -->
+<div class="rfqd-breadcrumb">
+  <a class="rfqd-breadcrumb-link" (click)="goBack()">All RFQs</a>
+  <span class="rfqd-breadcrumb-sep">
+    <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
+      <path d="M1 1L6 6L1 11" stroke="#25B6AB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+  <span class="rfqd-breadcrumb-current">RFQ Details</span>
+</div>
+
+<!-- Page wrapper -->
+<div class="rfqd-page">
+
+  <div *ngIf="loading" class="rfqd-field-value">Loading RFQ details...</div>
+  <div *ngIf="!loading && errorMessage" class="rfqd-field-value">{{ errorMessage }}</div>
+
+  <ng-container *ngIf="!loading && rfq">
+
+  <!-- Title -->
+  <h1 class="rfqd-title">RFQ title: {{ rfq.title }}</h1>
+
+  <!-- ── RFQ Info ── -->
+  <section class="rfqd-section">
+    <h2 class="rfqd-section-title">RFQ Info</h2>
+
+    <div class="rfqd-fields-row">
+      <div class="rfqd-field">
+        <span class="rfqd-field-label">Item Name</span>
+        <span class="rfqd-field-value">{{ rfq.itemName }}</span>
+      </div>
+      <div class="rfqd-field">
+        <span class="rfqd-field-label">Category</span>
+        <span class="rfqd-field-value">{{ rfq.category }}</span>
+      </div>
+    </div>
+
+    <div class="rfqd-fields-row">
+      <div class="rfqd-field">
+        <span class="rfqd-field-label">Quantity</span>
+        <span class="rfqd-field-value">{{ rfq.quantity }}</span>
+      </div>
+      <div class="rfqd-field">
+        <span class="rfqd-field-label">Unit of Measurement</span>
+        <span class="rfqd-field-value">{{ rfq.unitOfMeasurement }}</span>
+      </div>
+    </div>
+
+    <div class="rfqd-field rfqd-field-full">
+      <span class="rfqd-field-label">Technical Specs</span>
+      <span class="rfqd-field-value rfqd-multiline">{{ rfq.technicalSpecs }}</span>
+    </div>
+
+    <div class="rfqd-field rfqd-field-full">
+      <span class="rfqd-field-label">Additional Notes</span>
+      <span class="rfqd-field-value">{{ rfq.additionalNotes }}</span>
+    </div>
+  </section>
+
+  <!-- ── RFQ Deadline ── -->
+  <section class="rfqd-section">
+    <h2 class="rfqd-section-title">RFQ Deadline</h2>
+    <div class="rfqd-field rfqd-field-full">
+      <span class="rfqd-field-label">RFQ Deadline</span>
+      <span class="rfqd-field-value">{{ rfq.rfqDeadline }}</span>
+    </div>
+  </section>
+
+  <!-- ── Delivery Deadline ── -->
+  <section class="rfqd-section">
+    <h2 class="rfqd-section-title">Delivery Deadline</h2>
+    <div class="rfqd-field rfqd-field-full">
+      <span class="rfqd-field-label">Delivery Deadline</span>
+      <span class="rfqd-field-value">{{ rfq.deliveryDeadline }}</span>
+    </div>
+  </section>
+
+  <!-- ── Shipping Address ── -->
+  <section class="rfqd-section">
+    <h2 class="rfqd-section-title">Shipping Address</h2>
+
+    <div class="rfqd-fields-row">
+      <div class="rfqd-field">
+        <span class="rfqd-field-label">Country</span>
+        <span class="rfqd-field-value">{{ rfq.country }}</span>
+      </div>
+      <div class="rfqd-field">
+        <span class="rfqd-field-label">State / Region</span>
+        <span class="rfqd-field-value">{{ rfq.stateRegion }}</span>
+      </div>
+    </div>
+
+    <div class="rfqd-fields-row">
+      <div class="rfqd-field">
+        <span class="rfqd-field-label">City</span>
+        <span class="rfqd-field-value">{{ rfq.city }}</span>
+      </div>
+      <div class="rfqd-field">
+        <span class="rfqd-field-label">Street</span>
+        <span class="rfqd-field-value">{{ rfq.street }}</span>
+      </div>
+    </div>
+
+    <div class="rfqd-field rfqd-field-full">
+      <span class="rfqd-field-label">full Company Address</span>
+      <span class="rfqd-field-value">{{ rfq.fullCompanyAddress }}</span>
+    </div>
+  </section>
+
+  <!-- ── Additional Notes to Vendor ── -->
+  <section class="rfqd-section">
+    <h2 class="rfqd-section-title">Additional Notes to Vendor</h2>
+    <div class="rfqd-field rfqd-field-full">
+      <span class="rfqd-field-label">Notes</span>
+      <span class="rfqd-field-value">{{ rfq.notesToVendor }}</span>
+    </div>
+  </section>
+
+  </ng-container>
+
+</div>
+
+<!-- Apply An Offer sticky footer -->
+<div class="rfqd-footer" *ngIf="!loading && rfq && !hasExistingOffer">
+  <button class="rfqd-apply-btn" (click)="onApplyOffer()">Apply An Offer</button>
+</div>

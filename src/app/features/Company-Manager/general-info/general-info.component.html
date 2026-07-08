@@ -1,0 +1,133 @@
+<div class="geninfo-page">
+
+  <!-- ══ HERO: avatar + company name ══ -->
+  <div class="hero-section">
+    <div class="avatar-wrapper">
+      <div class="avatar-circle"></div>
+      <button class="avatar-edit-btn" title="Change photo">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="hero-info">
+      <div class="company-name-row">
+        <span class="company-name">{{ companyName }}</span>
+        <button class="name-edit-btn" title="Edit name">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="#3ECFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <span class="plan-badge">Free Plan</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONTENT: fields + images side by side ══ -->
+  <div class="content-row">
+
+    <!-- Left: form fields -->
+    <div class="fields-col">
+
+      <!-- Basic info fields -->
+      <div class="field-box">
+        <span class="field-label">Tax ID</span>
+        <span class="field-value">{{ taxId }}</span>
+      </div>
+      <div class="field-box">
+        <span class="field-label">Work e-mail</span>
+        <span class="field-value">{{ workEmail }}</span>
+      </div>
+      <div class="field-box">
+        <span class="field-label">Phone Number</span>
+        <span class="field-value">{{ phoneNumber }}</span>
+      </div>
+
+      <!-- Head Office Location -->
+      <div class="location-header">
+        <h2 class="location-title">Head Office Location</h2>
+        <div class="dots-wrapper">
+          <button class="dots-btn" (click)="toggleDotsMenu($event)">
+            <span></span><span></span><span></span>
+          </button>
+          <div class="dots-menu" *ngIf="dotsMenuOpen">
+            <button class="dots-menu-item" (click)="openEditLocation()">Edit Location</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="location-grid">
+        <div class="field-box">
+          <span class="field-label">Country</span>
+          <span class="field-value">{{ location.country }}</span>
+        </div>
+        <div class="field-box">
+          <span class="field-label">State / Region</span>
+          <span class="field-value">{{ location.stateRegion }}</span>
+        </div>
+        <div class="field-box">
+          <span class="field-label">City</span>
+          <span class="field-value">{{ location.city }}</span>
+        </div>
+        <div class="field-box">
+          <span class="field-label">Street</span>
+          <span class="field-value">{{ location.street }}</span>
+        </div>
+      </div>
+
+      <div class="field-box">
+        <span class="field-label">Full Company Address</span>
+        <span class="field-value">{{ location.fullAddress }}</span>
+      </div>
+
+    </div>
+
+    <!-- Right: image placeholders -->
+    <div class="images-col">
+      <div class="img-placeholder img-top"></div>
+      <div class="img-placeholder img-bottom"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ══ EDIT LOCATION MODAL ══ -->
+<div class="modal-overlay" *ngIf="showEditLocation" (click)="onOverlayClick($event)">
+  <div class="modal-box" role="dialog" aria-modal="true">
+
+    <h2 class="modal-title">Edit Location</h2>
+
+    <div class="modal-grid">
+      <div class="field-group">
+        <label class="input-label">Country <span class="req">*</span></label>
+        <input type="text" class="modal-input" [(ngModel)]="editForm.country" />
+      </div>
+      <div class="field-group">
+        <label class="input-label">State / Region <span class="req">*</span></label>
+        <input type="text" class="modal-input" [(ngModel)]="editForm.stateRegion" />
+      </div>
+      <div class="field-group">
+        <label class="input-label">City <span class="req">*</span></label>
+        <input type="text" class="modal-input" [(ngModel)]="editForm.city" />
+      </div>
+      <div class="field-group">
+        <label class="input-label">Street</label>
+        <input type="text" class="modal-input" [(ngModel)]="editForm.street" />
+      </div>
+    </div>
+
+    <div class="field-group full-width">
+      <label class="input-label">Full Address <span class="req">*</span></label>
+      <input type="text" class="modal-input" [(ngModel)]="editForm.fullAddress" />
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-save" (click)="saveLocation()">Save Changes</button>
+      <button class="btn-cancel" (click)="closeEditLocation()">Cancel</button>
+    </div>
+
+  </div>
+</div>

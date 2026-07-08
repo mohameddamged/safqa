@@ -1,0 +1,162 @@
+<div class="p-8 bg-gray-50 min-h-screen">
+    <nav class="mb-6 text-sm flex items-center">
+        <a routerLink="/admin/vendors" class="text-[#25B6AB]  hover:text-orange-500">All Vendors</a>
+        <span class="ttext-[#25B6AB]  mx-2">></span>
+        <span class="text-[#25B6AB] ">Vendor Details</span>
+    </nav>
+
+    <!-- @if (data()) {
+    <div class="bg-white p-8 rounded-3xl shadow-sm border border-orange-100">
+        <div class="flex items-center gap-6 mb-8">
+            <div
+                class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center font-bold text-gray-500 text-2xl">
+                {{ data().vendorName?.charAt(0).toUpperCase() }}
+            </div>
+            <div>
+                <h2 class="text-2xl font-bold text-[#2E1911]">{{ data().vendorName }}</h2>
+                <span class="px-3 py-1 bg-teal-50 text-teal-600 rounded-full text-xs font-semibold">{{ data().planType
+                    }}</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 grid grid-cols-2 gap-x-6 gap-y-4">
+                <div class="form-group">
+                    <label class="block text-[10px] uppercase text-gray-400 font-bold mb-1">Date of Sign up</label>
+                    <input type="text" [value]="data().dateOfSignUp | date:'dd/MM/yyyy'" readonly
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-gray-700 outline-none">
+                </div>
+                <div class="form-group">
+                    <label class="block text-[10px] uppercase text-gray-400 font-bold mb-1">Tax ID</label>
+                    <input type="text" [value]="data().taxId" readonly
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl  rounded-tr-[3rem] p-3 text-gray-700 outline-none">
+                </div>
+                <div class="form-group">
+                    <label class="block text-[10px] uppercase text-gray-400 font-bold mb-1">Work E-mail</label>
+                    <input type="text" [value]="data().workEmail" readonly
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-gray-700 outline-none">
+                </div>
+                <div class="form-group">
+                    <label class="block text-[10px] uppercase text-gray-400 font-bold mb-1">Phone Number</label>
+                    <input type="text" [value]="data().phoneNumber" readonly
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-gray-700 outline-none">
+                </div>
+                <div class="form-group col-span-2">
+                    <label class="block text-[10px] uppercase text-gray-400 font-bold mb-1">Status</label>
+                    <span class="px-4 py-2 rounded-full text-xs font-bold"
+                        [ngClass]="data().status === 'Rejected' ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'">
+                        {{ data().status }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-4 w-full">
+                <div
+                    class="h-40 w-full bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 overflow-hidden">
+                    <img [src]="data().taxIdFrontImageUrl" alt="Front" class="h-full w-full object-cover">
+                </div>
+                <div
+                    class="h-40 w-full bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 overflow-hidden">
+                    <img [src]="data().taxIdBackImageUrl" alt="Back" class="h-full w-full object-cover">
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    @if (data()) {
+    <div class="bg-white p-8 rounded-3xl shadow-sm border border-orange-100 grid grid-cols-3 gap-8">
+
+        <div class="col-span-2 grid grid-cols-2 gap-x-6 gap-y-4">
+            <div>
+                <label class="text-xs font-semibold text-gray-500 uppercase mb-1 block">Company Name</label>
+                <input type="text" [value]="data().companyName" readonly
+                    class="w-full p-3 bg-gray-50 rounded-xl border border-gray-200 text-gray-700 outline-none">
+            </div>
+            <div>
+                <label class="text-xs font-semibold text-gray-500 uppercase mb-1 block">Tax ID</label>
+                <input type="text" [value]="data().taxId" readonly
+                    class="w-full p-3 bg-gray-50 rounded-xl rounded-tr-[3rem] border border-gray-200 text-gray-700 outline-none">
+            </div>
+            <div>
+                <label class="text-xs font-semibold text-gray-500 uppercase mb-1 block">Work E-mail</label>
+                <input type="text" [value]="data().workEmail" readonly
+                    class="w-full p-3 bg-gray-50 rounded-xl border border-gray-200 text-gray-700 outline-none">
+            </div>
+            <div>
+                <label class="text-xs font-semibold text-gray-500 uppercase mb-1 block">Phone Number</label>
+                <input type="text" [value]="data().phoneNumber" readonly
+                    class="w-full p-3 bg-gray-50 rounded-xl border border-gray-200 text-gray-700 outline-none">
+            </div>
+            <div>
+                <label class="text-xs font-semibold text-gray-500 uppercase mb-1 block">Country</label>
+                <input type="text" [value]="data().country || 'N/A'" readonly
+                    class="w-full p-3 bg-gray-50 rounded-xl border border-gray-200 text-gray-700 outline-none">
+            </div>
+            <div>
+                <label class="text-xs font-semibold text-gray-500 uppercase mb-1 block">State / Region</label>
+                <input type="text" [value]="data().stateRegion || 'N/A'" readonly
+                    class="w-full p-3 bg-gray-50 rounded-xl border border-gray-200 text-gray-700 outline-none">
+            </div>
+            <div>
+                <label class="text-xs font-semibold text-gray-500 uppercase mb-1 block">city</label>
+                <input type="text" [value]="data().address?.city || 'N/A'" readonly
+                    class="w-full p-3 bg-gray-50 rounded-xl border border-gray-200 text-gray-700 outline-none">
+            </div>
+            <div>
+                <label class="text-xs font-semibold text-gray-500 uppercase mb-1 block">streetNumber</label>
+                <input type="text" [value]="data().address?.streetNumber || 'N/A'" readonly
+                    class="w-full p-3 bg-gray-50 rounded-xl border border-gray-200 text-gray-700 outline-none">
+            </div>
+            <div class="col-span-2">
+                <label class="text-xs font-semibold text-gray-500 uppercase mb-1 block">Full Address</label>
+                <input type="text" [value]="data().fullAddress || 'N/A'" readonly
+                    class="w-full p-3 bg-gray-50 rounded-xl border border-gray-200 text-gray-700 outline-none">
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-4">
+            <div
+                class="flex-1 bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 overflow-hidden">
+                <img [src]="data().taxIdFrontImageUrl" alt="Front" class="h-full w-full object-cover">
+            </div>
+            <div
+                class="flex-1 bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 overflow-hidden">
+                <img [src]="data().taxIdBackImageUrl" alt="Back" class="h-full w-full object-cover">
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-8 bg-white rounded-tr-[50px] shadow-sm border border-orange-100 overflow-hidden">
+        <table class="w-full text-left">
+            <thead class="bg-[#FFF5F0]">
+                <tr>
+                    <th class="p-6 text-gray-600 font-medium">Product ID</th>
+                    <th class="p-6 text-gray-600 font-medium">Product Name</th>
+                    <th class="p-6 text-gray-600 font-medium">Category Name</th>
+                    <th class="p-6 text-gray-600 font-medium">Slice Number</th>
+                    <th class="p-6 text-gray-600 font-medium">From</th>
+                    <th class="p-6 text-gray-600 font-medium">To</th>
+                    <th class="p-6 text-gray-600 font-medium">Price per unit</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                @for (product of data().products; track product.id) {
+                <tr>
+                    <td class="p-6">{{ product.id }}</td>
+                    <td class="p-6 ">{{ product.productName }}</td>
+                    <td class="p-6">{{ product.categoryName }}</td>
+                    <td class="p-6">{{ product.sliceNo}}</td>
+                    <td class="p-6">{{ product.from}}</td>
+                    <td class="p-6">{{ product.to}}</td>
+                    <td class="p-6">{{ product.pricePerUnit}}</td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="4" class="p-6 text-center text-gray-400">No products found for this vendor</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+</div>

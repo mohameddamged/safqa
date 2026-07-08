@@ -1,0 +1,79 @@
+<div class="p-8 bg-gray-50 min-h-screen">
+
+  <h1 class="text-2xl font-bold text-[#2E1911] mb-6">Returned Funds</h1>
+
+  <div class="bg-white rounded-2xl rounded-tr-[3rem] shadow-sm border border-orange-100 overflow-hidden">
+
+    @if (isLoading()) {
+      <div class="p-20 text-center text-gray-400">Loading...</div>
+    } @else if (errorMsg()) {
+      <div class="p-20 text-center text-red-400">{{ errorMsg() }}</div>
+    } @else if (items().length === 0) {
+      <div class="p-20 text-center text-gray-400">No returned funds found.</div>
+    } @else {
+      <table class="w-full text-left">
+        <thead class="bg-[#FFF5F0] text-[#2E1911] text-sm">
+          <tr>
+            <th class="p-5 font-semibold">PO ID</th>
+            <th class="p-5 font-semibold">Company Name</th>
+            <th class="p-5 font-semibold">Vendor Name</th>
+            <th class="p-5 font-semibold">Returned Fund</th>
+            <th class="p-5 font-semibold">Delivery Date</th>
+            <th class="p-5 font-semibold">Status</th>
+            <th class="p-5 font-semibold"></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          @for (item of items(); track item.purchaseOrderId) {
+            <tr class="hover:bg-orange-50/20 transition-colors">
+              <td class="p-5 text-gray-700">{{ item.purchaseOrderId }}</td>
+              <td class="p-5 font-medium text-gray-800">{{ item.companyName || '—' }}</td>
+              <td class="p-5 text-gray-700">{{ item.vendorName || '—' }}</td>
+              <td class="p-5 text-gray-700">
+                {{ item.returnedFund | number:'1.2-2' }}
+              </td>
+              <td class="p-5 text-gray-700">
+                {{ isValidDate(item.deliveryDate) ? (item.deliveryDate | date:'dd/MM/yyyy') : '—' }}
+              </td>
+              <td class="p-5">
+                <span
+                  class="px-4 py-1 rounded-full text-xs font-semibold"
+                  [ngStyle]="statusStyle(item.transactionStatus)"
+                >{{ item.transactionStatus || '—' }}</span>
+              </td>
+              <td class="p-5">
+                <button
+                  (click)="goToDetails(item)"
+                  class="text-[#25B6AB] text-sm font-semibold hover:opacity-70 transition-opacity">
+                  Details →
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+      @if (totalPages() > 1) {
+        <div class="flex items-center justify-center gap-4 py-4 border-t border-gray-100">
+          <button
+            (click)="prevPage()"
+            [disabled]="pageNumber() <= 1"
+            class="px-4 py-2 rounded-lg text-sm font-medium border border-gray-200 disabled:opacity-40 hover:bg-gray-50">
+            ← Previous
+          </button>
+          <span class="text-sm text-gray-500">
+            Page {{ pageNumber() }} of {{ totalPages() }}
+          </span>
+          <button
+            (click)="nextPage()"
+            [disabled]="pageNumber() >= totalPages()"
+            class="px-4 py-2 rounded-lg text-sm font-medium border border-gray-200 disabled:opacity-40 hover:bg-gray-50">
+            Next →
+          </button>
+        </div>
+      }
+    }
+
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="rfq-update-page">
+
+  <div class="breadcrumb">
+   <a routerLink="/procurement-officer/all-rfqs" class="breadcrumb-link">All RFQs</a>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#25B6AB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    <span class="breadcrumb-current">RFQ Details</span>
+  </div>
+
+  <div *ngIf="isLoading" class="state-msg">Loading...</div>
+  <app-error-state *ngIf="error" [message]="error!"></app-error-state>
+
+  <div class="card" *ngIf="rfq && !isLoading">
+    <h1 class="rfq-title">RFQ: {{ rfq.itemName }}</h1>
+
+    <!-- RFQ Info -->
+    <h2 class="section-title">RFQ Info</h2>
+
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">Item Name</label>
+        <div class="field-value">{{ rfq.itemName }}</div>
+      </div>
+      <div class="field">
+        <label class="field-label">Category Name</label>
+        <div class="field-value">{{ rfq.category ?? rfq.categoryName ?? '—' }}</div>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">Quantity</label>
+        <div class="field-value">{{ rfq.quantity }}</div>
+      </div>
+      <div class="field">
+        <label class="field-label">Unit of Measurement</label>
+        <div class="field-value">{{ rfq.unit ?? rfq.unitOfMeasurement ?? '—' }}</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Technical Specs</label>
+      <div class="field-value specs">{{ rfq.technicalSpecifications }}</div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Additional Notes</label>
+      <div class="field-value">{{ rfq.additionalNotes }}</div>
+    </div>
+
+    <!-- Delivery Deadline -->
+    <h2 class="section-title">Delivery Deadline</h2>
+    <div class="field">
+      <label class="field-label">Required Delivery Deadline</label>
+      <div class="field-value">{{ formatDate(rfq.requiredDeliveryDate ?? rfq.closingDate) }}</div>
+    </div>
+
+    <!-- Editable teal box -->
+    <div class="vendor-box">
+      <h2 class="section-title box-title">Additional Notes to Vendor</h2>
+      <div class="field">
+        <label class="field-label">Additional Notes</label>
+        <input type="text" class="field-input" [(ngModel)]="notesToVendor" placeholder="Additional Notes" />
+      </div>
+
+      <h2 class="section-title box-title" style="margin-top: 16px;">RFQ Deadline</h2>
+      <div class="field">
+        <label class="field-label">RFQ Deadline</label>
+        <input type="date" class="field-input" [(ngModel)]="closingDate" />
+      </div>
+    </div>
+
+    <div *ngIf="!isDraft" class="status-warning">
+      This RFQ is "{{ rfq.status }}" and can no longer be updated. Only draft RFQs can be edited.
+    </div>
+
+    <div *ngIf="submitError" class="submit-error">{{ submitError }}</div>
+
+    <button class="btn-primary" (click)="submit()" [disabled]="isSubmitting || !closingDate || !isDraft">
+      {{ isSubmitting ? 'Updating...' : 'Update & Select Vendors' }}
+    </button>
+  </div>
+
+</div>

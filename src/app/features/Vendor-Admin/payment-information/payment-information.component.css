@@ -1,0 +1,213 @@
+/* ══════════════════════════════
+   PAGE
+══════════════════════════════ */
+.payment-page {
+  padding: 36px 40px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  min-height: 100%;
+}
+
+/* ══════════════════════════════
+   HEADER
+══════════════════════════════ */
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.page-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #1A1A2E;
+  margin: 0;
+}
+
+.lock-icon {
+  flex-shrink: 0;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: #6B6B8A;
+}
+
+/* ══════════════════════════════
+   TWO-COLUMN LAYOUT
+══════════════════════════════ */
+.content-row {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ══════════════════════════════
+   LEFT — CREDIT CARD PANEL
+══════════════════════════════ */
+.card-panel {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  border: 1px solid #F0EDE8;
+  min-height: 340px;
+  justify-content: center;
+}
+
+/* Empty state */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.card-illustration {
+  opacity: 0.75;
+}
+
+.empty-label {
+  font-size: 15px;
+  font-weight: 400;
+  color: #AAAABC;
+  margin: 0;
+}
+
+/* Add card button */
+.btn-add-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 18px 24px;
+  background: linear-gradient(90deg, #E47C55 0%, #EFA063 100%);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: opacity 0.18s;
+  text-align: center;
+}
+
+.btn-add-card:hover { opacity: 0.9; }
+
+/* ══════════════════════════════
+   RIGHT — SUMMARY PANEL
+══════════════════════════════ */
+.summary-panel {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  border: 1px solid #F0EDE8;
+}
+
+.summary-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #25B6AB;
+  margin: 0 0 4px;
+}
+
+/* Summary rows */
+.summary-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Plan row */
+.plan-item {
+  align-items: flex-start;
+}
+
+.plan-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.plan-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1A1A2E;
+}
+
+.plan-subtitle {
+  font-size: 13px;
+  font-weight: 400;
+  color: #6B6B8A;
+}
+
+.plan-price {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1A1A2E;
+  white-space: nowrap;
+}
+
+/* Regular rows */
+.summary-label {
+  font-size: 15px;
+  font-weight: 400;
+  color: #1A1A2E;
+}
+
+.summary-value {
+  font-size: 15px;
+  font-weight: 400;
+  color: #1A1A2E;
+  white-space: nowrap;
+}
+
+/* Total row */
+.total-item {
+  margin-top: 4px;
+}
+
+.total-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1A1A2E;
+}
+
+.total-value {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1A1A2E;
+  white-space: nowrap;
+}
+
+/* Divider */
+.divider {
+  border: none;
+  border-top: 1px solid #ECEAE6;
+  margin: 0;
+}
+
+/* SSL row */
+.ssl-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.ssl-text {
+  font-size: 13px;
+  font-weight: 400;
+  color: #6B6B8A;
+}

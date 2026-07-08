@@ -1,0 +1,54 @@
+<div class="header-wrapper-fixed">
+  
+  <div class="top-bar-fixed">
+    <div class="top-bar-inner">
+      <span class="contact-email">Contact us: safkasystem@gmail.com</span>
+      <span class="contact-phone">+2012-345-6789</span>
+      <span class="bar-separator">|</span>
+      
+      <div class="social-icons-group">
+        <a href="#" aria-label="Facebook"><img src="assets/Vector.png" alt="Facebook"></a>
+        <a href="#" aria-label="YouTube"><img src="assets/Vector (1).png" alt="YouTube"></a>
+        <a href="#" aria-label="X"><img src="assets/Vector (2).png" alt="X"></a>
+        <a href="#" aria-label="TikTok"><img src="assets/Vector (3).png" alt="TikTok"></a>
+      </div>
+    </div>
+  </div>
+
+  <header class="main-navbar-fixed">
+    <div class="navbar-inner">
+      <div class="brand-logo-area">
+        <img src="assets/Component 2.png" alt="Safqa Logo">
+      </div>
+      <nav class="center-nav-links" [class.nav-open]="menuOpen">
+        <a href="#features" class="single-nav-link" (click)="closeMenu()">Features</a>
+        <a href="#how-it-works" class="single-nav-link" (click)="closeMenu()">How It Works</a>
+        <a href="#faq" class="single-nav-link" (click)="closeMenu()">FAQ</a>
+        <a routerLink="/pricing" class="single-nav-link" (click)="closeMenu()">Pricing</a>
+        <div class="mobile-nav-actions">
+          <button class="fixed-login-btn" routerLink="/auth/login">
+            Login
+            <svg class="login-btn-icon" viewBox="0 0 24 24">
+              <path d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5M11 17l5-5-5-5M16 12H3"/>
+            </svg>
+          </button>
+          <button class="fixed-signup-btn" routerLink="/auth/signup">Sign Up</button>
+        </div>
+      </nav>
+      <div class="right-nav-actions">
+        <button class="fixed-login-btn" routerLink="/auth/login">
+          Login
+          <svg class="login-btn-icon" viewBox="0 0 24 24">
+            <path d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5M11 17l5-5-5-5M16 12H3"/>
+          </svg>
+        </button>
+        <button class="fixed-signup-btn" routerLink="/auth/signup">Sign Up</button>
+      </div>
+      <button class="hamburger-btn" (click)="toggleMenu()" aria-label="Toggle menu">
+        <span [class.open]="menuOpen"></span>
+        <span [class.open]="menuOpen"></span>
+        <span [class.open]="menuOpen"></span>
+      </button>
+    </div>
+  </header>
+</div>

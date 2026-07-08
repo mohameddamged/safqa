@@ -1,0 +1,135 @@
+.rfq-details-page {
+  padding: 32px 40px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.breadcrumb-link {
+  color: #25B6AB;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 400;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.breadcrumb-link:hover {
+  font-weight: 700;
+}
+
+.breadcrumb-current {
+  color: #25B6AB;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 36px 36px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.rfq-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #2E1911;
+  margin: 0 0 28px 0;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #25B6AB;
+  margin: 0 0 16px 0;
+}
+
+.field-group {
+  margin-bottom: 14px;
+}
+
+.field-group.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.field-label {
+  font-size: 11px;
+  color: #9ca3af;
+  font-weight: 400;
+  padding: 0 2px;
+}
+
+.label-hint {
+  font-size: 10px;
+  color: #b0b8c1;
+}
+
+.field-value {
+  border: 1.5px solid #B8EFEB;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #2E1911;
+  background: #fff;
+  min-height: 44px;
+}
+
+.field-value.specs {
+  white-space: pre-line;
+  min-height: 120px;
+  line-height: 1.7;
+}
+
+.turn-btn {
+  display: block;
+  width: 100%;
+  height: 52px;
+  margin-top: 28px;
+  padding: 10px;
+  background: linear-gradient(90deg, #EFA063, #E47C55);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  text-transform: capitalize;
+  line-height: 100%;
+  letter-spacing: 0%;
+  border: none;
+  border-radius: 28px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  gap: 10px;
+}
+
+.turn-btn:hover {
+  opacity: 0.9;
+}
+
+.not-found {
+  padding: 60px;
+  text-align: center;
+  color: #9ca3af;
+}

@@ -1,0 +1,157 @@
+<app-fm-shell>
+  <div class="fm-pr">
+    <div class="fm-pr__breadcrumb">
+      <a routerLink="/financial-manager/pending-prs">All PRs</a>
+      <span>›</span>
+      <span class="fm-pr__breadcrumb-current">PR Details</span>
+    </div>
+
+    @if (loading()) {
+      <div class="fm-pr__loading">
+        <span class="fm-pr__spinner" aria-hidden="true"></span>
+      </div>
+    } @else if (errored() || !pr()) {
+      <div class="fm-pr__empty">
+        <p>{{ errorMessage() }}</p>
+      </div>
+    } @else {
+      <div class="fm-pr__card">
+        <h1 class="fm-pr__title">PR: {{ pr()!.id }}</h1>
+
+        <h2 class="fm-pr__section-title">PR Info</h2>
+        <div class="fm-pr__row">
+          <div class="fm-pr__field">
+            <span class="fm-pr__field-label">Item Name</span>
+            <span class="fm-pr__field-value">{{ pr()!.itemName }}</span>
+          </div>
+          <div class="fm-pr__field">
+            <span class="fm-pr__field-label">Category</span>
+            <span class="fm-pr__field-value">{{ pr()!.category }}</span>
+          </div>
+        </div>
+        <div class="fm-pr__row">
+          <div class="fm-pr__field">
+            <span class="fm-pr__field-label">Quantity</span>
+            <span class="fm-pr__field-value">{{ pr()!.quantity }}</span>
+          </div>
+          <div class="fm-pr__field">
+            <span class="fm-pr__field-label">Unit</span>
+            <span class="fm-pr__field-value">{{ pr()!.unit }}</span>
+          </div>
+        </div>
+
+        @if (pr()!.technicalSpecifications) {
+          <div class="fm-pr__field fm-pr__field--block">
+            <span class="fm-pr__field-label">Technical Specifications</span>
+            <p class="fm-pr__field-value">{{ pr()!.technicalSpecifications }}</p>
+          </div>
+        }
+
+        @if (pr()!.reason) {
+          <div class="fm-pr__field fm-pr__field--block">
+            <span class="fm-pr__field-label">Reason</span>
+            <p class="fm-pr__field-value">{{ pr()!.reason }}</p>
+          </div>
+        }
+
+        @if (pr()!.additionalNotes) {
+          <div class="fm-pr__field fm-pr__field--block">
+            <span class="fm-pr__field-label">Additional Notes</span>
+            <p class="fm-pr__field-value">{{ pr()!.additionalNotes }}</p>
+          </div>
+        }
+
+        <h2 class="fm-pr__section-title">Cost Info</h2>
+        <div class="fm-pr__row">
+          <div class="fm-pr__field">
+            <span class="fm-pr__field-label">Estimated Price</span>
+            <span class="fm-pr__field-value">{{ pr()!.estimatedPrice | number:'1.2-2' }}</span>
+          </div>
+          <div class="fm-pr__field">
+            <span class="fm-pr__field-label">Currency</span>
+            <span class="fm-pr__field-value">{{ pr()!.currency }}</span>
+          </div>
+        </div>
+
+        <h2 class="fm-pr__section-title">Delivery</h2>
+        <div class="fm-pr__row">
+          <div class="fm-pr__field">
+            <span class="fm-pr__field-label">Required Delivery Date</span>
+            <span class="fm-pr__field-value">{{ formatDate(pr()!.requiredDeliveryDate) }}</span>
+          </div>
+          <div class="fm-pr__field">
+            <span class="fm-pr__field-label">Status</span>
+            <span class="fm-pr__field-value">{{ pr()!.status }}</span>
+          </div>
+        </div>
+
+        <!-- ── Notes (optional, sent to backend) ───────────── -->
+        <div class="fm-pr__notes-section">
+          <label class="fm-pr__notes-label" for="fm-pr-notes">
+            Notes <span class="fm-pr__notes-optional">(optional)</span>
+          </label>
+          <textarea
+            id="fm-pr-notes"
+            class="fm-pr__notes-textarea"
+            rows="3"
+            placeholder="Add approval or rejection notes..."
+            [(ngModel)]="notes"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- ── Actions ─────────────────────────────────────────── -->
+      <div class="fm-pr__actions">
+        <app-primary-button
+          type="button"
+          [loading]="submitting()"
+          (click)="confirmSendToProcurement()"
+        >
+          Send To Procurement
+        </app-primary-button>
+
+        <button
+          type="button"
+          class="fm-pr__reject"
+          [disabled]="submitting()"
+          (click)="confirmReject()"
+        >
+          Reject Request
+        </button>
+      </div>
+    }
+
+    <!-- ── Confirmation Dialog ──────────────────────────────── -->
+    @if (showConfirm()) {
+      <div class="fm-pr__overlay" (click)="cancelConfirm()">
+        <div class="fm-pr__dialog" (click)="$event.stopPropagation()">
+          <h3 class="fm-pr__dialog-title">
+            @if (pendingDecision === 'approve') {
+              Send PR to Procurement?
+            } @else {
+              Reject this PR?
+            }
+          </h3>
+          @if (notes) {
+            <p class="fm-pr__dialog-notes">Notes: "{{ notes }}"</p>
+          }
+          <p class="fm-pr__dialog-sub">This action cannot be undone.</p>
+          <div class="fm-pr__dialog-actions">
+            <button type="button" class="fm-pr__dialog-cancel" (click)="cancelConfirm()">
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="fm-pr__dialog-confirm"
+              [class.fm-pr__dialog-confirm--danger]="pendingDecision === 'reject'"
+              (click)="executeDecision()"
+            >
+              @if (pendingDecision === 'approve') { Confirm } @else { Reject }
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
+  </div>
+</app-fm-shell>

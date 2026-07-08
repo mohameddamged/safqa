@@ -1,0 +1,21 @@
+.verify-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+.verify-form__resend {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--safqa-teal);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.verify-form__resend--disabled {
+  color: var(--safqa-text-muted);
+  text-decoration: none;
+  cursor: default;
+}

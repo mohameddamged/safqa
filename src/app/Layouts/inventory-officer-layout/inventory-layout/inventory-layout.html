@@ -1,0 +1,13 @@
+<div class="h-screen flex flex-col overflow-hidden">
+  <app-inventory-officer-navbar class="z-50"></app-inventory-officer-navbar>
+
+  <div class="flex flex-grow overflow-hidden">
+    <aside class="w-64 flex-shrink-0">
+      <app-inventory-officer-sidebar></app-inventory-officer-sidebar>
+    </aside>
+
+    <main class="flex-grow overflow-y-auto bg-gray-50 ">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

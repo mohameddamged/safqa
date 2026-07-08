@@ -1,0 +1,330 @@
+/* ══════════════════════════════
+   PAGE
+══════════════════════════════ */
+.mo-page {
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mo-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.mo-title {
+  font-size: 34px;
+  font-weight: 800;
+  color: #1A1A2E;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+/* ══════════════════════════════
+   FILTER BUTTON + POPOVER
+══════════════════════════════ */
+.mo-filter-wrap {
+  position: relative;
+}
+
+.mo-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--Color-Secondary-secondaryBaseTurq, #25B6AB);
+  padding: 6px 4px;
+  font-family: inherit;
+}
+
+.mo-filter-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.mo-filter-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.14);
+  padding: 22px;
+  width: 280px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mo-radio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: #1A1A2E;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.mo-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.mo-radio-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.6px solid #C9C9D6;
+  display: inline-block;
+  position: relative;
+  flex-shrink: 0;
+  transition: border-color 0.15s;
+}
+
+.mo-radio input[type="radio"]:checked + .mo-radio-circle {
+  border-color: var(--Color-Secondary-secondaryBaseTurq, #25B6AB);
+}
+
+.mo-radio input[type="radio"]:checked + .mo-radio-circle::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--Color-Secondary-secondaryBaseTurq, #25B6AB);
+}
+
+.mo-filter-apply {
+  width: 100%;
+  padding: 14px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #E47C55 0%, #EFA063 100%);
+  font-family: inherit;
+  transition: opacity 0.2s;
+  margin-top: 4px;
+}
+
+.mo-filter-apply:hover { opacity: 0.92; }
+
+.mo-filter-reset {
+  width: 100%;
+  padding: 13px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #E47C55;
+  background: #FFFFFF;
+  border: 1.6px solid #E47C55;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.mo-filter-reset:hover { background: #FFF8F5; }
+
+/* ══════════════════════════════
+   TABLE
+══════════════════════════════ */
+.mo-table-wrap {
+  background: #FFFFFF;
+  border: 1.5px solid #F0C5B0;
+  border-radius: 16px;
+  overflow: visible;
+}
+
+.mo-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.mo-table thead tr {
+  border-bottom: 1.5px solid #F0C5B0;
+}
+
+.mo-table thead th {
+  padding: 20px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1A1A2E;
+  text-align: left;
+  background: #FFFFFF;
+  white-space: nowrap;
+}
+
+.mo-table thead th:first-child {
+  text-align: center;
+  border-radius: 14px 0 0 0;
+}
+
+.mo-table thead th:last-child {
+  width: 56px;
+  border-radius: 0 14px 0 0;
+}
+
+.mo-table tbody tr {
+  border-bottom: 1px solid #F2F2F7;
+  transition: background 0.15s;
+}
+
+.mo-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.mo-table tbody tr:hover {
+  background: #FFF8F5;
+}
+
+.mo-table tbody td {
+  padding: 22px 28px;
+  font-size: 15px;
+  color: #1A1A2E;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.mo-table tbody td:first-child {
+  text-align: center;
+  font-weight: 500;
+}
+
+.mo-empty {
+  text-align: center !important;
+  color: #8A8A99;
+  padding: 36px 0 !important;
+}
+
+/* ══════════════════════════════
+   NEGOTIATION BADGE
+══════════════════════════════ */
+.mo-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 18px;
+  border-radius: 50px;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.mo-badge-negotiated {
+  background: var(--Color-Secondary-successBg, #DBFFDD);
+  color: var(--Color-Secondary-success, #00B209);
+}
+
+.mo-badge-requested {
+  background: var(--Color-Primary-primary4, #FCF1ED);
+  color: #E47C55;
+}
+
+.mo-badge-none {
+  background: none;
+  color: #9C9CAA;
+  padding: 7px 0;
+  font-weight: 500;
+}
+
+/* ══════════════════════════════
+   MENU CELL
+══════════════════════════════ */
+.mo-menu-cell {
+  position: relative;
+  text-align: right !important;
+  padding-right: 20px !important;
+  overflow: visible;
+}
+
+.mo-menu-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.mo-menu-btn:hover {
+  background: #F2F2F7;
+}
+
+.dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #1A1A2E;
+}
+
+.mo-dropdown {
+  position: absolute;
+  right: 12px;
+  background: #FFFFFF;
+  border: 1px solid #E8E8F0;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  z-index: 9999;
+  min-width: 200px;
+  overflow: hidden;
+  top: calc(100% + 4px);
+  bottom: auto;
+}
+
+.mo-dropdown.drop-up {
+  top: auto;
+  bottom: calc(100% + 4px);
+}
+
+.mo-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 14.5px;
+  color: #1A1A2E;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s;
+  line-height: 1.4;
+  font-family: inherit;
+}
+
+.mo-dropdown-item + .mo-dropdown-item {
+  border-top: 1px solid #F2F2F7;
+}
+
+.mo-dropdown-item:hover {
+  background: #FFF8F5;
+  color: #E8763A;
+}
+
+.mo-dropdown-item-disabled,
+.mo-dropdown-item:disabled {
+  color: #BFBFCB;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.mo-dropdown-item-disabled:hover,
+.mo-dropdown-item:disabled:hover {
+  background: none;
+  color: #BFBFCB;
+}

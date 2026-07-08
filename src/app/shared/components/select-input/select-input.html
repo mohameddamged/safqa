@@ -1,0 +1,21 @@
+<div class="field">
+  <div class="control" [class.has-error]="errorMessage && touched">
+    <select
+      [value]="value ?? ''"
+      [disabled]="disabled"
+      (change)="handleChange($event)"
+      (blur)="handleBlur()"
+      class="control__select"
+    >
+      <option value="" disabled hidden>{{ placeholder }}</option>
+      @for (option of options; track option.value) {
+        <option [value]="option.value">{{ option.label }}</option>
+      }
+    </select>
+    <label class="control__label">{{ label }}{{ required ? ' *' : '' }}</label>
+  </div>
+
+  @if (errorMessage && touched) {
+    <p class="field__error">{{ errorMessage }}</p>
+  }
+</div>

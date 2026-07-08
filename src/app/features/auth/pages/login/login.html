@@ -1,0 +1,31 @@
+<app-auth-shell title="Login" subtitle="welcome back!" backTo="/">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="login-form">
+    <app-text-input
+      formControlName="email"
+      label="E-mail"
+      type="email"
+      [required]="true"
+      autocomplete="email"
+      [errorMessage]="fieldError('email', 'Email')"
+    ></app-text-input>
+
+    <app-password-input
+      formControlName="password"
+      label="Password"
+      [required]="true"
+      autocomplete="current-password"
+      [errorMessage]="fieldError('password', 'Password')"
+    ></app-password-input>
+
+    <div class="login-form__row">
+      <app-checkbox formControlName="rememberMe">Remember Me</app-checkbox>
+      <a routerLink="/auth/forgot-password">Forgot Password?</a>
+    </div>
+
+    <app-primary-button [loading]="loading()" [icon]="loginIcon">Login</app-primary-button>
+
+    <p class="login-form__footer">
+      New on our platform? <a routerLink="/auth/signup">Sign Up</a>
+    </p>
+  </form>
+</app-auth-shell>

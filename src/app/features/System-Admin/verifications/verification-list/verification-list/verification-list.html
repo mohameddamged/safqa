@@ -1,0 +1,109 @@
+<div class="p-8 bg-gray-50 min-h-screen">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold text-[#2E1911] capitalize">{{ type }} Pending Verification</h1>
+    <!-- <button (click)="isFilterOpen = true"
+      class="text-[#25B6AB] font-bold text-sm flex items-center gap-2 hover:opacity-80 transition-opacity">
+
+      Filter
+
+      <img src="/filter-edit.png" class="w-5 h-5 object-contain">
+    </button> -->
+  </div>
+
+  <div class="bg-white rounded-2xl rounded-tr-[3rem] shadow-sm border border-orange-100 overflow-hidden">
+    @if (items().length > 0) {
+    <table class="w-full text-left">
+      <thead class="bg-[#FFF5F0] text-[#2E1911] text-sm">
+        <tr>
+          <th class="p-5 font-semibold">ID</th>
+          <th class="p-5 font-semibold">{{ type === 'companies' ? 'Company Name' : 'Vendor Name' }}</th>
+          <th class="p-5 font-semibold">Date of Sign up</th>
+          <th class="p-5 font-semibold">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        @for (item of items(); track item.id) {
+        <tr class="hover:bg-orange-50/20 transition-colors">
+          <td class="p-5 text-gray-700">{{ item.id }}</td>
+          <td class="p-5 font-medium text-gray-800">{{ item.companyName || item.vendorName }}</td>
+          <td class="p-5 text-gray-500">
+            {{ item.dateOfSignUp && item.dateOfSignUp !== '0001-01-01T00:00:00' ? (item.dateOfSignUp |
+            date:'dd/MM/yyyy') : 'N/A' }}
+          </td>
+          <td class="p-5">
+            <a [routerLink]="['/system-admin/verifications', type, item.id]"
+              class="text-orange-500 font-bold hover:text-orange-600 transition-colors flex items-center gap-1">
+              Details
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    } @else {
+    <div class="p-20 text-center">
+      <div class="text-6xl mb-4">📭</div>
+      <h3 class="text-xl font-bold text-gray-700">No Pending Requests</h3>
+      <p class="text-gray-500 mt-2">Currently, there are no {{type}} waiting for verification.</p>
+    </div>
+    }
+  </div>
+</div>
+
+<!-- @if (isFilterOpen) {
+<div class="fixed inset-0 bg-black/40 z-50 flex justify-center items-center p-4 backdrop-blur-sm">
+  <div class="bg-white p-8 rounded-3xl w-full max-w-sm shadow-2xl animate-in fade-in zoom-in duration-200">
+    <h3 class="font-bold text-lg mb-6 text-gray-800">Filter RFQs</h3>
+    <div class="flex flex-col gap-4">
+      @for (status of ['Approved', 'Rejected', 'Pending', 'Banned']; track status) {
+      <label
+        class="flex items-center gap-4 text-[16px] font-medium cursor-pointer text-[#4C291C] hover:text-orange-600 transition-colors py-1">
+        <input type="radio" name="status" (change)="selectedStatus = status" [value]="status"
+          [checked]="selectedStatus === status" class="w-5 h-5 accent-[#4D4D4D] cursor-pointer">
+        {{ status }}
+      </label>
+      }
+      <div class="flex flex-col gap-3 mt-6">
+        <button 
+          class="w-full text-white py-3 rounded-xl font-bold transition-all hover:opacity-90"
+          style="background: linear-gradient(to right, #E47C55, #EFA063);">
+          Apply
+        </button>
+
+        <button 
+          class="w-full py-3 rounded-xl font-bold transition-all border border-[#E47C55] text-[#E47C55] hover:bg-[#FFF5F0]">
+          Reset
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+} -->
+
+
+@if (totalPages() > 1) {
+<div class="flex justify-center items-center gap-6 py-8">
+  <span class="text-xl font-bold text-gray-500">
+    {{ currentPage() }} / {{ totalPages() }}
+  </span>
+
+  <div class="flex gap-3">
+    <button (click)="changePage(currentPage() - 1)" [disabled]="currentPage() === 1"
+      class="w-14 h-14 rounded-full flex items-center justify-center border-2 border-gray-200 text-gray-300 disabled:opacity-50 transition-all">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6" />
+      </svg>
+    </button>
+
+    <button (click)="changePage(currentPage() + 1)" [disabled]="currentPage() === totalPages()"
+      class="w-14 h-14 rounded-full flex items-center justify-center border-2 border-[#EFA063] text-[#EFA063] disabled:opacity-50 transition-all hover:bg-orange-50">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 18l6-6-6-6" />
+      </svg>
+    </button>
+  </div>
+</div>
+}

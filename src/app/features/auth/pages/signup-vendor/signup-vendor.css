@@ -1,0 +1,24 @@
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
+.signup-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.signup-form__hint {
+  font-size: 0.78rem;
+  color: var(--safqa-text-muted);
+  margin-top: -10px;
+}
+
+@media (max-width: 480px) {
+  .signup-form__row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,210 @@
+<div class="min-h-screen bg-[#F7F7F7] p-8">
+
+    @if (isLoading()) {
+
+    <div class="flex justify-center items-center h-[500px]">
+        <span class="text-gray-500 text-lg">Loading...</span>
+    </div>
+
+    } @else if(profileData(); as company){
+
+    <!-- Header -->
+
+    <div class="flex items-center gap-6 mb-8">
+
+        <div class="relative">
+
+            <div
+                class="w-28 h-28 rounded-full bg-gray-300 border-4 border-white shadow overflow-hidden flex items-center justify-center">
+                <img
+                    [src]="company.profilePictureUrl"
+                    class="w-full h-full object-cover">
+
+            </div>
+
+            <button
+                class="absolute bottom-1 right-1 w-7 h-7 rounded-full bg-white shadow flex items-center justify-center">
+
+                ✎
+
+            </button>
+
+        </div>
+
+        <div>
+
+            <div class="flex items-center gap-3">
+
+                <h1 class="text-4xl font-semibold text-[#25B6AB]">
+                    {{company.companyName}}
+                </h1>
+
+                <button class="text-gray-400">
+                    ✎
+                </button>
+
+                <span
+                    class="bg-[#DDF7F5] text-[#25B6AB] text-xs px-4 py-1 rounded-full">
+
+                    {{company.planType}} Plan
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Main Card -->
+
+    <div class="bg-white rounded-2xl shadow-sm p-6">
+
+        <div class="grid lg:grid-cols-12 gap-6">
+
+            <!-- Left -->
+
+            <div class="lg:col-span-8 space-y-4">
+
+                <div class="border border-[#D9D9D9] rounded-xl rounded-tr-[3rem] p-3 bg-[#F7F7F7]">
+
+                    <label class="text-xs text-gray-400">Tax ID</label>
+
+                    <p class="font-medium">{{company.taxId}}</p>
+
+                </div>
+
+                <div class="border border-[#D9D9D9] rounded-xl p-3 bg-[#F7F7F7]">
+
+                    <label class="text-xs text-gray-400">Work e-mail</label>
+
+                    <p class="font-medium">{{company.workEmail}}</p>
+
+                </div>
+
+                <div class="border border-[#D9D9D9] rounded-xl p-3 bg-[#F7F7F7]">
+
+                    <label class="text-xs text-gray-400">Phone Number</label>
+
+                    <p class="font-medium">{{company.phoneNumber}}</p>
+
+                </div>
+
+                <h3 class="text-lg font-semibold mt-4">
+
+                    Head Office Location
+
+                </h3>
+
+                <div class="grid md:grid-cols-2 gap-4">
+
+                    <div class="border border-[#D9D9D9] rounded-xl p-3 bg-[#F7F7F7]">
+
+                        <label class="text-xs text-gray-400">Country</label>
+
+                        <p>{{company.address.country}}</p>
+
+                    </div>
+
+                    <div class="border border-[#D9D9D9] rounded-xl p-3 bg-[#F7F7F7]">
+
+                        <label class="text-xs text-gray-400">State / Region</label>
+
+                        <p>{{company.address.stateRegion}}</p>
+
+                    </div>
+
+                    <div class="border border-[#D9D9D9] rounded-xl p-3 bg-[#F7F7F7]">
+
+                        <label class="text-xs text-gray-400">City</label>
+
+                        <p>{{company.address.city}}</p>
+
+                    </div>
+
+                    <div class="border border-[#D9D9D9] rounded-xl p-3 bg-[#F7F7F7]">
+
+                        <label class="text-xs text-gray-400">Street</label>
+
+                        <p>{{company.address.streetNumber}}</p>
+
+                    </div>
+
+                </div>
+
+                <div class="border border-[#D9D9D9] rounded-xl p-3 bg-[#F7F7F7]">
+
+                    <label class="text-xs text-gray-400">Full Company Address</label>
+
+                    <p>{{company.address.fullAddress}}</p>
+
+                </div>
+
+            </div>
+
+            <!-- Right Images -->
+
+            <div class="lg:col-span-4 space-y-4">
+
+                <img
+                    [src]="company.taxIdFrontImageUrl"
+                    class="rounded-xl h-52 w-full object-cover border">
+
+                <img
+                    [src]="company.taxIdBackImageUrl"
+                    class="rounded-xl h-52 w-full object-cover border">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bank -->
+
+    <div class="mt-8">
+
+        <h2 class="text-xl font-semibold mb-4">
+
+            Bank account Info:
+
+        </h2>
+
+        <div
+            class="bg-white rounded-xl border border-[#25B6AB] rounded-xl p-3 bg-[#F7F7F7] p-5 flex items-center justify-between shadow-sm">
+
+            <div>
+
+                <p class="font-semibold">
+
+                    {{company.bankAccount.bankName}}
+
+                </p>
+
+                <p class="text-sm text-gray-500">
+
+                    {{company.bankAccount.accountHolderName}}
+
+                </p>
+
+            </div>
+
+            <div class="font-semibold tracking-[4px]">
+
+                **** **** **** {{getLastFourDigits(company.bankAccount.accountNumber)}}
+
+            </div>
+
+            <button class="text-xl text-gray-500">
+
+                ⋯
+
+            </button>
+
+        </div>
+
+    </div>
+
+    }
+
+</div>

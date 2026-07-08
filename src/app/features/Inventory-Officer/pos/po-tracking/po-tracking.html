@@ -1,0 +1,220 @@
+<div class="p-8 bg-gray-50 min-h-screen">
+    <div class="flex items-center gap-2 mb-6 text-sm font-medium">
+        <a routerLink="/inventory-officer/upcoming-pos" class="text-[#25B6AB] hover:underline">All POs</a>
+        <span class="text-[#25B6AB]">></span>
+        <span class="text-[#25B6AB] underline underline-offset-4">PO Track Shipping</span>
+    </div>
+
+    @if (isLoading()) {
+    <div class="p-20 text-center text-gray-400">Loading...</div>
+    } @else {
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div class="lg:col-span-2 bg-white p-8 rounded-3xl shadow-sm">
+            <h1 class="text-2xl font-bold text-[#2E1911] mb-8">Track [{{ poData()?.poTitle }}]</h1>
+
+            <div class="space-y-6 text-[#2E1911]">
+                <p class="font-bold">Order Number: <span class="font-normal text-gray-500">{{ poData()?.orderNumber }}</span>
+                </p>
+                <p class="font-bold">Date of accepting PO: <span
+                        class="font-normal text-gray-500">{{ poData()?.acceptedAt | date:'dd/MM/yyyy' }}</span></p>
+
+                <h3 class="font-bold">Shipment Status:</h3>
+                <div class="flex items-center justify-between w-full mt-6 mb-10 px-4 relative">
+                    <div class="absolute top-4 left-[10%] right-[10%] h-[2px] bg-gray-200 -z-0"></div>
+
+                    @for (step of steps; track $index) {
+                    <div class="flex flex-col items-center relative z-10">
+                        <div class="w-8 h-8 rounded-full border-2 flex items-center justify-center bg-white 
+                                {{ currentStep() >= $index ? 'border-[#EFA063]' : 'border-gray-300' }}">
+                            @if (currentStep() >= $index) {
+                            <div class="w-3 h-3 bg-[#EFA063] rounded-full"></div>
+                            }
+                        </div>
+                        <span class="text-xs mt-2 {{ currentStep() >= $index ? 'text-[#B5B6B6]' : 'text-gray-400' }}">
+                            {{ step }}
+                        </span>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <div class="flex gap-4 mt-10">
+                <button (click)="markAsFullyDelivered()" [disabled]="isSubmitting() || isLocked()"
+                    class="flex-1 py-4 bg-[#EFA063] text-white rounded-full font-bold disabled:opacity-60 disabled:cursor-not-allowed">
+                    {{ isSubmitting() ? 'Please wait...' : 'Mark As Fully Delivered' }}
+                </button>
+                <button routerLink="/inventory-officer/upcoming-pos/po-tracking/partial-delivery/{{ purchaseOrderId }}"
+                    [disabled]="isLocked()"
+                    class="flex-1 py-4 border-2 border-[#EFA063] text-[#EFA063] rounded-full font-bold disabled:opacity-60 disabled:cursor-not-allowed">
+                    Mark As Partially Delivered
+                </button>
+            </div>
+
+            @if (isLocked()) {
+            <p class="text-sm text-gray-400 mt-4">This order has already been marked as delivered, so no further action is needed.</p>
+            }
+
+            @if (complaints().length > 0) {
+            <div class="mt-10">
+                <h3 class="font-bold text-[#2E1911] mb-4">Complaints History</h3>
+                <div class="space-y-4">
+                    @for (complaint of complaints(); track complaint.id) {
+                    <div class="border border-gray-100 rounded-2xl p-4">
+                        <div class="flex justify-between items-start">
+                            <span class="text-sm font-bold text-[#2E1911]">{{ formatComplaintType(complaint.type) }}</span>
+                            <span class="text-xs text-gray-400">{{ complaint.createdAt | date:'dd/MM/yyyy' }}</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2">{{ complaint.reason }}</p>
+                        <div class="flex gap-4 text-xs text-gray-500 mt-2">
+                            <span>Received: {{ complaint.receivedQuantity }}</span>
+                            @if (complaint.damagedQuantity !== undefined) {
+                            <span>Damaged: {{ complaint.damagedQuantity }}</span>
+                            }
+                            @if (complaint.dismissedQuantity !== undefined) {
+                            <span>Dismissed: {{ complaint.dismissedQuantity }}</span>
+                            }
+                        </div>
+                        @if (complaint.photos?.length) {
+                        <div class="flex gap-2 mt-3">
+                            @for (photo of complaint.photos; track $index) {
+                            <img [src]="photo" class="w-14 h-14 object-cover rounded-lg border border-gray-100">
+                            }
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+        <div
+            class="pot-calendar bg-white border border-gray-100 rounded-[32px] rounded-tr-[90px] shadow-sm overflow-hidden">
+
+            <!-- Top Header -->
+            <div class="px-6 pt-5 pb-4">
+
+                <div class="flex justify-between items-center">
+
+                    <div>
+
+                        <p class="text-[15px] font-medium text-[#2E1911]">
+                            Estimated delivery date
+                        </p>
+
+                        <h2 class="mt-5 text-[30px] font-semibold leading-none text-[#25B6AB]">
+                            {{ selectedDateLabel() }}
+                        </h2>
+
+                    </div>
+
+                    <button type="button"
+                        class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 transition">
+
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M11 29V24.75L24.2 11.575C24.4 11.3917 24.6208 11.25 24.8625 11.15C25.1042 11.05 25.3583 11 25.625 11C25.8917 11 26.15 11.05 26.4 11.15C26.65 11.25 26.8667 11.4 27.05 11.6L28.425 13C28.625 13.1833 28.7708 13.4 28.8625 13.65C28.9542 13.9 29 14.15 29 14.4C29 14.6667 28.9542 14.9208 28.8625 15.1625C28.7708 15.4042 28.625 15.625 28.425 15.825L15.25 29H11ZM25.6 15.8L27 14.4L25.6 13L24.2 14.4L25.6 15.8Z"
+                                fill="#E47C55" />
+                        </svg>
+
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <hr class="border-gray-200">
+
+            <!-- Calendar -->
+            <div class="p-6">
+
+                <!-- Calendar Header -->
+                <div class="pot-calendar-header flex justify-between items-center mb-6">
+
+                    <h2 class="text-[20px] font-bold text-[#2E1911]">
+                        {{ currentMonthLabel() }}
+                    </h2>
+
+                    <div class="flex items-center gap-2">
+
+                        <button type="button"
+                            class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-gray-100 transition"
+                            (click)="prevMonth()">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
+                                stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+
+                                <path d="M15 18l-6-6 6-6" />
+
+                            </svg>
+
+                        </button>
+
+                        <button type="button"
+                            class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-gray-100 transition"
+                            (click)="nextMonth()">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
+                                stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+
+                                <path d="M9 18l6-6-6-6" />
+
+                            </svg>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Week Days -->
+                <div class="grid grid-cols-7 text-center mb-4">
+
+                    @for(day of weekdayLabels; track day){
+
+                    <div class="text-[13px] font-semibold text-[#9C9CAA]">
+                        {{day}}
+                    </div>
+
+                    }
+
+                </div>
+
+                <!-- Calendar Body -->
+                @for(week of weeks; track $index){
+
+                <div class="grid grid-cols-7 place-items-center mb-3">
+
+                    @for(cell of week; track $index){
+
+                    @if(cell.date){
+
+                    <button type="button"
+                        class="w-10 h-10 rounded-full text-[15px] font-medium transition hover:bg-orange-50"
+                        [class.bg-[#EFA063]]="isSelected(cell)" [class.text-white]="isSelected(cell)"
+                        [class.text-[#2E1911]]="!isSelected(cell)" (click)="selectDate(cell)">
+
+                        {{cell.day}}
+
+                    </button>
+
+                    }@else{
+
+                    <div class="w-10 h-10"></div>
+
+                    }
+
+                    }
+
+                </div>
+
+                }
+
+            </div>
+
+
+
+        </div>
+    </div>
+    }
+</div>

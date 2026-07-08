@@ -1,0 +1,82 @@
+<div class="mo-page">
+
+  <div class="mo-header-row">
+    <h1 class="mo-title">My Offers on:</h1>
+
+    <div class="mo-filter-wrap">
+      <button class="mo-filter-btn" (click)="toggleFilterPopover($event)">
+        Filter
+        <img src="filter-edit.png" alt="" class="mo-filter-icon" />
+      </button>
+
+      <!-- ── Filter popover ── -->
+      <div class="mo-filter-popover" *ngIf="filterOpen" (click)="$event.stopPropagation()">
+        <label class="mo-radio">
+          <input type="radio" name="negFilter" value="negotiated" [(ngModel)]="pendingFilter" />
+          <span class="mo-radio-circle"></span>
+          <span>Negotiated</span>
+        </label>
+        <label class="mo-radio">
+          <input type="radio" name="negFilter" value="requested" [(ngModel)]="pendingFilter" />
+          <span class="mo-radio-circle"></span>
+          <span>Request to Negotiate</span>
+        </label>
+
+        <button class="mo-filter-apply" (click)="applyFilter()">Apply</button>
+        <button class="mo-filter-reset" (click)="resetFilter()">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mo-table-wrap">
+    <table class="mo-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>RFQ Title</th>
+          <th>Conpany Name</th>
+          <th>Negotiation</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let offer of filteredOffers">
+          <td>{{ offer.id }}</td>
+          <td>{{ offer.rfqTitle }}</td>
+          <td>{{ offer.companyName }}</td>
+          <td>
+            <span
+              class="mo-badge"
+              [class.mo-badge-negotiated]="offer.negotiation === 'negotiated'"
+              [class.mo-badge-requested]="offer.negotiation === 'requested'"
+              [class.mo-badge-none]="offer.negotiation === 'none'"
+            >{{ negotiationLabel(offer.negotiation) }}</span>
+          </td>
+          <td class="mo-menu-cell">
+            <button class="mo-menu-btn" (click)="onToggleMenu(offer, $event)" aria-label="More actions">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </button>
+
+            <div class="mo-dropdown" [class.drop-up]="offer.dropUp" *ngIf="offer.menuOpen">
+              <button class="mo-dropdown-item" (click)="onViewRfqDetails(offer)">View RFQ Details</button>
+              <button class="mo-dropdown-item" (click)="onViewMyOffer(offer)">View my Offer</button>
+              <button
+                class="mo-dropdown-item"
+                [class.mo-dropdown-item-disabled]="offer.negotiation !== 'negotiated'"
+                [disabled]="offer.negotiation !== 'negotiated'"
+                (click)="onViewNegotiationChat(offer)"
+              >View Negotiation chat</button>
+            </div>
+          </td>
+        </tr>
+
+        <tr *ngIf="filteredOffers.length === 0">
+          <td colspan="5" class="mo-empty">No offers to show.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

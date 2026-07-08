@@ -1,0 +1,331 @@
+<div class="p-8 bg-gray-50 min-h-screen">
+  <div class="flex justify-between items-center mb-6">
+    <nav class="text-sm">
+      <a routerLink="/system-admin/escrow-payments/safqa" class="text-[#25B6AB] hover:opacity-80">All Vendors Pending Transactions</a>
+      <span class="text-[#25B6AB] mx-2">></span>
+      <a routerLink="." class="text-[#25B6AB] underline">Transactions Details</a>
+    </nav>
+
+    @if (viewState !== 'loading') {
+    <span class="px-5 py-1.5 rounded-full text-sm font-semibold" [ngStyle]="badgeStyle">
+      {{ badgeLabel }}
+    </span>
+    }
+  </div>
+
+  @if (viewState === 'loading') {
+  <div class="p-20 text-center text-gray-400">Loading...</div>
+  } @else {
+
+  <!-- ======================= Paid / Transferred ======================= -->
+  @if (viewState === 'paid') {
+  <div class="flex gap-8 items-start">
+    <div class="bg-white rounded-2xl shadow-sm p-8 flex-1 max-w-xl">
+      <h2 class="text-2xl font-bold text-[#2E1911] mb-6">Vendor Bank Account Info</h2>
+      <div class="flex flex-col gap-5">
+        <div>
+          <label class="text-xs text-gray-400 block mb-1 px-4">Vendor Legal Name (as recorded in bank)</label>
+          <input type="text" [value]="data()?.vendorBankAccount?.accountHolderName || 'Lorem Ipsum'" readonly
+            class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+        </div>
+        <div>
+          <label class="text-xs text-gray-400 block mb-1 px-4">IBAN</label>
+          <input type="text" [value]="data()?.vendorBankAccount?.iban || 'Lorem Ipsum'" readonly
+            class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+        </div>
+        <div>
+          <label class="text-xs text-gray-400 block mb-1 px-4">Bank Name</label>
+          <input type="text" [value]="data()?.vendorBankAccount?.bankName || 'Lorem Ipsum'" readonly
+            class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+        </div>
+        <div>
+          <label class="text-xs text-gray-400 block mb-1 px-4">Account Number</label>
+          <input type="text" [value]="data()?.vendorBankAccount?.accountNumber || 'Lorem Ipsum'" readonly
+            class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+        </div>
+      </div>
+    </div>
+
+    <div class="w-96 aspect-[4/5] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex items-center justify-center">
+      @if (data()?.receiptUrl) {
+      <img [src]="data()?.receiptUrl" alt="Receipt" class="w-full h-full object-cover">
+      }
+    </div>
+  </div>
+  }
+
+  <!-- ======================= Pending: Damaged ======================= -->
+  @if (viewState === 'damaged') {
+  <div class="flex gap-8 items-start">
+    <div class="flex-1 flex flex-col gap-8">
+      <div class="bg-white rounded-2xl shadow-sm p-8">
+        <h2 class="text-2xl font-bold text-[#25B6AB] mb-6">Complaint</h2>
+        <div class="flex flex-col gap-5">
+          <div>
+            <label class="text-xs text-gray-400 block mb-1 px-4">Complaint Reason</label>
+            <input type="text" [value]="data()?.complaint?.complaintReason || '—'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+          <div class="flex gap-6">
+            <div class="flex-1">
+              <label class="text-xs text-gray-400 block mb-1 px-4">Number of good items</label>
+              <input type="text" [value]="data()?.complaint?.receivedQuantity ?? '—'" readonly
+                class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+            </div>
+            <div class="flex-1">
+              <label class="text-xs text-gray-400 block mb-1 px-4">Number of damaged Items</label>
+              <input type="text" [value]="data()?.complaint?.damagedQuantity ?? '—'" readonly
+                class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+            </div>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-bold text-[#25B6AB] mt-8 mb-4">Complaint Photos</h3>
+        <div class="flex gap-3 flex-wrap">
+          @for (photo of data()?.complaintPhotoUrls; track photo) {
+          <a [href]="resolveImageUrl(photo)" target="_blank" class="w-28 h-28 rounded-xl overflow-hidden bg-gray-200 block">
+            <img [src]="resolveImageUrl(photo)" alt="Complaint photo" class="w-full h-full object-cover">
+          </a>
+          } @empty {
+          <div class="w-28 h-28 rounded-xl bg-gray-200"></div>
+          }
+        </div>
+
+        <h3 class="text-xl font-bold text-[#25B6AB] mt-8 mb-4">Vendor Product Photos</h3>
+        <div class="flex gap-3 flex-wrap">
+          @for (photo of data()?.productPhotoUrls; track photo) {
+          <a [href]="resolveImageUrl(photo)" target="_blank" class="w-28 h-28 rounded-xl overflow-hidden bg-gray-200 block">
+            <img [src]="resolveImageUrl(photo)" alt="Product photo" class="w-full h-full object-cover">
+          </a>
+          } @empty {
+          <div class="w-28 h-28 rounded-xl bg-gray-200"></div>
+          }
+        </div>
+
+        <h3 class="text-xl font-bold text-[#25B6AB] mt-8 mb-4">Cost Info</h3>
+        <div class="flex gap-6">
+          <div class="flex-1">
+            <label class="text-xs text-gray-400 block mb-1 px-4">Cost</label>
+            <input type="text" [value]="data()?.cost ?? 'XXXXXXX'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+          <div class="flex-1">
+            <label class="text-xs text-gray-400 block mb-1 px-4">Currency</label>
+            <input type="text" [value]="data()?.currency ?? 'XXXXXXX'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm p-8">
+        <h2 class="text-2xl font-bold text-[#25B6AB] mb-6">Vendor Bank Account Info</h2>
+        <div class="flex flex-col gap-5">
+          <div>
+            <label class="text-xs text-gray-400 block mb-1 px-4">Vendor Legal Name (as recorded in bank)</label>
+            <input type="text" [value]="data()?.vendorBankAccount?.accountHolderName || 'Lorem Ipsum'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1 px-4">IBAN</label>
+            <input type="text" [value]="data()?.vendorBankAccount?.iban || 'Lorem Ipsum'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1 px-4">Bank Name</label>
+            <input type="text" [value]="data()?.vendorBankAccount?.bankName || 'Lorem Ipsum'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1 px-4">Account Number</label>
+            <input type="text" [value]="data()?.vendorBankAccount?.accountNumber || 'Lorem Ipsum'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+        </div>
+
+        <button (click)="markAsPaid()" [disabled]="isMarkingPaid()"
+          class="w-full mt-6 text-white py-3.5 rounded-full font-bold transition-all hover:opacity-90 disabled:opacity-60"
+          style="background: linear-gradient(to right, #E47C55, #EFA063);">
+          {{ isMarkingPaid() ? 'Processing...' : 'Mark As Paid' }}
+        </button>
+        @if (!canMarkAsPaid) {
+        <p class="text-xs text-red-500 mt-2 text-center">* Please upload a receipt image before marking as paid.</p>
+        }
+      </div>
+    </div>
+
+    <div class="w-96 aspect-[4/5] bg-gray-200 rounded-2xl overflow-hidden flex items-center justify-center relative shrink-0">
+      @if (selectedReceiptPreview()) {
+      <img [src]="selectedReceiptPreview()" alt="Receipt preview" class="w-full h-full object-cover">
+      } @else {
+      <label class="text-[#25B6AB] font-semibold underline flex items-center gap-1 cursor-pointer">
+        <span class="text-lg leading-none">+</span> Upload Receipt
+        <input type="file" accept="image/*" class="hidden" (change)="onReceiptSelected($event)">
+      </label>
+      }
+    </div>
+  </div>
+  }
+
+  <!-- ======================= Pending: Not Completed (Partially Delivered) ======================= -->
+  @if (viewState === 'notCompleted') {
+  <div class="flex gap-8 items-start">
+    <div class="flex-1 flex flex-col gap-8">
+      <div class="bg-white rounded-2xl shadow-sm p-8">
+        <h2 class="text-2xl font-bold text-[#25B6AB] mb-6">Complaint</h2>
+        <div class="flex flex-col gap-5">
+          <div>
+            <label class="text-xs text-gray-400 block mb-1 px-4">Complaint Reason</label>
+            <input type="text" [value]="data()?.complaint?.complaintReason || '—'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+          <div class="flex gap-6">
+            <div class="flex-1">
+              <label class="text-xs text-gray-400 block mb-1 px-4">Number of Received Items</label>
+              <input type="text" [value]="data()?.complaint?.receivedQuantity ?? '—'" readonly
+                class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+            </div>
+            <div class="flex-1">
+              <label class="text-xs text-gray-400 block mb-1 px-4">Number of Dismissed Items</label>
+              <input type="text" [value]="data()?.complaint?.damagedQuantity ?? '—'" readonly
+                class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+            </div>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-bold text-[#25B6AB] mt-8 mb-4">Cost Info</h3>
+        <div class="flex gap-6">
+          <div class="flex-1">
+            <label class="text-xs text-gray-400 block mb-1 px-4">Cost</label>
+            <input type="text" [value]="data()?.cost ?? 'XXXXXXX'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+          <div class="flex-1">
+            <label class="text-xs text-gray-400 block mb-1 px-4">Currency</label>
+            <input type="text" [value]="data()?.currency ?? 'XXXXXXX'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm p-8">
+        <h2 class="text-2xl font-bold text-[#25B6AB] mb-6">Vendor Bank Account Info</h2>
+        <div class="flex flex-col gap-5">
+          <div>
+            <label class="text-xs text-gray-400 block mb-1 px-4">Vendor Legal Name (as recorded in bank)</label>
+            <input type="text" [value]="data()?.vendorBankAccount?.accountHolderName || 'Lorem Ipsum'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1 px-4">IBAN</label>
+            <input type="text" [value]="data()?.vendorBankAccount?.iban || 'Lorem Ipsum'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1 px-4">Bank Name</label>
+            <input type="text" [value]="data()?.vendorBankAccount?.bankName || 'Lorem Ipsum'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1 px-4">Account Number</label>
+            <input type="text" [value]="data()?.vendorBankAccount?.accountNumber || 'Lorem Ipsum'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+        </div>
+
+        <button (click)="markAsPaid()" [disabled]="isMarkingPaid()"
+          class="w-full mt-6 text-white py-3.5 rounded-full font-bold transition-all hover:opacity-90 disabled:opacity-60"
+          style="background: linear-gradient(to right, #E47C55, #EFA063);">
+          {{ isMarkingPaid() ? 'Processing...' : 'Mark As Paid' }}
+        </button>
+        @if (!canMarkAsPaid) {
+        <p class="text-xs text-red-500 mt-2 text-center">* Please upload a receipt image before marking as paid.</p>
+        }
+      </div>
+    </div>
+
+    <div class="w-96 aspect-[4/5] bg-gray-200 rounded-2xl overflow-hidden flex items-center justify-center relative shrink-0">
+      @if (selectedReceiptPreview()) {
+      <img [src]="selectedReceiptPreview()" alt="Receipt preview" class="w-full h-full object-cover">
+      } @else {
+      <label class="text-[#25B6AB] font-semibold underline flex items-center gap-1 cursor-pointer">
+        <span class="text-lg leading-none">+</span> Upload Receipt
+        <input type="file" accept="image/*" class="hidden" (change)="onReceiptSelected($event)">
+      </label>
+      }
+    </div>
+  </div>
+  }
+
+  <!-- ======================= Pending: Fully Delivered ======================= -->
+  @if (viewState === 'fullyDelivered') {
+  <div class="flex gap-8 items-start">
+    <div class="flex-1 flex flex-col gap-8">
+      <div class="bg-white rounded-2xl shadow-sm p-8">
+        <h2 class="text-2xl font-bold text-[#25B6AB] mb-6">Cost Info</h2>
+        <div class="flex gap-6">
+          <div class="flex-1">
+            <label class="text-xs text-gray-400 block mb-1 px-4">Cost</label>
+            <input type="text" [value]="data()?.cost ?? 'XXXXXXX'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+          <div class="flex-1">
+            <label class="text-xs text-gray-400 block mb-1 px-4">Currency</label>
+            <input type="text" [value]="data()?.currency ?? 'XXXXXXX'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+        </div>
+
+        <h2 class="text-2xl font-bold text-[#25B6AB] mt-8 mb-6">Vendor Bank Account Info</h2>
+        <div class="flex flex-col gap-5">
+          <div>
+            <label class="text-xs text-gray-400 block mb-1 px-4">Vendor Legal Name (as recorded in bank)</label>
+            <input type="text" [value]="data()?.vendorBankAccount?.accountHolderName || 'Lorem Ipsum'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1 px-4">IBAN</label>
+            <input type="text" [value]="data()?.vendorBankAccount?.iban || 'Lorem Ipsum'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1 px-4">Bank Name</label>
+            <input type="text" [value]="data()?.vendorBankAccount?.bankName || 'Lorem Ipsum'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1 px-4">Account Number</label>
+            <input type="text" [value]="data()?.vendorBankAccount?.accountNumber || 'Lorem Ipsum'" readonly
+              class="w-full p-3.5 bg-white rounded-full border border-[#25B6AB]/40 text-gray-700 font-medium outline-none">
+          </div>
+        </div>
+
+        <button (click)="markAsPaid()" [disabled]="isMarkingPaid()"
+          class="w-full mt-6 text-white py-3.5 rounded-full font-bold transition-all hover:opacity-90 disabled:opacity-60"
+          style="background: linear-gradient(to right, #E47C55, #EFA063);">
+          {{ isMarkingPaid() ? 'Processing...' : 'Mark As Paid' }}
+        </button>
+        @if (!canMarkAsPaid) {
+        <p class="text-xs text-red-500 mt-2 text-center">* Please upload a receipt image before marking as paid.</p>
+        }
+      </div>
+    </div>
+
+    <div class="w-96 aspect-[4/5] bg-gray-200 rounded-2xl overflow-hidden flex items-center justify-center relative shrink-0">
+      @if (selectedReceiptPreview()) {
+      <img [src]="selectedReceiptPreview()" alt="Receipt preview" class="w-full h-full object-cover">
+      } @else {
+      <label class="text-[#25B6AB] font-semibold underline flex items-center gap-1 cursor-pointer">
+        <span class="text-lg leading-none">+</span> Upload Receipt
+        <input type="file" accept="image/*" class="hidden" (change)="onReceiptSelected($event)">
+      </label>
+      }
+    </div>
+  </div>
+  }
+
+  @if (viewState === 'unknown') {
+  <div class="p-20 text-center text-gray-400">No details found for this transaction.</div>
+  }
+
+  }
+</div>

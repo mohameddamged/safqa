@@ -1,0 +1,50 @@
+<!-- <app-navbar></app-navbar>
+
+<div class="flex">
+  <app-sidebar class="w-64"></app-sidebar>
+  
+  <main class="flex-1 p-0">
+    <router-outlet></router-outlet>
+  </main>
+</div> -->
+
+<!-- <div class="h-screen flex flex-col">
+  <app-navbar class="sticky top-0 z-50"></app-navbar>
+
+  <div class="flex flex-grow overflow-hidden">
+    <aside class="w-64 flex-shrink-0 border-r border-gray-100 overflow-y-auto">
+      <app-sidebar></app-sidebar>
+    </aside>
+
+    <main class="flex-grow overflow-y-auto p-6 bg-gray-50">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div> -->
+
+<!-- <div class="h-screen flex overflow-hidden">
+  <div class="w-64 flex-shrink-0">
+    <app-sidebar></app-sidebar>
+  </div>
+
+  <div class="flex-grow flex flex-col overflow-hidden">
+    <app-navbar></app-navbar>
+    <main class="flex-grow overflow-y-auto p-6">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div> -->
+
+<div class="h-screen flex flex-col overflow-hidden">
+  <app-navbar class="z-50"></app-navbar>
+
+  <div class="flex flex-grow overflow-hidden">
+    <aside class="w-64 flex-shrink-0">
+      <app-sidebar></app-sidebar>
+    </aside>
+
+    <main class="flex-grow overflow-y-auto bg-gray-50 ">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

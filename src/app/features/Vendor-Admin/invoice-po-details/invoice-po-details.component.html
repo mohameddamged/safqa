@@ -1,0 +1,117 @@
+<div *ngIf="error" style="padding:40px;text-align:center;color:#ef4444">
+  {{ error }}
+  <br>
+  <button (click)="goBack()" style="margin-top:12px;padding:8px 20px;cursor:pointer">← Back</button>
+</div>
+
+<ng-container *ngIf="!error">
+
+  <div class="ipod-breadcrumb">
+    <a class="ipod-breadcrumb-link" (click)="goBack()" style="cursor:pointer">All Invoices</a>
+    <span class="ipod-breadcrumb-sep">›</span>
+    <span class="ipod-breadcrumb-current">Invoice Details</span>
+  </div>
+
+  <div class="ipod-page">
+    <div class="ipod-card">
+
+      <!-- Title + Status -->
+      <div class="ipod-title-row">
+        <h1 class="ipod-title">
+          {{ details?.purchaseOrderTitle || listInvoice?.poTitle || 'PO #' + listInvoice?.purchaseOrderId }}
+        </h1>
+        <span class="ipod-pay-badge"
+          [class.ipod-pay-badge-paid]="listInvoice?.transactionStatus === 'Paid'"
+          [class.ipod-pay-badge-pending]="listInvoice?.transactionStatus !== 'Paid'"
+        >{{ listInvoice?.transactionStatus || details?.deliveryStatus || '—' }}</span>
+      </div>
+
+      <!-- Invoice Info -->
+      <div class="ipod-section">
+        <h2 class="ipod-section-title">Invoice Info</h2>
+        <div class="ipod-fields-row">
+          <div class="ipod-field">
+            <span class="ipod-label">Purchase Order ID</span>
+            <span class="ipod-value">{{ listInvoice?.purchaseOrderId || details?.purchaseOrderId }}</span>
+          </div>
+          <div class="ipod-field">
+            <span class="ipod-label">Delivery Status</span>
+            <span class="ipod-value">{{ details?.deliveryStatus || '—' }}</span>
+          </div>
+        </div>
+        <div class="ipod-fields-row">
+          <div class="ipod-field">
+            <span class="ipod-label">Net Payout</span>
+            <span class="ipod-value">{{ listInvoice?.netPayout | number:'1.2-2' }} EGP</span>
+          </div>
+          <div class="ipod-field">
+            <span class="ipod-label">Delivery Date</span>
+            <span class="ipod-value">
+              {{ listInvoice?.deliveryDate ? (listInvoice!.deliveryDate | date:'dd/MM/yyyy') : '—' }}
+            </span>
+          </div>
+        </div>
+        <div class="ipod-fields-row">
+          <div class="ipod-field">
+            <span class="ipod-label">Accept Date</span>
+            <span class="ipod-value">
+              {{ listInvoice?.acceptonDate ? (listInvoice!.acceptonDate | date:'dd/MM/yyyy') : '—' }}
+            </span>
+          </div>
+          <div class="ipod-field">
+            <span class="ipod-label">Vendor</span>
+            <span class="ipod-value">{{ listInvoice?.vendorName || '—' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bank Account Info -->
+      @if (isLoading) {
+        <div style="padding:16px;color:#9ca3af;font-size:0.85rem">Loading bank & receipt info...</div>
+      } @else if (details?.bankAccount) {
+        <div class="ipod-section">
+          <h2 class="ipod-section-title">Bank Account Info</h2>
+          <div class="ipod-field ipod-field-full">
+            <span class="ipod-label">Account Holder</span>
+            <span class="ipod-value">{{ details!.bankAccount!.accountHolderName || '—' }}</span>
+          </div>
+          <div class="ipod-field ipod-field-full">
+            <span class="ipod-label">IBAN</span>
+            <span class="ipod-value" style="font-family:monospace;letter-spacing:.04em">
+              {{ details!.bankAccount!.iban || '—' }}
+            </span>
+          </div>
+          <div class="ipod-fields-row">
+            <div class="ipod-field">
+              <span class="ipod-label">Bank Name</span>
+              <span class="ipod-value">{{ details!.bankAccount!.bankName || '—' }}</span>
+            </div>
+            <div class="ipod-field">
+              <span class="ipod-label">Account Number</span>
+              <span class="ipod-value">{{ details!.bankAccount!.accountNumber || '—' }}</span>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Receipt Image -->
+      @if (details?.receiptImageUrl) {
+        <div class="ipod-section">
+          <h2 class="ipod-section-title">Payment Receipt</h2>
+          <div class="ipod-receipt">
+            <img [src]="details!.receiptImageUrl!" alt="Payment Receipt" class="ipod-receipt-img" />
+          </div>
+        </div>
+      } @else if (!isLoading) {
+        <div class="ipod-section">
+          <h2 class="ipod-section-title">Payment Receipt</h2>
+          <div class="ipod-receipt-placeholder">
+            No receipt uploaded yet.
+          </div>
+        </div>
+      }
+
+    </div>
+  </div>
+
+</ng-container>

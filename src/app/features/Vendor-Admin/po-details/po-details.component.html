@@ -1,0 +1,191 @@
+<!-- Breadcrumb -->
+<div class="pod-breadcrumb">
+  <a class="pod-breadcrumb-link" (click)="goToAllPos()">All POs</a>
+  <span class="pod-breadcrumb-sep">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+      <path d="M9 6l6 6-6 6" stroke="#25B6AB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+  <span class="pod-breadcrumb-current">PO Details</span>
+</div>
+
+<!-- Loading state -->
+<div class="pod-page" *ngIf="loading">
+  <div class="pod-card pod-state">Loading PO details...</div>
+</div>
+
+<!-- Error state -->
+<div class="pod-page" *ngIf="!loading && errorMessage">
+  <div class="pod-card pod-state pod-state-error">
+    {{ errorMessage }}
+    <button class="pod-btn-accept" (click)="loadDetails()">Retry</button>
+  </div>
+</div>
+
+<ng-container *ngIf="!loading && !errorMessage && po">
+
+  <div class="pod-page">
+    <div class="pod-card">
+
+      <h1 class="pod-title">PO #{{ po.id }}</h1>
+
+      <div class="pod-field pod-field-full" *ngIf="actionError">
+        <span class="pod-error-text">{{ actionError }}</span>
+      </div>
+
+      <!-- PO Info -->
+      <div class="pod-section">
+        <h2 class="pod-section-title">PO Info</h2>
+
+        <div class="pod-fields-row">
+          <div class="pod-field">
+            <span class="pod-label">Item Name</span>
+            <span class="pod-value">{{ po.itemName }}</span>
+          </div>
+          <div class="pod-field">
+            <span class="pod-label">Category</span>
+            <span class="pod-value">{{ po.categoryName }}</span>
+          </div>
+        </div>
+
+        <div class="pod-fields-row">
+          <div class="pod-field">
+            <span class="pod-label">Quantity</span>
+            <span class="pod-value">{{ po.quantity }}</span>
+          </div>
+          <div class="pod-field">
+            <span class="pod-label">Unit of Measurement</span>
+            <span class="pod-value">{{ po.unit }}</span>
+          </div>
+        </div>
+
+        <div class="pod-field pod-field-full pod-field-tall">
+          <span class="pod-label">Technical Specs</span>
+          <span class="pod-value pod-value-multiline">{{ po.technicalSpecification || '-' }}</span>
+        </div>
+
+        <div class="pod-field pod-field-full">
+          <span class="pod-label">Additional Notes</span>
+          <span class="pod-value">{{ po.additionalNotes || '-' }}</span>
+        </div>
+      </div>
+
+      <!-- Cost Info -->
+      <div class="pod-section">
+        <h2 class="pod-section-title">Cost Info</h2>
+
+        <div class="pod-fields-row">
+          <div class="pod-field">
+            <span class="pod-label">Cost</span>
+            <span class="pod-value">{{ po.cost }}</span>
+          </div>
+          <div class="pod-field">
+            <span class="pod-label">Currency</span>
+            <span class="pod-value">{{ po.currency }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delivery Info -->
+      <div class="pod-section">
+        <h2 class="pod-section-title">Delivery Info</h2>
+
+        <div class="pod-fields-row">
+          <div class="pod-field">
+            <span class="pod-label">Delivery Deadline</span>
+            <span class="pod-value">{{ formatDate(po.deliveryDeadline) }}</span>
+          </div>
+          <div class="pod-field">
+            <span class="pod-label">Status</span>
+            <span class="pod-value">{{ statusLabel(po.status) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shipping Address -->
+      <div class="pod-section">
+        <h2 class="pod-section-title">Shipping Address</h2>
+
+        <div class="pod-fields-row">
+          <div class="pod-field">
+            <span class="pod-label">Country</span>
+            <span class="pod-value">{{ po.country }}</span>
+          </div>
+          <div class="pod-field">
+            <span class="pod-label">State / Region</span>
+            <span class="pod-value">{{ po.state }}</span>
+          </div>
+        </div>
+
+        <div class="pod-fields-row">
+          <div class="pod-field">
+            <span class="pod-label">City</span>
+            <span class="pod-value">{{ po.city }}</span>
+          </div>
+          <div class="pod-field">
+            <span class="pod-label">Street</span>
+            <span class="pod-value">{{ po.street }}</span>
+          </div>
+        </div>
+
+        <div class="pod-field pod-field-full">
+          <span class="pod-label">Full Address</span>
+          <span class="pod-value">{{ po.fullAddress }}</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="pod-actions" *ngIf="canRespond">
+        <button class="pod-btn-accept" [disabled]="actionLoading || actionTaken" (click)="onAcceptPo()">Accept PO</button>
+        <button class="pod-btn-reject" [disabled]="actionLoading || actionTaken" (click)="onReject()">Reject</button>
+      </div>
+
+      <div class="pod-rejected-notice" *ngIf="!canRespond">
+        This purchase order has already been responded to — current status: {{ statusLabel(po.status) }}.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Reject confirmation modal ── -->
+  <div class="pod-modal-overlay" *ngIf="showRejectConfirm" (click)="onCancelReject()">
+    <div class="pod-modal pod-modal-center pod-modal-reject" (click)="$event.stopPropagation()">
+      <h2 class="pod-modal-title">Reject PO</h2>
+      <p class="pod-modal-text">Are you sure you want to reject this purchase order?</p>
+
+      <div class="pod-field pod-reject-field">
+        <span class="pod-label">Reason for rejection</span>
+        <textarea class="pod-reject-textarea" rows="3" placeholder="Enter reason"
+          [(ngModel)]="rejectReason" name="rejectReason" [disabled]="actionLoading"></textarea>
+      </div>
+      <p class="pod-error-text" *ngIf="actionError">{{ actionError }}</p>
+
+      <div class="pod-modal-actions">
+        <button class="pod-modal-btn-reject" [disabled]="actionLoading" (click)="onConfirmReject()">
+          <span *ngIf="!actionLoading">Yes, Reject</span>
+          <span *ngIf="actionLoading">Rejecting…</span>
+        </button>
+        <button class="pod-modal-btn-cancel" [disabled]="actionLoading" (click)="onCancelReject()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Accepted confirmation modal ── -->
+  <div class="pod-modal-overlay" *ngIf="showAcceptedModal">
+    <div class="pod-modal pod-modal-center">
+      <h2 class="pod-modal-title">PO Accepted</h2>
+      <p class="pod-modal-text">The purchase order has been accepted successfully.</p>
+      <button class="pod-btn-accept pod-modal-ok" (click)="onCloseAcceptedModal()">Done</button>
+    </div>
+  </div>
+
+  <!-- ── Rejected confirmation modal ── -->
+  <div class="pod-modal-overlay" *ngIf="showRejectedModal">
+    <div class="pod-modal pod-modal-center">
+      <h2 class="pod-modal-title">PO Rejected</h2>
+      <p class="pod-modal-text">The purchase order has been rejected.</p>
+      <button class="pod-btn-reject pod-modal-ok" (click)="onCloseRejectedModal()">Done</button>
+    </div>
+  </div>
+
+</ng-container>

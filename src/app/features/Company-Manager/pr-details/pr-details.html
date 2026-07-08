@@ -1,0 +1,109 @@
+<!-- pr-details.component.html -->
+<form [formGroup]="prForm" class="bg-[#F8F8F8] min-h-screen py-8 px-6">
+  <div class="max-w-6xl mx-auto mb-6 flex items-center gap-2 text-sm">
+    <a routerLink="/company-manager/pr-list" class="text-[#25B6AB] hover:underline">All PRs</a>
+    <span class="text-[#25B6AB]">&gt;</span>
+    <span class="text-[#25B6AB] underline">PR Details</span>
+  </div>
+
+  <div class="max-w-6xl mx-auto bg-white rounded-2xl p-8 shadow-sm">
+    <h1 class="text-[42px] font-semibold text-[#4B3832] mb-8">
+      PR: <span class="font-bold">{{ prId() }}</span>
+    </h1>
+
+    <h2 class="text-[36px] font-semibold text-[#25B6AB] mb-6">PR Info</h2>
+
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div class="relative">
+        <input readonly formControlName="itemName"
+          class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Item Name</label>
+      </div>
+      <div class="relative">
+        <input readonly formControlName="category"
+          class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Category</label>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mb-5">
+      <div class="relative">
+        <input readonly formControlName="quantity"
+          class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Quantity</label>
+      </div>
+      <div class="relative">
+        <input readonly formControlName="unitOfMeasurement"
+          class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Unit of Measurement</label>
+      </div>
+    </div>
+
+    <div class="relative mb-4">
+      <textarea readonly formControlName="technicalSpecs" rows="6"
+        class="w-full rounded-3xl border border-[#C9F1EC] p-5 pt-8 resize-none focus:outline-none"></textarea>
+      <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF] bg-white px-1">Technical Specs</label>
+    </div>
+
+    <div class="relative mb-4">
+      <input readonly formControlName="reason"
+        class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+      <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Why do You need this item?</label>
+    </div>
+
+    <div class="relative mb-8">
+      <input readonly formControlName="additionalNotes"
+        class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+      <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Additional Notes</label>
+    </div>
+
+    <h2 class="text-[36px] font-semibold text-[#25B6AB] mb-6">Cost Info</h2>
+
+    <div class="grid grid-cols-2 gap-4 mb-5">
+      <div class="relative">
+        <input readonly formControlName="estimatedCost"
+          class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Estimated Cost</label>
+      </div>
+      <div class="relative">
+        <input readonly formControlName="currency"
+          class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Currency</label>
+      </div>
+    </div>
+
+    <div class="rounded-full p-[1.5px] bg-gradient-to-r from-[#FB904E] to-[#E779F1] mb-8">
+      <div class="relative bg-white rounded-full">
+        <input readonly formControlName="aiEstimatedCost"
+          class="w-full h-16 rounded-full px-5 pt-5 bg-white focus:outline-none bg-gradient-to-r from-[#FB904E] to-[#E779F1] bg-clip-text text-transparent" />
+        <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF] bg-white px-1">Estimated Cost By AI based on last
+          POs</label>
+      </div>
+    </div>
+
+    <h2 class="text-[36px] font-semibold text-[#25B6AB] mb-6">RFQ Deadline</h2>
+
+    <div class="relative mb-8">
+      <input readonly formControlName="deadline"
+        class="w-full h-16 rounded-full border border-[#C9F1EC] px-5 pt-5 focus:outline-none" />
+      <label class="absolute left-5 top-2 text-[11px] text-[#9CA3AF]">Required deadline of the PR</label>
+    </div>
+
+    <label class="flex items-center gap-3 mb-10">
+      <input type="checkbox" class="accent-[#25B6AB] w-5 h-5">
+      <span class="text-[#25B6AB]">I agree on the PR if it's within company's budget, Turn it into a Professional
+        RFQ.</span>
+    </label>
+  </div>
+
+  <div class="max-w-6xl mx-auto flex gap-4 mt-8">
+    <button type="button" (click)="onAccept()"
+      class="flex-1 h-14 rounded-full bg-gradient-to-r from-[#E47C55] to-[#EFA063] text-white font-medium flex items-center justify-center gap-2 hover:opacity-90">
+      Accept & Send To Finance →
+    </button>
+    <button type="button" (click)="onReject()"
+      class="flex-1 h-14 rounded-full border border-[#E47C55] text-[#E47C55] bg-white hover:bg-orange-50">
+      Reject Request
+    </button>
+  </div>
+</form>

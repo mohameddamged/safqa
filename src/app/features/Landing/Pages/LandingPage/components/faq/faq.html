@@ -1,0 +1,28 @@
+<section class="faq-section">
+
+  <h2 class="faq-title">
+    <span class="title-dark">Frequently Asked </span><span class="title-accent">QUESTIONS</span>
+  </h2>
+
+  <div class="faq-list">
+
+    <div class="faq-item" *ngFor="let faq of faqs; let i = index" [class.open]="activeFaqIndex === i">
+
+      <button class="faq-question" (click)="toggleFaq(i)">
+        <span>{{ faq.question }}</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <div class="faq-answer" [style.max-height]="activeFaqIndex === i ? '300px' : '0px'">
+        <div class="faq-answer-inner">
+          {{ faq.answer }}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>

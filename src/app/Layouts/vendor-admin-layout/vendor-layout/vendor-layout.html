@@ -1,0 +1,15 @@
+<div class="h-screen flex flex-col overflow-hidden">
+  <app-vendor-navbar class="z-50"></app-vendor-navbar>
+
+  <div class="flex flex-grow overflow-hidden">
+    <aside class="w-64 flex-shrink-0">
+      <app-vendor-sidebar></app-vendor-sidebar>
+    </aside>
+
+    <main class="flex-grow overflow-y-auto bg-gray-50 ">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+  <app-toast-host></app-toast-host>
+</div>

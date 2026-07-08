@@ -1,0 +1,151 @@
+<div class="profile-page">
+
+  <!-- ── TOP: Avatar + Name + Plan ── -->
+  <div class="profile-top">
+
+    <!-- Avatar -->
+    <div class="avatar-wrap">
+      <div class="avatar-circle" (click)="onAvatarClick()">
+        <img *ngIf="avatarUrl" [src]="avatarUrl" alt="Avatar" class="avatar-img" />
+        <div *ngIf="!avatarUrl" class="avatar-placeholder"></div>
+      </div>
+      <button class="avatar-edit-btn" (click)="onAvatarClick()" title="Change photo">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 2H9C4 2 2 4 2 9v6c0 5 2 7 7 7h6c5 0 7-2 7-7v-2" stroke="#25B6AB" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="M16.04 3.02l-7.88 7.88c-.3.3-.59.89-.65 1.32l-.43 3.03c-.16 1.09.61 1.85 1.7 1.7l3.03-.43c.42-.06 1.01-.35 1.32-.65l7.88-7.88c1.36-1.36 2-2.94 0-4.94-2-1.99-3.61-1.39-4.97-.03z"
+            stroke="#25B6AB" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Name + Plan -->
+    <div class="name-plan-wrap">
+      <div class="name-row" *ngIf="!isEditingName">
+        <h1 class="vendor-name">{{ vendorName }}</h1>
+        <button class="name-edit-btn" (click)="onEditName()" title="Edit name">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M16.04 3.02l-7.88 7.88c-.3.3-.59.89-.65 1.32l-.43 3.03c-.16 1.09.61 1.85 1.7 1.7l3.03-.43c.42-.06 1.01-.35 1.32-.65l7.88-7.88c1.36-1.36 2-2.94 0-4.94-2-1.99-3.61-1.39-4.97-.03z"
+              stroke="#6B6B8A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M14.91 4.15a4.48 4.48 0 0 1 4.94 4.94" stroke="#6B6B8A" stroke-width="1.5"
+              stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <span class="plan-badge" [class.plan-badge--pro]="plan !== 'Free Plan'">
+          <span *ngIf="planLoading" class="plan-loading">...</span>
+          <span *ngIf="!planLoading">{{ plan }}</span>
+        </span>
+      </div>
+
+      <!-- Inline name edit -->
+      <div class="name-row name-edit-row" *ngIf="isEditingName">
+        <input class="name-input" [(ngModel)]="editNameTemp" (keyup.enter)="onSaveName()"
+          (keyup.escape)="onCancelName()" autofocus />
+        <button class="name-save-btn" (click)="onSaveName()" title="Save">✓</button>
+        <button class="name-cancel-btn" (click)="onCancelName()" title="Cancel">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MAIN CARD ── -->
+  <div class="main-card">
+
+    <!-- Left: form fields -->
+    <div class="card-left">
+
+      <div class="field-box">
+        <span class="field-label">Tax ID</span>
+        <input class="field-input" [(ngModel)]="taxId" placeholder="Tax ID" readonly />
+      </div>
+
+      <div class="field-box">
+        <span class="field-label">Work e-mail</span>
+        <input class="field-input" [(ngModel)]="workEmail" type="email" placeholder="Work e-mail" readonly />
+      </div>
+
+      <div class="field-box">
+        <span class="field-label">Phone Number</span>
+        <input class="field-input" [(ngModel)]="phoneNumber" type="tel" placeholder="Phone Number" readonly />
+      </div>
+
+      <!-- Head Office Location -->
+      <h2 class="section-title">Head Office Location</h2>
+
+      <div class="fields-row">
+        <div class="field-box half">
+          <span class="field-label">Country</span>
+          <input class="field-input" [(ngModel)]="country" placeholder="Country" readonly />
+        </div>
+        <div class="field-box half">
+          <span class="field-label">State / Region</span>
+          <input class="field-input" [(ngModel)]="stateRegion" placeholder="State / Region" readonly />
+        </div>
+      </div>
+
+      <div class="fields-row">
+        <div class="field-box half">
+          <span class="field-label">City</span>
+          <input class="field-input" [(ngModel)]="city" placeholder="City" readonly />
+        </div>
+        <div class="field-box half">
+          <span class="field-label">Street</span>
+          <input class="field-input" [(ngModel)]="street" placeholder="Street" readonly />
+        </div>
+      </div>
+
+      <div class="field-box">
+        <span class="field-label">Full Company Address</span>
+        <input class="field-input" [(ngModel)]="fullAddress" placeholder="Full Company Address" readonly />
+      </div>
+    </div>
+
+    <!-- Right: document upload boxes (read-only — display only) -->
+    <div class="card-right">
+      <div class="doc-box doc-box-readonly" title="Tax ID document">
+        <img *ngIf="doc1Url" [src]="doc1Url" alt="Document 1" class="doc-preview" />
+        <div *ngIf="!doc1Url" class="doc-placeholder"></div>
+      </div>
+      <div class="doc-box doc-box-readonly" title="Tax ID document">
+        <img *ngIf="doc2Url" [src]="doc2Url" alt="Document 2" class="doc-preview" />
+        <div *ngIf="!doc2Url" class="doc-placeholder"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BANK ACCOUNT ── -->
+  <div class="bank-section">
+    <h2 class="bank-title">Bank Account Info:</h2>
+    <p class="bank-desc">
+      It's very important to us. After You Accept a PO the order cost will be paid and hold at our platform.
+      Once order is delivered &amp; confirmed with OTP code you enter, we will send you your money through
+      your bank account that you upload here.
+    </p>
+
+    <!-- Saved bank account card -->
+    <div class="bank-account-card" *ngIf="bankAccount">
+      <span class="bank-name-label">{{ bankAccount.bankName }}</span>
+      <span class="bank-masked-number">{{ maskedAccount }}</span>
+      <div class="dots-wrap">
+        <button class="dots-btn" (click)="toggleDropdown($event)">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </button>
+        <div class="dropdown-menu" *ngIf="showDropdown">
+          <button class="dropdown-item" (click)="onViewDetails()">View Details</button>
+          <button class="dropdown-item remove" (click)="onRemoveBankAccount()">Remove</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add bank button (shown when no account saved) -->
+    <button class="btn-bank" *ngIf="!bankAccount" (click)="onAddBankAccount()">
+      Add Bank Account Info
+    </button>
+  </div>
+
+</div>

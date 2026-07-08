@@ -1,0 +1,24 @@
+nav a {
+  color: inherit;
+  text-decoration: none;
+}
+.active-link {
+    background-color: #FFF5F0 !important;
+    color: #f97316 !important;
+    font-weight: bold;
+}
+
+.active-link .active-indicator {
+    display: block !important;
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+.nav-sub {
+    padding-left: 3rem;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #4b5563;
+}

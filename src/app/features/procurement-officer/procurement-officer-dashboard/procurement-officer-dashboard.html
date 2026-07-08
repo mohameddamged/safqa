@@ -1,0 +1,98 @@
+<div class="dashboard-page">
+
+  <!-- Daily Work -->
+  <h2 class="section-title">Daily Work</h2>
+
+  <div class="cards-row">
+    <!-- Pending PRs -->
+    <div class="work-card">
+      <div class="work-card__header">
+        <span class="work-card__label">Pending PRs</span>
+        <span class="work-card__badge" *ngIf="pendingPrsCount > 0">
+          {{ pendingPrsCount }} New
+        </span>
+      </div>
+      <a routerLink="/procurement-officer/pendingprs" class="explore-btn">
+        Explore More
+      </a>
+    </div>
+
+    <!-- Pending Vendor Offers -->
+    <div class="work-card">
+      <div class="work-card__header">
+        <span class="work-card__label">Pending Vendor Offers</span>
+        <span class="work-card__badge" *ngIf="pendingOffersCount > 0">
+          {{ pendingOffersCount }} New
+        </span>
+      </div>
+      <a routerLink="/procurement-officer/vendor-offers" class="explore-btn">
+        Explore More
+      </a>
+    </div>
+  </div>
+
+  <!-- Chart row: donut + stats -->
+<div class="bottom-row">
+
+  <!-- Donut Chart -->
+  <div class="chart-card">
+    <div class="chart-wrapper">
+      <svg viewBox="0 0 180 180" class="donut-svg">
+        <circle cx="90" cy="90" r="70" fill="none" stroke="#f3f4f6" stroke-width="20"/>
+        @for (v of topVendors; track $index) {
+          <circle cx="90" cy="90" r="70"
+            fill="none"
+            [attr.stroke]="v.color"
+            stroke-width="20"
+            [attr.stroke-dasharray]="(v.percentage / 100) * 439.82 + ' ' + (439.82 - (v.percentage / 100) * 439.82)"
+            [attr.stroke-dashoffset]="getSegmentOffset($index)"
+          />
+        }
+        <circle cx="90" cy="90" r="50" fill="white"/>
+      </svg>
+    </div>
+    <div class="chart-legend">
+      <p class="chart-title">Top Three Frequently Vendors We Order From</p>
+      <div class="legend-items">
+        @for (v of topVendors; track $index) {
+          <div class="legend-item">
+            <span class="legend-dot" [style.background]="v.color"></span>
+            <span class="legend-name">{{ v.name }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Stats row -->
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-card__content">
+      <p class="stat-card__label">Active RFQs</p>
+      <p class="stat-card__value teal">{{ isLoading ? '...' : activeRfqsCount }}</p>
+    </div>
+    <div class="stat-card__icon orange">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+      </svg>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-card__content">
+      <p class="stat-card__label">Negotiation Savings <span class="stat-card__period">(Month)</span></p>
+      <p class="stat-card__value teal">{{ negotiationSavings }} EGP</p>
+    </div>
+    <div class="stat-card__icon teal">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="1" x2="12" y2="23"></line>
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+      </svg>
+    </div>
+  </div>
+</div>

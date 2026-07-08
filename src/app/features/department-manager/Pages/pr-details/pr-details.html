@@ -1,0 +1,247 @@
+<div class="pr-details-page">
+  <h1 class="page-title">PR Details</h1>
+
+  <div class="options-error" *ngIf="optionsLoadError">{{ optionsLoadError }}</div>
+
+  <div class="content-row">
+    <!-- LEFT: PR Info / Cost Info / RFQ Deadline form -->
+    <div class="form-card">
+      <h2 class="section-title">PR Info</h2>
+
+      <div class="field">
+        <label class="floating-label">Item Name *</label>
+        <input type="text" class="text-input" [(ngModel)]="itemName" />
+      </div>
+
+      <div class="field">
+        <label class="floating-label">Category *</label>
+        <div class="input-with-icon dropdown-anchor">
+          <input type="text" class="text-input" [(ngModel)]="category" readonly (click)="openCategoryDropdown()" />
+          <svg class="field-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="openCategoryDropdown()">
+            <path d="M6 9L12 15L18 9" stroke="#3FCFB4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+
+          <div class="select-dropdown" *ngIf="isCategoryOpen">
+            <div class="select-dropdown-header">
+              <div>
+                <p class="select-dropdown-label">Select Category</p>
+                <p class="select-dropdown-title">Selected Category</p>
+              </div>
+              <svg class="select-dropdown-caret" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 15L12 9L18 15" stroke="#3FCFB4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+
+            <ul class="select-dropdown-list">
+              <li class="select-dropdown-option" *ngFor="let option of categoryOptions" (click)="selectCategory(option)">
+                <span class="radio-circle" [class.checked]="selectedCategoryId === option.id"></span>
+                <span class="option-label">{{ option.name }}</span>
+              </li>
+              <li class="select-dropdown-empty" *ngIf="!categoryOptions.length">No categories available</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="floating-label">Quantity *</label>
+          <input type="number" class="text-input" [(ngModel)]="quantity" />
+        </div>
+
+        <div class="field">
+          <label class="floating-label">Unit of Measurement *</label>
+          <div class="input-with-icon dropdown-anchor">
+            <input type="text" class="text-input" [(ngModel)]="unitOfMeasurement" readonly (click)="openUnitDropdown()" />
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="openUnitDropdown()">
+              <path d="M6 9L12 15L18 9" stroke="#3FCFB4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
+            <div class="select-dropdown" *ngIf="isUnitOpen">
+              <div class="select-dropdown-header">
+                <div>
+                  <p class="select-dropdown-label">Unit of Measurement</p>
+                  <p class="select-dropdown-title">Selected Unit</p>
+                </div>
+                <svg class="select-dropdown-caret" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 15L12 9L18 15" stroke="#3FCFB4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+
+              <ul class="select-dropdown-list">
+                <li class="select-dropdown-option" *ngFor="let option of unitOptions" (click)="selectUnit(option)">
+                  <span class="radio-circle" [class.checked]="unitOfMeasurement === option.name"></span>
+                  <span class="option-label">{{ option.name }}</span>
+                </li>
+                <li class="select-dropdown-empty" *ngIf="!unitOptions.length">No units available</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="floating-label">Technical Specs</label>
+        <input type="text" class="text-input" [(ngModel)]="technicalSpecs" />
+      </div>
+
+      <div class="field">
+        <label class="floating-label">Why do You need this item?</label>
+        <input type="text" class="text-input" [(ngModel)]="needReason" />
+      </div>
+
+      <div class="field">
+        <label class="floating-label">Additional Notes</label>
+        <input type="text" class="text-input" [(ngModel)]="additionalNotes" />
+      </div>
+
+      <h2 class="section-title">Cost Info</h2>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="floating-label">Estimated Price *</label>
+          <input type="number" class="text-input" [(ngModel)]="estimatedPrice" />
+        </div>
+
+        <div class="field">
+          <label class="floating-label">Currency *</label>
+          <div class="input-with-icon dropdown-anchor">
+            <input type="text" class="text-input" [(ngModel)]="currency" readonly (click)="openCurrencyDropdown()" />
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="openCurrencyDropdown()">
+              <path d="M6 9L12 15L18 9" stroke="#3FCFB4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
+            <div class="select-dropdown" *ngIf="isCurrencyOpen">
+              <div class="select-dropdown-header">
+                <div>
+                  <p class="select-dropdown-label">Select Currency</p>
+                  <p class="select-dropdown-title">Selected Currency</p>
+                </div>
+                <svg class="select-dropdown-caret" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 15L12 9L18 15" stroke="#3FCFB4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+
+              <ul class="select-dropdown-list">
+                <li class="select-dropdown-option" *ngFor="let option of currencyOptions" (click)="selectCurrency(option)">
+                  <span class="radio-circle" [class.checked]="currency === option.name"></span>
+                  <span class="option-label">{{ option.name }}</span>
+                </li>
+                <li class="select-dropdown-empty" *ngIf="!currencyOptions.length">No currencies available</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">RFQ Deadline</h2>
+
+      <div class="field">
+        <label class="floating-label">RFQ Deadline *</label>
+        <input type="text" class="text-input" [value]="rfqDeadlineDisplay" placeholder="Pick a date from the calendar" readonly />
+      </div>
+    </div>
+
+    <!-- RIGHT: Deadline date picker -->
+    <div class="date-picker-card">
+      <p class="date-picker-hint">Select required deadline of the PR</p>
+
+      <div class="selected-date-row">
+        <span class="selected-date-label">{{ selectedDateLabel }}</span>
+        <svg class="edit-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16.5 3.5L20.5 7.5L8 20H4V16L16.5 3.5Z" stroke="#E8703A" stroke-width="1.6" stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <div class="calendar-header">
+        <button type="button" class="month-label">
+          {{ viewMonthLabel }}
+          <svg class="caret-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 9L12 15L18 9" stroke="#2E1911" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+
+        <div class="month-nav">
+          <button type="button" class="nav-btn" (click)="prevMonth()" aria-label="Previous month">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 18L9 12L15 6" stroke="#2E1911" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button type="button" class="nav-btn" (click)="nextMonth()" aria-label="Next month">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 6L15 12L9 18" stroke="#2E1911" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="weekday-row">
+        <span class="weekday-cell" *ngFor="let wd of weekDays">{{ wd }}</span>
+      </div>
+
+      <div class="day-grid">
+        <button
+          type="button"
+          *ngFor="let cell of calendarCells"
+          class="day-cell"
+          [class.empty]="cell.day === null"
+          [class.is-today]="cell.isToday"
+          [class.is-selected]="cell.isSelected"
+          [class.is-past]="cell.isPast"
+          [disabled]="cell.day === null || cell.isPast"
+          (click)="pickDay(cell.day)">
+          {{ cell.day }}
+        </button>
+      </div>
+
+      <div class="calendar-actions">
+        <button type="button" class="text-action clear-action" (click)="clearDate()">Clear</button>
+        <span class="action-spacer"></span>
+        <button type="button" class="text-action cancel-action" (click)="cancelDate()">Cancel</button>
+        <button type="button" class="text-action ok-action" (click)="confirmDate()">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="submit-error" *ngIf="submitError">{{ submitError }}</div>
+
+  <div class="action-row">
+    <button type="button" class="upload-btn" [disabled]="isSubmitting" (click)="uploadToManagement()">
+      {{ isSubmitting ? 'Submitting...' : 'Upload To\u00A0 Management' }}
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="play-icon" *ngIf="!isSubmitting">
+        <path d="M8 5L19 12L8 19V5Z" fill="white" />
+      </svg>
+    </button>
+
+    <button type="button" class="cancel-btn" [disabled]="isSubmitting" (click)="cancelForm()">Cancel</button>
+  </div>
+
+  <!-- CANCEL CONFIRMATION MODAL -->
+  <div class="modal-overlay" *ngIf="isCancelModalOpen">
+    <div class="cancel-modal">
+      <h2 class="cancel-modal-title">CANCEL</h2>
+      <p class="cancel-modal-text">Are you sure you want o cancel? Your RFQ's details are not saved.</p>
+
+      <div class="cancel-modal-actions">
+        <button type="button" class="continue-btn" (click)="continueMakingRfq()">Continue Making RFQ</button>
+        <button type="button" class="cancel-rfq-btn" (click)="confirmCancelRfq()">Cancel RFQ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div class="modal-overlay" *ngIf="isSuccessModalOpen">
+    <div class="success-modal">
+      <svg class="success-badge" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M50 4 L58 12 L69 9 L74 19 L86 21 L84 33 L93 41 L86 51 L93 61 L84 69 L86 81 L74 83 L69 93 L58 90 L50 98 L42 90 L31 93 L26 83 L14 81 L16 69 L7 61 L14 51 L7 41 L16 33 L14 21 L26 19 L31 9 L42 12 Z"
+          stroke="#22C55E" stroke-width="3.5" stroke-linejoin="round" />
+        <path d="M34 51 L45 62 L67 38" stroke="#22C55E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+
+      <p class="success-text">The RFQ has been uploaded to Management to get approved successfully</p>
+
+      <button type="button" class="success-ok-btn" (click)="closeSuccessModal()">OK</button>
+    </div>
+  </div>
+</div>

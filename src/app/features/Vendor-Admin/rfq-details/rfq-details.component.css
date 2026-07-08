@@ -1,0 +1,157 @@
+/* ══════════════════════════════
+   BREADCRUMB
+══════════════════════════════ */
+.rfqd-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 48px 0;
+}
+
+.rfqd-breadcrumb-link {
+  font-size: 14px;
+  color: #25B6AB;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.rfqd-breadcrumb-link:hover {
+  opacity: 0.75;
+}
+
+.rfqd-breadcrumb-sep {
+  display: flex;
+  align-items: center;
+}
+
+.rfqd-breadcrumb-current {
+  font-size: 14px;
+  color: #25B6AB;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* ══════════════════════════════
+   PAGE
+══════════════════════════════ */
+.rfqd-page {
+  padding: 24px 48px 120px; /* bottom padding for sticky footer */
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  max-width: 960px;
+}
+
+/* ══════════════════════════════
+   TITLE
+══════════════════════════════ */
+.rfqd-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #1A1A2E;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+/* ══════════════════════════════
+   SECTION
+══════════════════════════════ */
+.rfqd-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rfqd-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #25B6AB;
+  margin: 0 0 4px;
+}
+
+/* ══════════════════════════════
+   FIELDS
+══════════════════════════════ */
+.rfqd-fields-row {
+  display: flex;
+  gap: 16px;
+}
+
+.rfqd-fields-row .rfqd-field {
+  flex: 1;
+}
+
+.rfqd-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E2EE;
+  border-radius: 12px;
+  padding: 12px 18px 14px;
+  position: relative;
+}
+
+.rfqd-field-full {
+  width: 100%;
+}
+
+.rfqd-field-label {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #25B6AB;
+  letter-spacing: 0.1px;
+}
+
+.rfqd-field-value {
+  font-size: 15px;
+  color: #1A1A2E;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.rfqd-multiline {
+  white-space: pre-line;
+  line-height: 1.7;
+}
+
+/* ══════════════════════════════
+   STICKY FOOTER
+══════════════════════════════ */
+.rfqd-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* account for sidebar width */
+  margin-left: 205px;
+  padding: 16px 48px;
+  background: #F5F5FA;
+  border-top: 1px solid #EBEBF5;
+  z-index: 50;
+}
+
+.rfqd-apply-btn {
+  width: 100%;
+  max-width: 920px;
+  padding: 18px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #E47C55 0%, #EFA063 100%);
+  transition: opacity 0.2s, transform 0.1s;
+  letter-spacing: 0.2px;
+}
+
+.rfqd-apply-btn:hover {
+  opacity: 0.92;
+}
+
+.rfqd-apply-btn:active {
+  transform: scale(0.99);
+}

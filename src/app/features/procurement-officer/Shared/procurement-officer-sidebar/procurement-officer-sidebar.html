@@ -1,0 +1,175 @@
+<nav class="h-full w-64 bg-white border-r border-gray-100 flex flex-col text-[#2E1911] ">
+
+    <ul class="space-y-2 flex-grow overflow-y-auto">
+
+        <li>
+            <a routerLink="/procurement-officer/dashboard" routerLinkActive="active-link"
+                [routerLinkActiveOptions]="{exact: true}" [routerLinkActiveOptions]="{exact: true}"
+                class="relative flex items-center gap-3 p-3 transition-all hover:bg-gray-50 rounded-lg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M22 10.9V4.1C22 2.6 21.36 2 19.77 2H15.73C14.14 2 13.5 2.6 13.5 4.1V10.9C13.5 12.4 14.14 13 15.73 13H19.77C21.36 13 22 12.4 22 10.9Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M22 19.9V18.1C22 16.6 21.36 16 19.77 16H15.73C14.14 16 13.5 16.6 13.5 18.1V19.9C13.5 21.4 14.14 22 15.73 22H19.77C21.36 22 22 21.4 22 19.9Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M10.5 13.1V19.9C10.5 21.4 9.86 22 8.27 22H4.23C2.64 22 2 21.4 2 19.9V13.1C2 11.6 2.64 11 4.23 11H8.27C9.86 11 10.5 11.6 10.5 13.1Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M10.5 4.1V5.9C10.5 7.4 9.86 8 8.27 8H4.23C2.64 8 2 7.4 2 5.9V4.1C2 2.6 2.64 2 4.23 2H8.27C9.86 2 10.5 2.6 10.5 4.1Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+                <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1.5 bg-orange-500"></span>
+                <span class="ml-2">Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a routerLink="/procurement-officer/all-rfqs" routerLinkActive="active-link"
+                class="relative flex items-center gap-3 p-3 transition-all hover:bg-gray-50 rounded-lg">
+                <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9.75 0.75V4.75C9.75 5.01522 9.85536 5.26957 10.0429 5.45711C10.2304 5.64464 10.4848 5.75 10.75 5.75H14.75M14.75 5.75L9.75 0.75H2.75C2.21957 0.75 1.71086 0.960714 1.33579 1.33579C0.960714 1.71086 0.75 2.21957 0.75 2.75V16.75C0.75 17.2804 0.960714 17.7891 1.33579 18.1642C1.71086 18.5393 2.21957 18.75 2.75 18.75H12.75C13.2804 18.75 13.7891 18.5393 14.1642 18.1642C14.5393 17.7891 14.75 17.2804 14.75 16.75V5.75ZM4.75 14.75H10.75M4.75 10.75H10.75"
+                        stroke="#4C291C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+
+                <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1.5 bg-orange-500"></span>
+                <span class="ml-2">ALL RFQS</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/procurement-officer/pendingprs" routerLinkActive="active-link"
+                class="relative flex items-center gap-3 p-3 transition-all hover:bg-gray-50 rounded-lg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M15.2391 2H8.75906C4.99906 2 4.70906 5.38 6.73906 7.22L17.2591 16.78C19.2891 18.62 18.9991 22 15.2391 22H8.75906C4.99906 22 4.70906 18.62 6.73906 16.78L17.2591 7.22C19.2891 5.38 18.9991 2 15.2391 2Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+
+                <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1.5 bg-orange-500"></span>
+                <span class="ml-2">Pending PRS</span>
+            </a>
+        </li>
+        <li>
+          <a routerLink="/procurement-officer/vendor-offers" routerLinkActive="active-link"
+                class="relative flex items-center gap-3 p-3 transition-all hover:bg-gray-50 rounded-lg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 13.4V16.4C17 20.4 15.4 22 11.4 22H7.6C3.6 22 2 20.4 2 16.4V12.6C2 8.6 3.6 7 7.6 7H10.6"
+                        stroke="#4C291C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M16.9996 13.4H13.7996C11.3996 13.4 10.5996 12.6 10.5996 10.2V7L16.9996 13.4Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M11.5996 2H15.5996" stroke="#2E1911" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M7 5C7 3.34 8.34 2 10 2H12.62" stroke="#2E1911" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M21.9995 8V14.19C21.9995 15.74 20.7395 17 19.1895 17" stroke="#2E1911" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M22 8H19C16.75 8 16 7.25 16 5V2L22 8Z" stroke="#2E1911" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+
+                <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1.5 bg-orange-500"></span>
+                <span class="ml-2">Vendor Offers</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/procurement-officer/po-list" routerLinkActive="active-link"
+                class="relative flex items-center gap-3 p-3 transition-all hover:bg-gray-50 rounded-lg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_2060_2815)">
+                        <mask id="path-1-inside-1_2060_2815" fill="white">
+                            <path
+                                d="M6.73825 20.1301H18.2162V4.82709C18.216 4.57345 18.115 4.33029 17.9356 4.15104C17.7562 3.97178 17.5129 3.87109 17.2593 3.87109H5.78125V19.1751C5.78125 19.4289 5.88208 19.6723 6.06155 19.8518C6.24102 20.0313 6.48444 20.1321 6.73825 20.1321" />
+                        </mask>
+                        <path
+                            d="M6.73825 20.1301H18.2162V4.82709C18.216 4.57345 18.115 4.33029 17.9356 4.15104C17.7562 3.97178 17.5129 3.87109 17.2593 3.87109H5.78125V19.1751C5.78125 19.4289 5.88208 19.6723 6.06155 19.8518C6.24102 20.0313 6.48444 20.1321 6.73825 20.1321"
+                            fill="white" />
+                        <path
+                            d="M18.2162 20.1301V21.1301H19.2162V20.1301H18.2162ZM18.2162 4.82709H19.2163L19.2162 4.82605L18.2162 4.82709ZM17.2593 3.87109V4.87109H17.2593L17.2593 3.87109ZM5.78125 3.87109V2.87109H4.78125V3.87109H5.78125ZM6.73825 20.1301V21.1301H18.2162V20.1301V19.1301H6.73825V20.1301ZM18.2162 20.1301H19.2162V4.82709H18.2162H17.2162V20.1301H18.2162ZM18.2162 4.82709L19.2162 4.82605C19.2157 4.30738 19.0093 3.81013 18.6423 3.44356L17.9356 4.15104L17.2289 4.85852C17.2208 4.85046 17.2163 4.83953 17.2163 4.82814L18.2162 4.82709ZM17.9356 4.15104L18.6423 3.44356C18.2754 3.077 17.7779 2.87109 17.2592 2.87109L17.2593 3.87109L17.2593 4.87109C17.2479 4.87109 17.2369 4.86657 17.2289 4.85852L17.9356 4.15104ZM17.2593 3.87109V2.87109H5.78125V3.87109V4.87109H17.2593V3.87109ZM5.78125 3.87109H4.78125V19.1751H5.78125H6.78125V3.87109H5.78125ZM5.78125 19.1751H4.78125C4.78125 19.6941 4.98743 20.1919 5.35444 20.5589L6.06155 19.8518L6.76866 19.1447C6.77672 19.1528 6.78125 19.1637 6.78125 19.1751H5.78125ZM6.06155 19.8518L5.35444 20.5589C5.72145 20.9259 6.21922 21.1321 6.73825 21.1321V20.1321V19.1321C6.74965 19.1321 6.76059 19.1366 6.76866 19.1447L6.06155 19.8518Z"
+                            fill="#2E1911" mask="url(#path-1-inside-1_2060_2815)" />
+                        <path
+                            d="M17.9592 4.18509C17.8708 4.08696 17.7629 4.00835 17.6424 3.95429C17.5218 3.90022 17.3913 3.87189 17.2593 3.87109H5.78125V16.3651L17.9592 4.18509Z"
+                            fill="white" />
+                        <path
+                            d="M6.73825 20.1301H18.2162V4.82709C18.216 4.57345 18.115 4.33029 17.9356 4.15104C17.7562 3.97178 17.5129 3.87109 17.2593 3.87109H5.78125V19.1751C5.78125 19.4289 5.88208 19.6723 6.06155 19.8518C6.24102 20.0313 6.48444 20.1321 6.73825 20.1321"
+                            stroke="#2E1911" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M23.0009 21.5664L22.0449 19.7164V15.3494C22.0849 13.6494 20.0539 12.1324 18.2179 10.5664V15.7774L17.2309 14.7684C17.0945 14.627 16.9252 14.5215 16.7381 14.4613C16.5511 14.4011 16.352 14.3881 16.1587 14.4235C15.9654 14.4588 15.7838 14.5414 15.6302 14.6638C15.4765 14.7863 15.3555 14.9449 15.2779 15.1254C15.1847 15.3428 15.1584 15.5831 15.2024 15.8156C15.2464 16.048 15.3587 16.2621 15.5249 16.4304L18.2179 19.1754V20.6104C18.3649 21.4654 18.6909 22.2804 19.1749 23.0014"
+                            fill="white" />
+                        <path
+                            d="M23.0009 21.5664L22.0449 19.7164V15.3494C22.0849 13.6494 20.0539 12.1324 18.2179 10.5664V15.7774M19.6709 17.2614L18.2179 15.7774L17.2309 14.7684C17.0945 14.627 16.9252 14.5215 16.7381 14.4613C16.5511 14.4011 16.352 14.3881 16.1587 14.4235C15.9654 14.4588 15.7838 14.5414 15.6302 14.6638C15.4765 14.7863 15.3555 14.9449 15.2779 15.1254C15.1847 15.3428 15.1584 15.5831 15.2024 15.8156C15.2464 16.048 15.3587 16.2621 15.5249 16.4304L18.2179 19.1754V20.6104C18.3649 21.4654 18.6909 22.2804 19.1749 23.0014"
+                            stroke="#2E1911" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M1 2.435L1.957 4.285V8.652C1.917 10.352 3.947 11.869 5.783 13.435V8.224L6.77 9.233C6.87919 9.34502 7.00938 9.43443 7.15313 9.49613C7.29688 9.55784 7.45138 9.59063 7.6078 9.59262C7.76422 9.59462 7.9195 9.56579 8.06478 9.50777C8.21005 9.44976 8.34248 9.36369 8.4545 9.2545C8.56652 9.14531 8.65593 9.01512 8.71764 8.87137C8.77934 8.72762 8.81212 8.57312 8.81412 8.4167C8.81612 8.26028 8.78729 8.105 8.72927 7.95972C8.67126 7.81445 8.58519 7.68202 8.476 7.57L5.783 4.826V3.391C5.6378 2.53497 5.31153 1.71981 4.826 1"
+                            fill="white" />
+                        <path
+                            d="M1 2.435L1.957 4.285V8.652C1.917 10.352 3.947 11.869 5.783 13.435V8.224M4.33 6.74L5.783 8.224L6.77 9.233C6.87919 9.34502 7.00938 9.43443 7.15313 9.49613C7.29688 9.55784 7.45138 9.59063 7.6078 9.59262C7.76422 9.59462 7.9195 9.56579 8.06478 9.50777C8.21005 9.44976 8.34248 9.36369 8.4545 9.2545C8.56652 9.14531 8.65593 9.01512 8.71764 8.87137C8.77934 8.72762 8.81212 8.57312 8.81412 8.4167C8.81612 8.26028 8.78729 8.105 8.72927 7.95972C8.67126 7.81445 8.58519 7.68202 8.476 7.57L5.783 4.826V3.391C5.6378 2.53497 5.31153 1.71981 4.826 1"
+                            stroke="#2E1911" stroke-linecap="round" stroke-linejoin="round" />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_2060_2815">
+                            <rect width="24" height="24" fill="white" />
+                        </clipPath>
+                    </defs>
+                </svg>
+
+
+                <span class="active-indicator hidden absolute right-0 top-0 bottom-0 w-1.5 bg-orange-500"></span>
+                <span class="ml-2">All POS</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="mt-auto pt-6 border-t border-gray-200 flex flex-col gap-2">
+
+        <a routerLink="/procurement-officer/profile"
+            class="flex items-center gap-3 p-3 text-[#4C291C] hover:bg-orange-50 rounded-xl transition-all">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="16" cy="16" r="16" fill="#D9D9D9" />
+            </svg>
+            <span class="font-medium">Profile</span>
+        </a>
+
+        <button routerLink="/procurement-officer/setting"
+            class="flex items-center justify-between p-3 w-full text-[#4C291C] hover:bg-orange-50 rounded-xl transition-all">
+            <div class="flex items-center gap-3">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path
+                        d="M2 12.8814V11.1214C2 10.0814 2.85 9.2214 3.9 9.2214C5.71 9.2214 6.45 7.9414 5.54 6.3714C5.02 5.4714 5.33 4.3014 6.24 3.7814L7.97 2.7914C8.76 2.3214 9.78 2.6014 10.25 3.3914L10.36 3.5814C11.26 5.1514 12.74 5.1514 13.65 3.5814L13.76 3.3914C14.23 2.6014 15.25 2.3214 16.04 2.7914L17.77 3.7814C18.68 4.3014 18.99 5.4714 18.47 6.3714C17.56 7.9414 18.3 9.2214 20.11 9.2214C21.15 9.2214 22.01 10.0714 22.01 11.1214V12.8814C22.01 13.9214 21.16 14.7814 20.11 14.7814C18.3 14.7814 17.56 16.0614 18.47 17.6314C18.99 18.5414 18.68 19.7014 17.77 20.2214L16.04 21.2114C15.25 21.6814 14.23 21.4014 13.76 20.6114L13.65 20.4214C12.75 18.8514 11.27 18.8514 10.36 20.4214L10.25 20.6114C9.78 21.4014 8.76 21.6814 7.97 21.2114L6.24 20.2214C5.33 19.7014 5.02 18.5314 5.54 17.6314C6.45 16.0614 5.71 14.7814 3.9 14.7814C2.85 14.7814 2 13.9214 2 12.8814Z"
+                        stroke="#2E1911" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+
+                <span class="font-medium">Settings</span>
+            </div>
+            <!-- <svg class="w-4 h-4 transition-transform duration-300" [class.rotate-180]="isSettingsOpen()" fill="none"
+                stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg> -->
+        </button>
+
+        <button (click)="logout()"
+            class="flex items-center gap-3 p-3 w-full text-red-500 hover:bg-red-50 rounded-xl transition-all">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M8.90039 7.55828C9.21039 3.95828 11.0604 2.48828 15.1104 2.48828H15.2404C19.7104 2.48828 21.5004 4.27828 21.5004 8.74828V15.2683C21.5004 19.7383 19.7104 21.5283 15.2404 21.5283H15.1104C11.0904 21.5283 9.24039 20.0783 8.91039 16.5383"
+                    stroke="#FC161A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M14.9991 12H3.61914" stroke="#FC161A" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M5.85 8.64844L2.5 11.9984L5.85 15.3484" stroke="#FC161A" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
+            <span class="font-medium">Logout</span>
+        </button>
+    </div>
+</nav>

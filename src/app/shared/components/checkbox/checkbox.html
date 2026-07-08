@@ -1,0 +1,21 @@
+<label class="checkbox">
+  <button
+    type="button"
+    class="checkbox__box"
+    [class.checkbox__box--checked]="checked"
+    (click)="toggle()"
+    role="checkbox"
+    [attr.aria-checked]="checked"
+  >
+    @if (checked) {
+      <app-icon name="check" [size]="13"></app-icon>
+    }
+  </button>
+  <span class="checkbox__label">
+    <ng-content></ng-content>
+  </span>
+</label>
+
+@if (errorMessage && touched) {
+  <p class="checkbox__error">{{ errorMessage }}</p>
+}

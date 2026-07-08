@@ -1,0 +1,75 @@
+<div class="p-8 bg-gray-50 min-h-screen">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-[#2E1911]">Pending PRs</h1>
+    </div>
+
+    <div class="bg-white rounded-2xl rounded-tr-[3rem] shadow-sm border border-orange-100 overflow-hidden">
+        @if (isLoading()) {
+        <div class="p-20 text-center">Loading...</div>
+        } @else {
+        <table class="w-full text-left">
+            <thead class="bg-[#FFF5F0] text-[#2E1911] text-sm border-[#E47C55]">
+                <tr>
+                    <th class="p-5 font-semibold">ID</th>
+                    <th class="p-5 font-semibold">RFQ Title</th>
+                    <th class="p-5 font-semibold">Date of Publish</th>
+                    <th class="p-5 font-semibold">PR Deadline</th>
+                    <th class="p-5 font-semibold">Action</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                @for (item of prList(); track item.id) {
+                <tr class="hover:bg-orange-50/20 transition-colors">
+                    <td class="p-5 text-gray-700">{{ item.id }}</td>
+                    <td class="p-5 font-medium text-gray-800">{{ item.itemName }}</td>
+                    <td class="p-5 text-gray-500">{{ item.createdAt | date }}</td>
+                    <td class="p-5 text-gray-500">{{ item.requiredDeliveryDate | date}}</td>
+                    <td class="p-5">
+                        <a [routerLink]="['/company-manager/pr-list/pr-details', item.id]"
+                            class="text-[#FB904E] font-bold text-sm flex items-center gap-1 hover:opacity-80 underline">
+                            Details
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="5" class="p-10 text-center text-gray-500">No pending PRs found.</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        }
+    </div>
+    
+</div>
+
+
+@if (totalPages() > 1) {
+  <div class="flex justify-center items-center gap-6 py-8">
+    <span class="text-xl font-bold text-gray-500">
+      {{ currentPage() }} / {{ totalPages() }}
+    </span>
+
+    <div class="flex gap-3">
+      <button (click)="loadPendingPRs(currentPage() - 1)" 
+              [disabled]="currentPage() === 1"
+              class="w-14 h-14 rounded-full flex items-center justify-center border-2 border-gray-200 text-gray-400 disabled:opacity-30 transition-all hover:border-gray-300">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+
+      <button (click)="loadPendingPRs(currentPage() + 1)" 
+              [disabled]="currentPage() === totalPages()"
+              class="w-14 h-14 rounded-full flex items-center justify-center border-2 border-[#EFA063] text-[#EFA063] disabled:opacity-30 transition-all hover:bg-orange-50">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </button>
+    </div>
+  </div>
+}

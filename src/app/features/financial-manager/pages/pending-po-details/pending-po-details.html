@@ -1,0 +1,126 @@
+<app-fm-shell>
+  <div class="fm-po-pay">
+
+    <div class="fm-po-pay__breadcrumb">
+      <a routerLink="/financial-manager/pending-po-invoices">All Pending Invoices</a>
+      <span>›</span>
+      <span class="fm-po-pay__breadcrumb-current">Invoice Details</span>
+    </div>
+
+    @if (isLoading) {
+      <div class="fm-po-pay__loading">
+        <span class="fm-po-pay__spinner" aria-hidden="true"></span>
+      </div>
+    } @else if (errored()) {
+      <div class="fm-po-pay__empty">
+        <p>Could not load this purchase order.</p>
+      </div>
+    } @else {
+      <div class="fm-po-pay__card">
+
+        <h1 class="fm-po-pay__title">
+          PO Payment: {{ po()?.poTitle || '—' }}
+        </h1>
+
+        <!-- ── Order Info ──────────────────────────────────── -->
+        <h2 class="fm-po-pay__section-title">Order Info</h2>
+        <div class="fm-po-pay__row">
+          <div class="fm-po-pay__field">
+            <span class="fm-po-pay__field-label">Vendor Name</span>
+            <p class="fm-po-pay__field-value">{{ po()?.vendorName || '—' }}</p>
+          </div>
+          <div class="fm-po-pay__field">
+            <span class="fm-po-pay__field-label">Status</span>
+            <p class="fm-po-pay__field-value">
+              <span class="fm-po-pay__status">{{ po()?.status || '—' }}</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- ── Item Info ───────────────────────────────────── -->
+        <h2 class="fm-po-pay__section-title">Item Info</h2>
+        <div class="fm-po-pay__row">
+          <div class="fm-po-pay__field">
+            <span class="fm-po-pay__field-label">Item Name</span>
+            <p class="fm-po-pay__field-value">{{ po()?.itemName || '—' }}</p>
+          </div>
+          <div class="fm-po-pay__field">
+            <span class="fm-po-pay__field-label">Category</span>
+            <p class="fm-po-pay__field-value">{{ po()?.categoryName || '—' }}</p>
+          </div>
+        </div>
+        <div class="fm-po-pay__row">
+          <div class="fm-po-pay__field">
+            <span class="fm-po-pay__field-label">Quantity</span>
+            <p class="fm-po-pay__field-value">{{ po()?.quantity }}</p>
+          </div>
+          <div class="fm-po-pay__field">
+            <span class="fm-po-pay__field-label">Unit</span>
+            <p class="fm-po-pay__field-value">{{ po()?.unit || '—' }}</p>
+          </div>
+        </div>
+
+        <!-- ── Cost Info ───────────────────────────────────── -->
+        <h2 class="fm-po-pay__section-title">Cost Info</h2>
+        <div class="fm-po-pay__row">
+          <div class="fm-po-pay__field">
+            <span class="fm-po-pay__field-label">Total Cost</span>
+            <p class="fm-po-pay__field-value">{{ po()?.totalCost | number:'1.2-2' }}</p>
+          </div>
+          <div class="fm-po-pay__field">
+            <span class="fm-po-pay__field-label">Currency</span>
+            <p class="fm-po-pay__field-value">{{ po()?.currency || '—' }}</p>
+          </div>
+        </div>
+
+        <!-- ── Delivery Info ────────────────────────────────── -->
+        <h2 class="fm-po-pay__section-title">Delivery Info</h2>
+        <div class="fm-po-pay__field fm-po-pay__field--full">
+          <span class="fm-po-pay__field-label">Delivery Deadline</span>
+          <p class="fm-po-pay__field-value">{{ formatDate(po()?.deliveryDeadline) }}</p>
+        </div>
+
+        <!-- ── Safqa Bank Account ──────────────────────────── -->
+        @if (bank()) {
+          <h2 class="fm-po-pay__section-title">Safqa Bank Account Info</h2>
+          <div class="fm-po-pay__bank-box">
+            <div class="fm-po-pay__field fm-po-pay__field--full">
+              <span class="fm-po-pay__field-label">Bank Name</span>
+              <p class="fm-po-pay__field-value">{{ bank()!.safqaBankAccount?.bankName || '—' }}</p>
+            </div>
+            <div class="fm-po-pay__field fm-po-pay__field--full">
+              <span class="fm-po-pay__field-label">IBAN</span>
+              <p class="fm-po-pay__field-value fm-po-pay__iban">
+                {{ bank()!.safqaBankAccount?.iban || '—' }}
+              </p>
+            </div>
+            <div class="fm-po-pay__field fm-po-pay__field--full">
+              <span class="fm-po-pay__field-label">Account Holder Name</span>
+              <p class="fm-po-pay__field-value">
+                {{ bank()!.safqaBankAccount?.accountHolderName || '—' }}
+              </p>
+            </div>
+          </div>
+        }
+
+        <!-- ── Pay Now ─────────────────────────────────────── -->
+        <div class="fm-po-pay__actions">
+          <div class="fm-po-pay__pay-notice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="4" width="22" height="16" rx="2"/>
+              <line x1="1" y1="10" x2="23" y2="10"/>
+            </svg>
+            Clicking "Pay Now" will open the Paymob secure payment page in a new tab.
+          </div>
+          <app-primary-button [loading]="paying()" (click)="pay()">
+            Pay Now
+          </app-primary-button>
+        </div>
+
+      </div>
+    }
+
+  </div>
+</app-fm-shell>

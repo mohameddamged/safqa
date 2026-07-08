@@ -1,0 +1,113 @@
+.page-wrapper {
+  padding: 32px;
+  background: #f9f9f9;
+  min-height: 100%;
+}
+
+.page-header { margin-bottom: 24px; }
+
+.page-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #2E1911;
+}
+
+.table-wrapper {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.rfq-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.rfq-table thead tr { background: #FFF5F0; }
+
+.rfq-table th {
+  padding: 16px 20px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2E1911;
+}
+
+.rfq-table td {
+  padding: 16px 20px;
+  font-size: 14px;
+  color: #2E1911;
+  border-bottom: 1px solid #F5F5F5;
+}
+
+.rfq-table tr:last-child td { border-bottom: none; }
+.rfq-table tr:hover { background: #FAFAFA; }
+
+.id-cell { color: #9A9AAF; font-size: 13px; }
+.title-cell { font-weight: 500; }
+.offers-count { font-weight: 600; color: #25B6AB; }
+
+.details-link {
+  color: #e6824f;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+}
+.details-link:hover { text-decoration: underline; }
+
+.empty-msg {
+  text-align: center;
+  color: #9A9AAF;
+  padding: 40px;
+}
+
+.state-msg {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 40px;
+  justify-content: center;
+  color: #6B6B8A;
+}
+
+.state-error {
+  padding: 20px;
+  color: #e53935;
+  background: #fff3f3;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.spinner {
+  width: 20px; height: 20px;
+  border: 2px solid #F0C8B8;
+  border-top-color: #e6824f;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px;
+  border-top: 1px solid #F5F5F5;
+}
+
+.page-btn {
+  width: 32px; height: 32px;
+  border: 1.5px solid #e6824f;
+  background: none;
+  border-radius: 8px;
+  color: #e6824f;
+  font-size: 16px;
+  cursor: pointer;
+}
+.page-btn:hover:not(:disabled) { background: #FFF5F0; }
+.page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.page-info { font-size: 13px; color: #6B6B8A; }

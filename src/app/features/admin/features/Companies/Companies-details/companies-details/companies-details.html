@@ -1,0 +1,113 @@
+ <div class="p-8 bg-gray-50 min-h-screen">
+    <nav class="mb-6 text-sm flex items-center">
+        <a routerLink="/admin/companies" class="text-[#25B6AB] hover:text-orange-500">All Companies</a>
+        <span class="text-[#25B6AB]  mx-2">></span>
+        <span class="text-[#25B6AB] ">Company Details</span>
+    </nav>
+
+    @if (data()) {
+    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+        <div class="flex items-center gap-6 mb-8">
+            <div class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center font-bold text-gray-500 text-2xl">
+                {{ data().companyName?.charAt(0).toUpperCase() }}
+            </div>
+            <div>
+                <h2 class="text-2xl font-bold text-[#2E1911]">{{ data().companyName }}</h2>
+                <span class="px-3 py-1 bg-teal-50 text-teal-600 rounded-full text-xs font-semibold">{{ data().planType }}</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 grid grid-cols-2 gap-x-6 gap-y-4">
+                <div class="form-group">
+                    <label class="block text-[10px] uppercase text-gray-400 font-bold mb-1">Date of Sign up</label>
+                    <input type="text" [value]="data().dateOfSignUp | date:'dd/MM/yyyy'" readonly
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-gray-700 outline-none">
+                </div>
+                <div class="form-group">
+                    <label class="block text-[10px] uppercase text-gray-400 font-bold mb-1">Tax ID</label>
+                    <input type="text" [value]="data().taxId" readonly
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl rounded-tr-[3rem] p-3 text-gray-700 outline-none">
+                </div>
+                <div class="form-group">
+                    <label class="block text-[10px] uppercase text-gray-400 font-bold mb-1">Work E-mail</label>
+                    <input type="text" [value]="data().workEmail" readonly
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-gray-700 outline-none">
+                </div>
+                <div class="form-group">
+                    <label class="block text-[10px] uppercase text-gray-400 font-bold mb-1">Phone Number</label>
+                    <input type="text" [value]="data().phoneNumber" readonly
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-gray-700 outline-none">
+                </div>
+
+                <div class="form-group">
+                    <label class="block text-[10px] uppercase text-gray-400 font-bold mb-1">Country</label>
+                    <input type="text" [value]="data().address?.country || 'N/A'" readonly
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-gray-700 outline-none">
+                </div>
+                <div class="form-group">
+                    <label class="block text-[10px] uppercase text-gray-400 font-bold mb-1">State / Region</label>
+                    <input type="text" [value]="data().address?.stateRegion || 'N/A'" readonly
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-gray-700 outline-none">
+                </div>
+                <div class="form-group">
+                    <label class="block text-[10px] uppercase text-gray-400 font-bold mb-1">City</label>
+                    <input type="text" [value]="data().address?.city || 'N/A'" readonly
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-gray-700 outline-none">
+                </div>
+                <div class="form-group">
+                    <label class="block text-[10px] uppercase text-gray-400 font-bold mb-1">Street Number</label>
+                    <input type="text" [value]="data().address?.streetNumber || 'N/A'" readonly
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-gray-700 outline-none">
+                </div>
+
+                <div class="form-group col-span-2">
+                    <label class="block text-[10px] uppercase text-gray-400 font-bold mb-1">Full Address</label>
+                    <input type="text" [value]="data().address?.fullAddress || 'N/A'" readonly
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-gray-700 outline-none">
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <div class="flex-1 bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 overflow-hidden">
+                    <img [src]="data().taxIdFrontImageUrl" alt="Front" class="h-full w-full object-cover">
+                </div>
+                <div class="flex-1 bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 overflow-hidden">
+                    <img [src]="data().taxIdBackImageUrl" alt="Back" class="h-full w-full object-cover">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-8 bg-white rounded-tr-[50px] shadow-sm border border-gray-100 overflow-hidden">
+        <table class="w-full text-left">
+            <thead class="bg-[#FFF5F0]">
+                <tr>
+                    <th class="p-6 text-gray-600 font-medium">Position</th>
+                    <th class="p-6 text-gray-600 font-medium">Email</th>
+                    <th class="p-6 text-gray-600 font-medium">Internal Status</th>
+                    <th class="p-6 text-gray-600 font-medium">Date of Joining</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                @for (user of data().subUsers; track user.id) {
+                <tr>
+                    <td class="p-6 text-orange-600 font-semibold">{{ user.position || 'N/A' }}</td>
+                    <td class="p-6">{{ user.email }}</td>
+                    <td class="p-6">
+                        <span class="px-4 py-1 rounded-full text-xs"
+                            [class.bg-green-100]="user.internalStatus === 'Active'"
+                            [class.bg-purple-100]="user.internalStatus === 'Invited'">
+                            {{ user.internalStatus || 'N/A' }}
+                        </span>
+                    </td>
+                    <td class="p-6 text-gray-500">{{ user.dateOfJoining | date:'dd/MM/yyyy' }}</td>
+                </tr>
+                } @empty {
+                    <tr><td colspan="4" class="p-6 text-center text-gray-500">No sub-users found</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+</div>

@@ -1,0 +1,337 @@
+$primary-coral: #FF8A65;
+$bg-light: #F9FBFD;
+$white: #FFFFFF;
+$text-dark: #2C1A14;
+$text-muted: #777777;
+$border-color: #EEF2F6;
+
+// ألوان الهيدر (الشريط البرتقالي الفاتح اللي فوق الجدول زي الصورة بالظبط)
+$header-bg: #FDE8DD;
+$header-text: #6B4A3A;
+$header-border: #E47C55; // var(--Color-Primary-primaryBase, #E47C55)
+
+// ألوان الحالات والـ Badges المظبوطة على الـ states الجديدة
+$status-pending-company-admin-bg: #F5EEF8;
+$status-pending-company-admin-text: #9B59B6;
+
+$status-rejected-company-admin-bg: #FCE8E6;
+$status-rejected-company-admin-text: #E74C3C;
+
+$status-pending-finance-bg: #FDF2E3;
+$status-pending-finance-text: #E58E26;
+
+$status-rejected-finance-bg: #FCE8E6;
+$status-rejected-finance-text: #E74C3C;
+
+$status-pending-procurement-bg: #E8F0FE;
+$status-pending-procurement-text: #4285F4;
+
+$status-converted-bg: #E8F8F0;
+$status-converted-text: #2ECC71;
+
+$status-cancelled-bg: #F1F2F4;
+$status-cancelled-text: #8A8F98;
+
+.my-prs-container {
+  padding: 40px;
+  background-color: $bg-light;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+
+  .page-header {
+    margin-bottom: 25px;
+    h1 {
+      font-size: 32px;
+      color: $text-dark;
+      font-weight: 600;
+    }
+  }
+
+  .table-card {
+    background: $white;
+    border-radius: 16px;
+    border: 1px solid $border-color;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+    overflow: visible; // مهم لكي لا تختفي القوائم المنسدلة
+    padding: 8px;
+  }
+
+  .prs-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    thead tr {
+      background-color: $header-bg;
+    }
+
+    th {
+      padding: 18px 24px;
+      color: $header-text;
+      font-weight: 600;
+      font-size: 15px;
+      text-align: left;
+      border-top: 1px solid var(--Color-Primary-primaryBase, #{$header-border});
+      border-bottom: 1px solid var(--Color-Primary-primaryBase, #{$header-border});
+
+      &.th-first {
+        border-left: 1px solid var(--Color-Primary-primaryBase, #{$header-border});
+      }
+      &.th-actions {
+        border-right: 1px solid var(--Color-Primary-primaryBase, #{$header-border});
+        border-top-right-radius: 20px;
+      }
+    }
+
+    td {
+      padding: 18px 24px;
+      font-size: 15px;
+      color: $text-dark;
+      border-bottom: 1px solid $border-color;
+      vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr.highlighted-row {
+      background-color: #FAF4FC; // تظليل خفيف لل PendingCompanyAdminApproval زي "Ask for an edit" في الصورة
+    }
+  }
+
+  .status-badge {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13.5px;
+    font-weight: 500;
+    display: inline-block;
+    white-space: nowrap;
+
+    &.pending-company-admin-approval { background-color: $status-pending-company-admin-bg; color: $status-pending-company-admin-text; }
+    &.rejected-by-company-admin { background-color: $status-rejected-company-admin-bg; color: $status-rejected-company-admin-text; }
+    &.pending-finance-approval { background-color: $status-pending-finance-bg; color: $status-pending-finance-text; }
+    &.rejected-by-finance { background-color: $status-rejected-finance-bg; color: $status-rejected-finance-text; }
+    &.pending-procurement-review { background-color: $status-pending-procurement-bg; color: $status-pending-procurement-text; }
+    &.converted-to-rfq { background-color: $status-converted-bg; color: $status-converted-text; }
+    &.cancelled { background-color: $status-cancelled-bg; color: $status-cancelled-text; }
+  }
+
+  .actions-col {
+    position: relative;
+    text-align: right;
+
+    .action-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #888;
+      padding: 5px 10px;
+      border-radius: 6px;
+      &:hover { background-color: #F1F3F5; }
+    }
+  }
+
+  // القائمة المنسدلة الرئيسية (More Actions)
+  .dropdown-menu {
+    position: absolute;
+    right: 30px;
+    top: 45px;
+    background: $white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border: 1px solid $border-color;
+    z-index: 999;
+    min-width: 160px;
+    padding: 6px 0;
+  }
+
+  .more-actions-wrapper {
+    position: relative;
+  }
+
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 12px 16px;
+    background: none;
+    border: none;
+    font-size: 14.5px;
+    color: #4A3B32;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover { background-color: #F8F9FA; }
+
+    .arrow-right {
+      font-size: 16px;
+      color: #A3958F;
+    }
+  }
+
+  // القائمة الفرعية (Submenu) المفتوحة جانبياً
+  .submenu-menu {
+    display: none; // مخفية افتراضياً وتظهر عند الضغط على More Actions
+    position: absolute;
+    right: 102%; // تفتح على شمال القائمة الرئيسية لتكون واضحة
+    top: -6px;
+    background: $white;
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+    border: 1px solid $border-color;
+    min-width: 290px;
+    padding: 8px 0;
+    z-index: 1000;
+
+    &.show-submenu {
+      display: block; // تظهر عند التفعيل
+    }
+  }
+
+  .submenu-item {
+    display: block;
+    width: 100%;
+    padding: 11px 18px;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 14px;
+    color: #33221A;
+    cursor: pointer;
+
+    &:hover:not(.disabled) {
+      background-color: #F8F9FA;
+    }
+
+    // استايل العناصر الخافتة (Disabled)
+    &.disabled, &[disabled] {
+      color: #C2B9B5 !important;
+      cursor: not-allowed !important;
+      background: none !important;
+    }
+
+    // الزر الوردي الخاص بالـ AI دائماً منور وشغال
+    &.ai-pink-btn {
+      color: #EC4899 !important; // اللون الوردي الزاهي للـ AI
+      font-weight: 500;
+      &:hover { background-color: #FFF1F2; }
+    }
+  }
+
+  // الـ Modal الخاص بالرفض
+  .modal-backdrop {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 9999;
+  }
+
+  .modal-content {
+    background: $white; border-radius: 24px;
+    width: 100%; max-width: 480px; padding: 30px;
+    position: relative; text-align: center;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+
+    .close-btn {
+      position: absolute; top: 15px; right: 15px;
+      background: #F8F9FA; border: 1px solid #E9ECEF;
+      border-radius: 50%; width: 32px; height: 32px;
+      cursor: pointer; font-size: 16px;
+    }
+    h2 { font-size: 24px; color: #2C1A14; margin-bottom: 8px; font-weight: 600; }
+    .rejected-by { color: #777; margin-bottom: 20px; font-size: 15px; .highlight-text { color: #1ABC9C; font-weight: 600; } }
+    .reason-box {
+      border: 1px solid #D1F2EB; border-radius: 16px;
+      padding: 15px; text-align: left; background-color: #FAFFFE;
+      .reason-label { font-size: 12px; color: #A3B8B5; display: block; margin-bottom: 4px; }
+      .reason-text { font-size: 14.5px; color: #444; line-height: 1.5; margin: 0; }
+    }
+
+    // ---- Cancel confirmation modal ----
+    .cancel-modal-actions {
+      display: flex; gap: 15px; margin-top: 10px;
+
+      button {
+        flex: 1; padding: 12px 0; border-radius: 25px; font-size: 14px;
+        font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+        &[disabled] { opacity: 0.6; cursor: not-allowed; }
+      }
+
+      .keep-btn {
+        background: $white; border: 1px solid #E0E0E0; color: #555;
+        &:hover:not([disabled]) { background: #F8F9FA; }
+      }
+
+      .confirm-cancel-btn {
+        background: linear-gradient(135deg, #E74C3C, #C0392B); border: none; color: $white;
+        &:hover:not([disabled]) { opacity: 0.95; }
+      }
+    }
+
+    .cancel-error {
+      margin-top: 14px; color: #C0392B; font-size: 13px; text-align: left;
+    }
+  }
+}
+
+// ===================== LOADING / ERROR / EMPTY / PAGINATION =====================
+.state-banner {
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.loading-banner {
+  background-color: $bg-light;
+  color: $text-muted;
+  border: 1px solid $border-color;
+}
+
+.error-banner {
+  background-color: $status-rejected-company-admin-bg;
+  color: $status-rejected-company-admin-text;
+  border: 1px solid $status-rejected-company-admin-text;
+}
+
+.empty-row {
+  text-align: center;
+  padding: 32px 0;
+  color: $text-muted;
+}
+
+.pagination-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.page-btn {
+  background-color: $white;
+  border: 1px solid $border-color;
+  color: $text-dark;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-btn:not(:disabled):hover {
+  background-color: $bg-light;
+}
+
+.page-label {
+  font-size: 14px;
+  color: $text-muted;
+}

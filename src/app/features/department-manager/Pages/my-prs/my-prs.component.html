@@ -1,0 +1,111 @@
+<div class="my-prs-container">
+  <div class="page-header">
+    <h1>My PRs</h1>
+  </div>
+
+  <div class="state-banner loading-banner" *ngIf="isLoading">Loading your purchase requests...</div>
+  <div class="state-banner error-banner" *ngIf="loadError">{{ loadError }}</div>
+
+  <div class="table-card" *ngIf="!isLoading && !loadError">
+    <table class="prs-table">
+      <thead>
+        <tr>
+          <th class="th-first">ID</th>
+          <th>PR title</th>
+          <th class="th-last">Internal Approval</th>
+          <th class="th-actions"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pr of prs; let i = index" [class.highlighted-row]="pr.internalApproval === 'PendingCompanyAdminApproval'">
+          <td class="id-col">{{ pr.id }}</td>
+          <td class="title-col">{{ pr.title }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="getStatusClass(pr.internalApproval)">
+              {{ pr.internalApproval }}
+            </span>
+          </td>
+          <td class="actions-col">
+            <button class="action-btn" (click)="toggleMenu(i, $event)">•••</button>
+
+            <div class="dropdown-menu" *ngIf="activeMenuIndex === i" (click)="$event.stopPropagation()">
+
+              <div class="more-actions-wrapper">
+                <button class="menu-item has-submenu" (click)="toggleSubmenu($event)">
+                  moreActions <span class="arrow-right">›</span>
+                </button>
+
+                <div class="submenu-menu" [class.show-submenu]="isSubmenuOpen">
+
+                  <button class="submenu-item"
+                          [disabled]="!canViewRejectionReason(pr)"
+                          [class.disabled]="!canViewRejectionReason(pr)"
+                          (click)="onViewRejectionReason(pr)">
+                    View Rejection Reason
+                  </button>
+
+
+                  <button class="submenu-item"
+                          [disabled]="!canEditPR(pr)"
+                          [class.disabled]="!canEditPR(pr)"
+                          (click)="onEditPR(pr)">
+                    Edit Purchase Request
+                  </button>
+
+                  <button class="submenu-item"
+                          [disabled]="!canCancelPR(pr)"
+                          [class.disabled]="!canCancelPR(pr)"
+                          (click)="onCancelPR(pr)">
+                    Cancel Purchase Request
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="!prs.length">
+          <td colspan="4" class="empty-row">No purchase requests found.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination-row" *ngIf="totalPages > 1">
+      <button type="button" class="page-btn" [disabled]="pageIndex === 1" (click)="goToPage(pageIndex - 1)">Prev</button>
+      <span class="page-label">Page {{ pageIndex }} of {{ totalPages }}</span>
+      <button type="button" class="page-btn" [disabled]="pageIndex === totalPages" (click)="goToPage(pageIndex + 1)">Next</button>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="showRejectionModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+      <h2>Reason Of Rejection</h2>
+      <p class="rejected-by">Person rejected: <span class="highlight-text">{{ selectedPR?.rejectedBy }}</span></p>
+      <div class="reason-box" *ngIf="!isLoadingRejection && !rejectionLoadError">
+        <label class="reason-label">Reason of Rejection:</label>
+        <p class="reason-text">{{ selectedPR?.rejectionReason }}</p>
+      </div>
+      <div class="reason-box" *ngIf="isLoadingRejection">
+        <p class="reason-text">Loading rejection reason...</p>
+      </div>
+      <div class="reason-box" *ngIf="rejectionLoadError">
+        <p class="reason-text">{{ rejectionLoadError }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="showCancelModal" (click)="closeCancelModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>Cancel Purchase Request</h2>
+      <p class="rejected-by">Are you sure you want to cancel PR "{{ prToCancel?.title }}"? This can't be undone.</p>
+      <div class="cancel-modal-actions">
+        <button type="button" class="keep-btn" [disabled]="isCancelling" (click)="closeCancelModal()">Keep It</button>
+        <button type="button" class="confirm-cancel-btn" [disabled]="isCancelling" (click)="confirmCancelPR()">
+          {{ isCancelling ? 'Cancelling...' : 'Yes, Cancel It' }}
+        </button>
+      </div>
+      <p class="cancel-error" *ngIf="cancelError">{{ cancelError }}</p>
+    </div>
+  </div>
+</div>

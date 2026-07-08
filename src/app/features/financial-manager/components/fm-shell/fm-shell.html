@@ -1,0 +1,87 @@
+<div class="fm-layout">
+
+  <!-- نفس الـ navbar بتاع باقي الـ modules — Ask AI مربوط بالـ chatbot -->
+  <app-procurement-officer-navbar class="fm-navbar-wrapper"></app-procurement-officer-navbar>
+
+  <div class="fm-body">
+    <aside class="fm-sidebar">
+      @if (isFinanceManager) {
+        <nav class="fm-sidebar__nav">
+          <a
+            routerLink="/financial-manager"
+            routerLinkActive="fm-sidebar__link--active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="fm-sidebar__link"
+          >
+            <app-icon name="grid" [size]="18"></app-icon>
+            Dashboard
+          </a>
+          <a
+            routerLink="/financial-manager/pending-prs"
+            routerLinkActive="fm-sidebar__link--active"
+            class="fm-sidebar__link"
+          >
+            <app-icon name="file-text" [size]="18"></app-icon>
+            Pending PRs
+          </a>
+          <a
+            routerLink="/financial-manager/pending-po-invoices"
+            routerLinkActive="fm-sidebar__link--active"
+            class="fm-sidebar__link"
+          >
+            <app-icon name="clock" [size]="18"></app-icon>
+            Pending PO Invoices
+          </a>
+          <a
+            routerLink="/financial-manager/paid-invoices"
+            routerLinkActive="fm-sidebar__link--active"
+            class="fm-sidebar__link"
+          >
+            <app-icon name="circle-check" [size]="18"></app-icon>
+            Paid Invoices
+          </a>
+          <a
+            routerLink="/financial-manager/recovered-funds"
+            routerLinkActive="fm-sidebar__link--active"
+            class="fm-sidebar__link"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 4v6h-6"/>
+              <path d="M1 20v-6h6"/>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/>
+              <path d="M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+            </svg>
+            Recovered Funds
+          </a>
+        </nav>
+      }
+
+      <nav class="fm-sidebar__nav fm-sidebar__nav--bottom">
+        @if (isFinanceManager) {
+          <a
+            routerLink="/financial-manager/profile"
+            routerLinkActive="fm-sidebar__link--active"
+            class="fm-sidebar__link"
+          >
+            <span class="fm-sidebar__avatar" aria-hidden="true"></span>
+            Profile
+          </a>
+          <a routerLink="/account/change-password" class="fm-sidebar__link">
+            <app-icon name="key" [size]="18"></app-icon>
+            Change Password
+          </a>
+        }
+        <button type="button" class="fm-sidebar__link fm-sidebar__link--danger" (click)="logout()">
+          <app-icon name="log-out" [size]="18"></app-icon>
+          Logout
+        </button>
+      </nav>
+    </aside>
+
+    <main class="fm-content">
+      <ng-content></ng-content>
+    </main>
+  </div>
+</div>

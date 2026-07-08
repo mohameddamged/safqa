@@ -1,0 +1,94 @@
+<app-fm-shell>
+  <div class="fm-profile">
+    <h1 class="fm-profile__heading">
+      Personal Info
+      <span class="fm-profile__edit-icon" aria-hidden="true">✎</span>
+    </h1>
+
+    <div class="fm-profile__avatar-row">
+      <span class="fm-profile__avatar"></span>
+    </div>
+
+    @if (user()) {
+      <div class="fm-profile__card">
+        <div class="fm-profile__field">
+          <span class="fm-profile__field-label">First Name</span>
+          <span class="fm-profile__field-value">{{ user()!.firstName }}</span>
+        </div>
+        <div class="fm-profile__field">
+          <span class="fm-profile__field-label">Last Name</span>
+          <span class="fm-profile__field-value">{{ user()!.lastName }}</span>
+        </div>
+        <div class="fm-profile__field">
+          <span class="fm-profile__field-label">Phone Number</span>
+          <span class="fm-profile__field-value">{{ user()!.phoneNumber }}</span>
+        </div>
+      </div>
+
+      <h2 class="fm-profile__heading fm-profile__heading--secondary">Position Info</h2>
+
+      <div class="fm-profile__card">
+        <div class="fm-profile__field">
+          <span class="fm-profile__field-label">Work e-mail</span>
+          <span class="fm-profile__field-value fm-profile__field-value--accent">{{ user()!.email }}</span>
+        </div>
+        <div class="fm-profile__field">
+          <span class="fm-profile__field-label">Title</span>
+          <span class="fm-profile__field-value fm-profile__field-value--accent">{{ positionTitle() }}</span>
+        </div>
+      </div>
+    }
+
+    <h2 class="fm-profile__heading fm-profile__heading--secondary">My Company Info</h2>
+
+    @if (loading()) {
+      <div class="fm-profile__loading">
+        <span class="fm-profile__spinner" aria-hidden="true"></span>
+      </div>
+    } @else if (companyInfo()) {
+      <div class="fm-profile__card">
+        <div class="fm-profile__field">
+          <span class="fm-profile__field-label">Company Name</span>
+          <span class="fm-profile__field-value">{{ companyInfo()!.companyName }}</span>
+        </div>
+        <div class="fm-profile__field">
+          <span class="fm-profile__field-label">Company e-mail</span>
+          <span class="fm-profile__field-value">{{ companyInfo()!.companyEmail }}</span>
+        </div>
+        <div class="fm-profile__field">
+          <span class="fm-profile__field-label">Phone Number</span>
+          <span class="fm-profile__field-value">{{ companyInfo()!.phoneNumber }}</span>
+        </div>
+
+        <h3 class="fm-profile__subheading">Head Office Location</h3>
+
+        <div class="fm-profile__row">
+          <div class="fm-profile__field fm-profile__field--half">
+            <span class="fm-profile__field-label">Country</span>
+            <span class="fm-profile__field-value">{{ companyInfo()!.country }}</span>
+          </div>
+          <div class="fm-profile__field fm-profile__field--half">
+            <span class="fm-profile__field-label">State / Region</span>
+            <span class="fm-profile__field-value">{{ companyInfo()!.stateRegion }}</span>
+          </div>
+        </div>
+
+        <div class="fm-profile__row">
+          <div class="fm-profile__field fm-profile__field--half">
+            <span class="fm-profile__field-label">City</span>
+            <span class="fm-profile__field-value">{{ companyInfo()!.city }}</span>
+          </div>
+          <div class="fm-profile__field fm-profile__field--half">
+            <span class="fm-profile__field-label">Street</span>
+            <span class="fm-profile__field-value">{{ companyInfo()!.street }}</span>
+          </div>
+        </div>
+
+        <div class="fm-profile__field">
+          <span class="fm-profile__field-label">Full Company Address</span>
+          <span class="fm-profile__field-value">{{ companyInfo()!.fullAddress }}</span>
+        </div>
+      </div>
+    }
+  </div>
+</app-fm-shell>

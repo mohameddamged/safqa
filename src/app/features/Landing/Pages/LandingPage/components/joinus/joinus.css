@@ -1,0 +1,110 @@
+.why-join-us-section {
+  padding: 80px 48px;
+  text-align: center;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 40px;
+  margin-bottom: 60px;
+  color: #333;
+  font-family: 'Aleo',sans-serif;
+}
+
+.highlight { color: #2ec4b6; }
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 20px;
+  width: 100%;
+  max-width: 1280px;
+  margin: 100px auto 0 auto;
+  padding: 0 20px;
+}
+
+.info-card {
+  flex: 1;
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 4px 4px 12px 0px #00000026;
+  position: relative;
+  margin-top: 50px;
+}
+
+.icon-wrapper {
+  width: 100px;
+  height: 100px;
+  background: #fcf1ed;
+  border-radius: 30px 30px 10px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -90px;
+  margin-bottom: 20px;
+}
+
+.icon-wrapper img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+.info-card h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  color: #2D2D2D;
+  margin-bottom: 15px;
+}
+
+.info-card p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #556070;
+  margin-bottom: 30px;
+}
+
+.explore-btn {
+  width: 100%;
+  max-width: 280px;
+  padding: 12px;
+  border: 1.5px solid #F3A07E;
+  background: transparent;
+  color: #E76F51;
+  border-radius: 50px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.explore-btn:hover {
+  background: #e76f51;
+  color: white;
+}
+@media (max-width: 900px) {
+  .why-join-us-section { padding: 60px 24px; }
+  .section-title { font-size: 32px; margin-bottom: 40px; }
+  .cards-container {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+  }
+  .info-card { max-width: 100%; width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .why-join-us-section { padding: 40px 16px; }
+  .section-title { font-size: 26px; }
+  .info-card { padding: 30px 20px; }
+  .info-card h3 { font-size: 20px; }
+  .info-card p { font-size: 14px; }
+}

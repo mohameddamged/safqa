@@ -1,0 +1,97 @@
+:host {
+  display: block;
+  width: 100%;
+}
+.hero-section-fixed {
+  background-color: #ffffff;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-main-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-title-text {
+  max-width: 1061px;
+  width: 100%;
+  margin: 87px auto 0 auto !important; 
+  font-weight: 700 !important;
+  font-size: 48px !important;
+  line-height: 56px !important;
+  letter-spacing: 0.05em !important;
+  text-align: center !important;
+  color: #222222 !important;
+}
+
+.teal-highlight-force {
+  color: #2ec4b6 !important;
+}
+
+.hero-paragraph-text {
+  max-width: 846px;
+  width: 100%;
+  margin: 20px auto 0 auto !important; 
+  font-weight: 400 !important;
+  font-size: 20px !important;
+  line-height: 35px !important;
+  text-align: justify !important;
+  color: #4a5568 !important;
+}
+
+.hero-cta-wrapper {
+  margin: 24px auto 0 auto !important;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.hero-submit-button-orange {
+  width: 414px !important;
+  height: 52px !important;
+  border-radius: 28px !important;
+  padding: 10px !important;
+  background: linear-gradient(90deg, #f3a07e 0%, #e76f51 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(231, 111, 81, 0.25) !important;
+}
+
+.hero-image-wrapper {
+  width: 100% !important; 
+  max-width: 100% !important; 
+  margin: 44px 0 0 0 !important;
+  overflow: hidden;
+}
+
+.dashboard-preview-card {
+  width: 100%;
+}
+
+.dashboard-preview-card img {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .hero-title-text { font-size: 36px !important; line-height: 44px !important; margin-top: 40px !important; }
+  .hero-paragraph-text { font-size: 18px !important; line-height: 28px !important; text-align: center !important; }
+  .hero-submit-button-orange { width: 90% !important; }
+}
+@media (max-width: 480px) {
+  .hero-title-text { font-size: 28px !important; line-height: 38px !important; margin-top: 32px !important; padding: 0 16px; }
+  .hero-paragraph-text { font-size: 15px !important; line-height: 26px !important; padding: 0 16px; }
+  .hero-submit-button-orange { width: 90% !important; font-size: 0.95rem !important; }
+}

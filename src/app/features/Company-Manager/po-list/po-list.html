@@ -1,0 +1,82 @@
+<div class="p-8 bg-gray-50 min-h-screen">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-[#2E1911]">ALL POs</h1>
+    </div>
+
+    <div class="bg-white rounded-2xl rounded-tr-[3rem] shadow-sm border border-orange-100 overflow-hidden">
+        @if (isLoading()) {
+        <div class="p-20 text-center">Loading...</div>
+        } @else {
+        <table class="w-full text-left">
+            <thead class="bg-[#FFF5F0] text-[#2E1911] text-sm border-[#E47C55]">
+                <tr>
+                    <th class="p-5 font-semibold">ID</th>
+                    <th class="p-5 font-semibold">RFQ Title</th>
+                    <th class="p-5 font-semibold">Date of Publish</th>
+                    <th class="p-5 font-semibold">PR Deadline</th>
+                    <th class="p-5 font-semibold">Action</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                @for (item of poList(); track item.id) {
+                <tr class="hover:bg-orange-50/20 transition-colors">
+                    <td class="p-5 text-gray-700">{{ item.id }}</td>
+                    <td class="p-5 font-medium text-gray-800">{{ item.title }}</td>
+                    <td class="p-5 text-gray-500">{{ item.deliveryDeadline | date }}</td>
+                    <td class="p-5 text-gray-500">{{ item.status}}</td>
+                    <td class="p-5 relative">
+                        <button (click)="toggleMenu(item.id, $event)" class="text-gray-400 hover:text-gray-600 p-2">
+                            <span class="text-2xl font-bold">...</span>
+                        </button>
+
+                        @if (activeMenuId() === item.id) {
+                        <div
+                            class="absolute right-10 mt-2 w-40 bg-white rounded-xl shadow-lg border border-gray-100 z-50 overflow-hidden">
+                            <a [routerLink]="['/company-manager/allpos/po-details', item.id]"
+                                class="block px-4 py-3 text-sm text-gray-700 hover:bg-orange-50 hover:text-[#FB904E] transition-colors">
+                                PO Details
+                            </a>
+                            <a [routerLink]="['/company-manager/allpos/po-tracking', item.id]"
+                                class="block px-4 py-3 text-sm text-gray-700 hover:bg-orange-50 hover:text-[#FB904E] transition-colors">
+                                PO Tracking
+                            </a>
+                        </div>
+                        }
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="5" class="p-10 text-center text-gray-500">No pending PRs found.</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        }
+    </div>
+
+</div>
+
+
+@if (totalPages() > 1) {
+<div class="flex justify-center items-center gap-6 py-8">
+    <span class="text-xl font-bold text-gray-500">
+        {{ currentPage() }} / {{ totalPages() }}
+    </span>
+
+    <div class="flex gap-3">
+        <button (click)="loadPurchaseOrders(currentPage() - 1)" [disabled]="currentPage() === 1"
+            class="w-14 h-14 rounded-full flex items-center justify-center border-2 border-gray-200 text-gray-400 disabled:opacity-30 transition-all hover:border-gray-300">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6" />
+            </svg>
+        </button>
+
+        <button (click)="loadPurchaseOrders(currentPage() + 1)" [disabled]="currentPage() === totalPages()"
+            class="w-14 h-14 rounded-full flex items-center justify-center border-2 border-[#EFA063] text-[#EFA063] disabled:opacity-30 transition-all hover:bg-orange-50">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" />
+            </svg>
+        </button>
+    </div>
+</div>
+}

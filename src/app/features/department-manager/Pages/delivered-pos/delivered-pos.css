@@ -1,0 +1,39 @@
+.page-wrapper { padding: 32px; background: #f9fafb; min-height: 100%; }
+.page-header  { margin-bottom: 24px; }
+.page-title   { font-size: 1.6rem; font-weight: 700; color: #2E1911; margin: 0; }
+
+.state-msg    { padding: 60px; text-align: center; color: #9ca3af; display: flex; align-items: center; justify-content: center; gap: 12px; }
+.state-error  { padding: 20px; background: #fee2e2; color: #dc2626; border-radius: 12px; margin-bottom: 16px; }
+
+.spinner {
+  width: 22px; height: 22px; border: 3px solid #f3f4f6;
+  border-top-color: #25B6AB; border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.table-wrapper { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+
+.rfq-table { width: 100%; border-collapse: collapse; }
+.rfq-table thead tr { background: #FFF5F0; }
+.rfq-table th { padding: 16px 20px; text-align: left; font-size: 0.85rem; font-weight: 600; color: #6B4A3A; white-space: nowrap; }
+.rfq-table td { padding: 16px 20px; font-size: 0.9rem; color: #374151; border-top: 1px solid #f3f4f6; }
+.rfq-table tr:hover td { background: #fffbf9; }
+.id-cell    { font-weight: 600; color: #25B6AB; }
+.title-cell { font-weight: 500; }
+.empty-msg  { text-align: center; padding: 40px; color: #9ca3af; }
+
+.status-badge    { padding: 4px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; }
+.status-delivered { background: #dcfce7; color: #16a34a; }
+.status-pending   { background: #fef9c3; color: #ca8a04; }
+.status-cancelled { background: #fee2e2; color: #dc2626; }
+.status-default   { background: #f3f4f6; color: #6b7280; }
+
+.details-link { background: none; border: none; color: #E47C55; font-weight: 600; font-size: 0.88rem; cursor: pointer; padding: 0; }
+.details-link:hover { opacity: 0.75; }
+
+.pagination { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 16px; border-top: 1px solid #f3f4f6; }
+.page-btn   { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 14px; cursor: pointer; font-size: 1rem; color: #374151; }
+.page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.page-btn:not(:disabled):hover { background: #f9fafb; }
+.page-info  { font-size: 0.9rem; color: #6b7280; }

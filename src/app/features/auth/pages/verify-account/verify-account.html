@@ -1,0 +1,22 @@
+<app-auth-shell
+  title="Check your e-mail"
+  subtitle="We have send you a code to your email. Check the code and write it down here to verify your mail."
+>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="verify-form">
+    <app-otp-input formControlName="code"></app-otp-input>
+
+    <app-primary-button [loading]="loading()">Continue</app-primary-button>
+
+    @if (secondsRemaining() > 0) {
+      <p class="verify-form__resend verify-form__resend--disabled">
+        Resend Code In {{ secondsRemaining() }} Seconds
+      </p>
+    } @else {
+      <a class="verify-form__resend" (click)="resend()">
+        {{ resending() ? 'Resending...' : 'Resend Code' }}
+      </a>
+    }
+  </form>
+
+  <app-step-indicator [currentStep]="2" [totalSteps]="3"></app-step-indicator>
+</app-auth-shell>

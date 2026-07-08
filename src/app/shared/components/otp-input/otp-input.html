@@ -1,0 +1,17 @@
+<div class="otp">
+  @for (digit of digits; track $index) {
+    <input
+      #digitBox
+      type="text"
+      inputmode="numeric"
+      maxlength="1"
+      class="otp__box"
+      [value]="digit"
+      [disabled]="disabled"
+      (input)="handleInput($index, $event)"
+      (keydown)="handleKeydown($index, $event)"
+      (paste)="handlePaste($index, $event)"
+      [attr.aria-label]="'Digit ' + ($index + 1)"
+    />
+  }
+</div>

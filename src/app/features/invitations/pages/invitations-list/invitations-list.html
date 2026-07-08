@@ -1,0 +1,82 @@
+<div class="inv-page">
+
+  <!-- Header -->
+  <div class="inv-header">
+    <h1 class="inv-title">Team Invitations</h1>
+    <button class="inv-invite-btn" (click)="openInviteDialog()">
+      Invite Member +
+    </button>
+  </div>
+
+  <!-- Loading -->
+  @if (loading()) {
+    <div class="inv-state">
+      <span class="inv-spinner"></span>
+      <p>Loading...</p>
+    </div>
+  }
+
+  <!-- Empty -->
+  @else if (invitations().length === 0) {
+    <div class="inv-state">
+      <p>No invitations sent yet.</p>
+      <button class="inv-invite-btn" (click)="openInviteDialog()">Invite Member +</button>
+    </div>
+  }
+
+  <!-- Table -->
+  @else {
+    <div class="inv-table-wrap">
+      <table class="inv-table">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Sent</th>
+            <th>Expires</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (inv of invitations(); track inv.id) {
+            <tr>
+              <td class="td-email">{{ inv.email }}</td>
+              <td class="td-role">{{ inv.role }}</td>
+              <td>
+                <span [class]="statusClass(inv.status)">{{ inv.status }}</span>
+              </td>
+              <td>{{ inv.createdAt | date:'dd/MM/yyyy' }}</td>
+              <td>{{ inv.expiresAt | date:'dd/MM/yyyy' }}</td>
+              <td class="td-action">
+                @if (canRevoke(inv)) {
+                  <button class="revoke-btn"
+                    [disabled]="revokingId() === inv.id"
+                    (click)="revoke(inv)">
+                    Revoke
+                  </button>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="inv-pagination">
+      <button class="page-btn" [disabled]="pageNumber() <= 1" (click)="previousPage()">‹</button>
+      <span>{{ pageNumber() }} / {{ totalPages() }}</span>
+      <button class="page-btn" [disabled]="pageNumber() >= totalPages()" (click)="nextPage()">›</button>
+    </div>
+  }
+
+</div>
+
+<!-- Invite Dialog -->
+@if (showInviteDialog()) {
+  <app-invite-user-dialog
+    (closed)="handleInviteDialogClosed()"
+    (invited)="handleInvited()">
+  </app-invite-user-dialog>
+}

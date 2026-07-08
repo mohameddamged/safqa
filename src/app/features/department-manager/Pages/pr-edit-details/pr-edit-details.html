@@ -1,0 +1,124 @@
+<div class="view-details-container">
+
+  <!-- Breadcrumbs -->
+  <div class="breadcrumbs">
+    <a routerLink="/department-manager/my-prs" class="crumb-link">My PRs</a>
+    <span class="separator">›</span>
+    <span class="current-crumb">Ask For An Edit</span>
+  </div>
+
+  <div class="state-banner loading-banner" *ngIf="isLoading">Loading purchase request details...</div>
+
+  <div class="state-banner error-banner" *ngIf="loadError">{{ loadError }}</div>
+
+  <!-- السيرفر بياخد وقت أطول من المتوقع (شائع مع الـ free hosting بعد فترة خمول) -->
+  <div class="state-banner error-banner" *ngIf="hasTimedOut">
+    The server is taking longer than usual to respond.
+    <button type="button" class="retry-link" (click)="retryLoad()">Retry</button>
+  </div>
+
+  <!-- Main Card Container -->
+  <div class="details-card" *ngIf="!isLoading && !loadError && !hasTimedOut && pr">
+
+    <!-- Title Section -->
+    <div class="details-header">
+      <h1 class="pr-title">PR: {{ pr.prTitle }}</h1>
+      <span class="revision-text" *ngIf="pr.revision != null">Revision : {{ pr.revision }}</span>
+    </div>
+
+    <!-- Edit Instructions Box -->
+    <div class="instruction-box">
+      <label class="box-label">Edit instructions:</label>
+      <p class="box-text">
+        Update only the fields you need to change, then send this revision back to management for approval.
+        Any field you leave as-is will be submitted exactly as it is now — nothing else will change.
+      </p>
+    </div>
+
+    <!-- SECTION 1: PR Info -->
+    <h2 class="section-title">PR Info</h2>
+
+    <div class="form-row-2col">
+      <div class="input-display-box">
+        <label class="box-label" for="itemName">Item Name</label>
+        <input id="itemName" type="text" class="box-input" [(ngModel)]="itemName" name="itemName" />
+      </div>
+      <div class="input-display-box readonly-box">
+        <label class="box-label" id="categoryLabel">Category</label>
+        <p class="box-text font-dark" aria-labelledby="categoryLabel">{{ pr.category }}</p>
+      </div>
+    </div>
+
+    <div class="form-row-2col">
+      <div class="input-display-box">
+        <label class="box-label" for="quantity">Quantity</label>
+        <input id="quantity" type="number" min="1" class="box-input" [(ngModel)]="quantity" name="quantity" />
+      </div>
+      <div class="input-display-box">
+        <label class="box-label" for="unit">Unit of Measurement</label>
+        <select id="unit" class="box-input" [(ngModel)]="unit" name="unit">
+          <option *ngFor="let opt of unitOptions" [value]="opt.name">{{ opt.name }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="input-display-box full-width">
+      <label class="box-label" for="technicalSpecifications">Technical Specs</label>
+      <textarea id="technicalSpecifications" class="box-input box-textarea" rows="4" [(ngModel)]="technicalSpecifications" name="technicalSpecifications"></textarea>
+    </div>
+
+    <div class="input-display-box full-width">
+      <label class="box-label" for="reason">Why do You need this item?</label>
+      <textarea id="reason" class="box-input box-textarea" rows="3" [(ngModel)]="reason" name="reason"></textarea>
+    </div>
+
+    <div class="input-display-box full-width">
+      <label class="box-label" for="additionalNotes">Additional Notes</label>
+      <textarea id="additionalNotes" class="box-input box-textarea" rows="3" [(ngModel)]="additionalNotes" name="additionalNotes"></textarea>
+    </div>
+
+    <!-- SECTION 2: Cost Info -->
+    <h2 class="section-title">Cost Info</h2>
+    <div class="form-row-2col">
+      <div class="input-display-box">
+        <label class="box-label" for="estimatedPrice">Estimated Cost</label>
+        <input id="estimatedPrice" type="number" min="0" step="0.01" class="box-input" [(ngModel)]="estimatedPrice" name="estimatedPrice" />
+      </div>
+      <div class="input-display-box">
+        <label class="box-label" for="currency">Currency</label>
+        <select id="currency" class="box-input" [(ngModel)]="currency" name="currency">
+          <option *ngFor="let opt of currencyOptions" [value]="opt.name">{{ opt.name }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- SECTION 3: PR Deadline -->
+    <h2 class="section-title">PR Deadline</h2>
+    <div class="input-display-box full-width">
+      <label class="box-label" for="requiredDeliveryDate">Required deadline of the PR</label>
+      <input id="requiredDeliveryDate" type="date" class="box-input" [(ngModel)]="requiredDeliveryDate" name="requiredDeliveryDate" />
+    </div>
+
+    <div class="state-banner error-banner" *ngIf="submitError">{{ submitError }}</div>
+
+  </div>
+
+  <!-- Bottom Action Buttons -->
+  <div class="actions-footer" *ngIf="!isLoading && !loadError && !hasTimedOut && pr">
+    <button class="btn-submit" [disabled]="isSubmitting" (click)="onUploadRevision()">
+      {{ isSubmitting ? 'Uploading...' : 'Upload Revision To Management' }}
+      <span class="btn-icon">▷</span>
+    </button>
+    <button class="btn-cancel" [disabled]="isSubmitting" (click)="onCancel()">Cancel</button>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal-backdrop" *ngIf="isSuccessModalOpen" (click)="closeSuccessModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>Revision Uploaded</h2>
+      <p class="box-text">Your revision has been uploaded to management successfully.</p>
+      <button class="btn-submit" (click)="closeSuccessModal()">OK</button>
+    </div>
+  </div>
+
+</div>

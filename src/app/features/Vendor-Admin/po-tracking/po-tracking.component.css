@@ -1,0 +1,281 @@
+/* ══════════════════════════════
+   BREADCRUMB
+══════════════════════════════ */
+.pot-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 48px 0;
+}
+
+.pot-breadcrumb-link {
+  font-size: 14px;
+  color: var(--Color-Secondary-secondaryBaseTurq, #25B6AB);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.pot-breadcrumb-link:hover {
+  opacity: 0.75;
+}
+
+.pot-breadcrumb-sep {
+  display: flex;
+  align-items: center;
+}
+
+.pot-breadcrumb-current {
+  font-size: 14px;
+  color: var(--Color-Secondary-secondaryBaseTurq, #25B6AB);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* ══════════════════════════════
+   PAGE LAYOUT
+══════════════════════════════ */
+.pot-page {
+  padding: 24px 48px 60px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* ══════════════════════════════
+   CARD
+══════════════════════════════ */
+.pot-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 36px 40px;
+  flex: 1 1 600px;
+  max-width: 720px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+.pot-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #1A1A2E;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.pot-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 16px;
+}
+
+.pot-row-label {
+  font-weight: 700;
+  color: #1A1A2E;
+}
+
+.pot-row-value {
+  color: #1A1A2E;
+}
+
+.pot-row-value-muted {
+  color: #B9B9C4;
+  font-weight: 500;
+}
+
+.pot-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pot-block-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin: 0;
+}
+
+.pot-block-hint {
+  font-size: 13.5px;
+  color: #9C9CAA;
+  margin: -8px 0 0;
+  line-height: 1.5;
+}
+
+/* ── Radios ── */
+.pot-radio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.pot-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.pot-radio-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.8px solid #EFA063;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pot-radio input[type="radio"]:checked + .pot-radio-circle {
+  border-color: #E47C55;
+}
+
+.pot-radio input[type="radio"]:checked + .pot-radio-circle::after {
+  content: '';
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #E47C55 0%, #EFA063 100%);
+}
+
+.pot-radio-text {
+  font-size: 15px;
+  color: #B9B9C4;
+  font-weight: 500;
+}
+
+.pot-radio input[type="radio"]:checked ~ .pot-radio-text {
+  color: #1A1A2E;
+}
+
+/* ── Delivery status badge ── */
+.pot-status-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  width: fit-content;
+  background: #F0F0F5;
+  color: #6E6E7A;
+}
+
+.pot-status-FullyDelivered {
+  background: #E1F7F0;
+  color: #1E9E7C;
+}
+
+.pot-status-Damaged {
+  background: #FDECEC;
+  color: #E24C4C;
+}
+
+.pot-status-NotCompleted {
+  background: #FCEFE3;
+  color: #E47C55;
+}
+
+.pot-status-OnTheWay {
+  background: #E7F4FD;
+  color: #2E9BE0;
+}
+
+/* ── Confirmation code ── */
+.pot-code-row {
+  display: flex;
+  gap: 14px;
+}
+
+.pot-code-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  border: 1.5px solid #D8F0EE;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1A1A2E;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.pot-code-box:focus {
+  border-color: #25B6AB;
+}
+
+.pot-code-box:disabled {
+  background: #F7FBFA;
+  opacity: 0.8;
+}
+
+/* ── OTP messages / verify button ── */
+.pot-otp-error {
+  font-size: 13.5px;
+  color: #E24C4C;
+  margin: -6px 0 0;
+}
+
+.pot-otp-success {
+  font-size: 13.5px;
+  color: #25B6AB;
+  font-weight: 600;
+  margin: -6px 0 0;
+}
+
+.pot-verify-btn {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 12px 32px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(90deg, #E47C55 0%, #EFA063 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.pot-verify-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pot-verify-btn-done {
+  background: #25B6AB;
+}
+
+/* ── Loading / error states ── */
+.pot-state-text {
+  font-size: 15px;
+  color: #9C9CAA;
+  margin: 0;
+}
+
+.pot-state-error {
+  color: #E24C4C;
+}
+
+.pot-retry-btn {
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: 1.5px solid #25B6AB;
+  background: #FFFFFF;
+  color: #25B6AB;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}

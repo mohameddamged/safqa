@@ -1,0 +1,324 @@
+/* ══════════════════════════════
+   PAGE
+══════════════════════════════ */
+.po-page {
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.po-title {
+  font-size: 34px;
+  font-weight: 800;
+  color: #1A1A2E;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+/* ══════════════════════════════
+   TABLE
+══════════════════════════════ */
+.po-table-wrap {
+  background: #FFFFFF;
+  border: 1.5px solid #F0C5B0;
+  border-radius: 16px;
+  overflow: visible;
+}
+
+.po-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.po-table thead tr {
+  border-bottom: 1.5px solid #F0C5B0;
+}
+
+.po-table thead th {
+  padding: 20px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1A1A2E;
+  text-align: left;
+  background: #FFFFFF;
+  white-space: nowrap;
+}
+
+.po-table thead th:first-child {
+  text-align: center;
+  border-radius: 14px 0 0 0;
+}
+
+.po-table thead th:last-child {
+  width: 56px;
+  border-radius: 0 14px 0 0;
+}
+
+.po-table tbody tr {
+  border-bottom: 1px solid #F2F2F7;
+  transition: background 0.15s;
+}
+
+.po-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.po-table tbody tr:hover {
+  background: #FFF8F5;
+}
+
+.po-table tbody td {
+  padding: 22px 28px;
+  font-size: 15px;
+  color: #1A1A2E;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.po-table tbody td:first-child {
+  text-align: center;
+  font-weight: 500;
+}
+
+/* ══════════════════════════════
+   STATUS BADGE
+══════════════════════════════ */
+.po-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 18px;
+  border-radius: 50px;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.po-badge-pending {
+  background: #ECECF2;
+  color: #6B6B7B;
+}
+
+.po-badge-processing {
+  background: rgba(37, 182, 171, 0.12);
+  color: var(--Color-Secondary-secondaryBaseTurq, #25B6AB);
+}
+
+.po-badge-ontheway {
+  background: var(--Color-Primary-primary4, #FCF1ED);
+  color: #E47C55;
+}
+
+.po-badge-delivered {
+  background: var(--Color-Secondary-successBg, #DBFFDD);
+  color: var(--Color-Secondary-success, #00B209);
+}
+
+.po-badge-rejected {
+  background: #FFE9E9;
+  color: #E25C5C;
+}
+
+/* ══════════════════════════════
+   MENU CELL
+══════════════════════════════ */
+.po-menu-cell {
+  position: relative;
+  text-align: right !important;
+  padding-right: 20px !important;
+  overflow: visible;
+}
+
+.po-menu-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.po-menu-btn:hover {
+  background: #F2F2F7;
+}
+
+.dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #1A1A2E;
+}
+
+.po-dropdown {
+  position: absolute;
+  right: 12px;
+  background: #FFFFFF;
+  border: 1px solid #E8E8F0;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  z-index: 9999;
+  min-width: 180px;
+  overflow: hidden;
+  top: calc(100% + 4px);
+  bottom: auto;
+}
+
+.po-dropdown.drop-up {
+  top: auto;
+  bottom: calc(100% + 4px);
+}
+
+.po-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 14.5px;
+  color: #1A1A2E;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s;
+  line-height: 1.4;
+  font-family: inherit;
+}
+
+.po-dropdown-item + .po-dropdown-item {
+  border-top: 1px solid #F2F2F7;
+}
+
+.po-dropdown-item:hover {
+  background: #FFF8F5;
+  color: #E8763A;
+}
+
+.po-dropdown-item-disabled,
+.po-dropdown-item:disabled {
+  color: #BFBFCB;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.po-dropdown-item-disabled:hover,
+.po-dropdown-item:disabled:hover {
+  background: none;
+  color: #BFBFCB;
+}
+
+/* ══════════════════════════════
+   LOADING / ERROR / EMPTY STATES
+══════════════════════════════ */
+.po-state {
+  padding: 32px 28px;
+  border: 1.5px solid #F0C5B0;
+  border-radius: 16px;
+  background: #FFFFFF;
+  color: #6B6B7B;
+  font-size: 15px;
+  text-align: center;
+}
+
+.po-state-error {
+  color: #E25C5C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.po-retry-btn {
+  background: #E8763A;
+  color: #FFFFFF;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.po-retry-btn:hover {
+  background: #d9642a;
+}
+
+/* ══════════════════════════════
+   STATUS BADGES (dynamic API statuses)
+══════════════════════════════ */
+.po-badge-pendingvendorresponse {
+  background: #ECECF2;
+  color: #6B6B7B;
+}
+
+.po-badge-approved,
+.po-badge-accepted {
+  background: rgba(37, 182, 171, 0.12);
+  color: var(--Color-Secondary-secondaryBaseTurq, #25B6AB);
+}
+
+.po-badge-processing {
+  background: rgba(37, 182, 171, 0.12);
+  color: var(--Color-Secondary-secondaryBaseTurq, #25B6AB);
+}
+
+.po-badge-ontheway {
+  background: var(--Color-Primary-primary4, #FCF1ED);
+  color: #E47C55;
+}
+
+.po-badge-delivered,
+.po-badge-completed,
+.po-badge-good {
+  background: var(--Color-Secondary-successBg, #DBFFDD);
+  color: var(--Color-Secondary-success, #00B209);
+}
+
+.po-badge-rejected,
+.po-badge-damaged,
+.po-badge-cancelled {
+  background: #FFE9E9;
+  color: #E25C5C;
+}
+
+/* ══════════════════════════════
+   PAGINATION
+══════════════════════════════ */
+.po-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 18px 0;
+  border-top: 1px solid #F2F2F7;
+}
+
+.po-page-btn {
+  background: #FFFFFF;
+  border: 1.5px solid #F0C5B0;
+  color: #1A1A2E;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.po-page-btn:hover:not(:disabled) {
+  background: #FFF8F5;
+}
+
+.po-page-btn:disabled {
+  color: #BFBFCB;
+  border-color: #E8E8F0;
+  cursor: not-allowed;
+}
+
+.po-page-info {
+  font-size: 14px;
+  color: #6B6B7B;
+}

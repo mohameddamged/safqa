@@ -1,0 +1,24 @@
+.po-details-page { padding: 32px 40px; }
+.breadcrumb { display: flex; align-items: center; gap: 6px; margin-bottom: 24px; }
+.breadcrumb-link { color: #25B6AB; text-decoration: underline; font-size: 14px; }
+.breadcrumb-current { color: #25B6AB; font-weight: 700; font-size: 14px; text-decoration: underline; }
+.state-msg { padding: 40px; text-align: center; color: #9ca3af; }
+.error-msg { color: #ef4444; }
+.card { background: #fff; border-radius: 16px; padding: 32px 36px 36px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.title-row { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+.po-title { font-size: 24px; font-weight: 700; color: #2E1911; margin: 0; }
+.status-row { display: flex; align-items: center; gap: 10px; }
+.date-info { font-size: 13px; color: #6b7280; }
+.section-title { font-size: 18px; font-weight: 700; color: #25B6AB; margin: 20px 0 12px 0; }
+.field-group { margin-bottom: 14px; }
+.field-group.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.full-width { width: 100%; }
+.field-label { font-size: 11px; color: #9ca3af; font-weight: 400; padding: 0 2px; }
+.field-value { border: 1.5px solid #B8EFEB; border-radius: 10px; padding: 12px 16px; font-size: 14px; color: #2E1911; background: #fff; min-height: 44px; }
+.field-value.specs { white-space: pre-line; min-height: 120px; line-height: 1.7; }
+.badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+.badge-green { background: #dcfce7; color: #16a34a; }
+.badge-red { background: #fee2e2; color: #dc2626; }
+.badge-yellow { background: #fef9c3; color: #ca8a04; }
+.badge-gray { background: #f3f4f6; color: #6b7280; }

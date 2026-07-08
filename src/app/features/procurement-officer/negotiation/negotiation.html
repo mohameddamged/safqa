@@ -1,0 +1,199 @@
+<div class="neg-page">
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
+    <a [routerLink]="['/procurement-officer/vendor-offers', rfqId, 'offers']" class="bc-link">Vendor Offers</a>
+    <span class="bc-sep">›</span>
+    <span class="bc-current">Negotiation Chat</span>
+  </nav>
+
+  <!-- Hub error banner -->
+  @if (hubError) {
+    <div class="hub-error-banner">⚠ {{ hubError }}</div>
+  }
+
+  <div class="neg-layout">
+
+    <!-- ── LEFT: Negotiation Chat ──────────────────────────────── -->
+    <div class="chat-panel">
+
+      <div class="chat-panel-header">
+        <div>
+          <div class="chat-title">Negotiation On RFQ: #{{ rfqId }}</div>
+          <div class="chat-subtitle">With Vendor</div>
+        </div>
+        <div class="remember-links">
+          Remember
+          <a [routerLink]="['/procurement-officer/vendor-offers', rfqId, 'offers']" class="remember-link">Your RFQ</a>
+          or
+          <a [routerLink]="['/procurement-officer/vendor-offers', rfqId, 'offers', offerId]" class="remember-link">Offer</a>?
+        </div>
+      </div>
+
+      <div class="chat-messages" #chatMessages>
+        @if (isLoading) {
+          <div class="state-center">Loading messages...</div>
+        } @else if (messages.length === 0) {
+          <div class="state-center">No messages yet. Start the negotiation!</div>
+        } @else {
+          @for (msg of messages; track msg.id) {
+            <div class="msg-row"
+              [class.msg-row-sent]="!isVendorMsg(msg)"
+              [class.msg-row-received]="isVendorMsg(msg)">
+
+              <div class="msg-bubble-wrap">
+                <div class="msg-bubble"
+                  [class.bubble-sent]="!isVendorMsg(msg)"
+                  [class.bubble-received]="isVendorMsg(msg)">
+                  {{ msg.content }}
+                </div>
+
+                <div class="msg-meta"
+                  [class.meta-right]="!isVendorMsg(msg)"
+                  [class.meta-left]="isVendorMsg(msg)">
+
+                  @if (isVendorMsg(msg)) {
+                    <div class="avatar avatar-vendor">V</div>
+                    <span class="meta-name">{{ msg.senderName }}</span>
+                    <span class="meta-time">{{ formatTime(msg.sentAt) }}</span>
+                  } @else {
+                    <span class="meta-time">{{ formatTime(msg.sentAt) }}</span>
+                    <span class="meta-name">You-Procurement</span>
+                    <div class="avatar avatar-you">P</div>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        }
+
+        <!-- Summarise button -->
+        <div class="summarise-row">
+          <button class="summarise-btn" (click)="summarise()">
+            <span class="spark">✦</span> Summarise the Negotiation Chat
+          </button>
+        </div>
+      </div>
+
+      <!-- Convert To PO -->
+      <!-- <div class="convert-row">
+        <button class="convert-btn" (click)="convertToPO()" [disabled]="isConverting">
+          {{ isConverting ? 'Converting...' : 'Convert To A PO' }}
+        </button>
+      </div> -->
+
+      <!-- Input -->
+      <div class="chat-input-area">
+        <textarea class="chat-input" [(ngModel)]="newMessage"
+          placeholder="Write a message ..."
+          (keydown.enter)="$event.preventDefault(); sendMessage()"
+          rows="2"></textarea>
+        <button class="send-btn" (click)="sendMessage()" [disabled]="!newMessage.trim() || isSending">
+          @if (isSending) {
+            <span>...</span>
+          } @else {
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"
+                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          }
+        </button>
+      </div>
+      <div class="input-hint">Press ✦ to insert the negotiation chat conclusion. Both company &amp; Vendor can see this</div>
+    </div>
+
+    <!-- ── RIGHT: Ask AI ──────────────────────────────────────── -->
+    <div class="ai-panel">
+
+      <div class="ai-panel-header">
+        <span class="ai-title">Ask AI ✦</span>
+      </div>
+      <div class="ai-subtitle">I Can See The Negotiation Chat. How Could I Help You?</div>
+      <div class="ai-divider"></div>
+
+      <!-- AI Summary Panel -->
+      @if (showSummaryPanel && summary) {
+        <div class="summary-panel">
+          <div class="summary-header">
+            <span class="summary-title">✦ Negotiation Summary</span>
+            <button class="summary-close" (click)="closeSummary()">✕</button>
+          </div>
+          @if (summary.agreedPrice) {
+            <div class="summary-row">
+              <span class="summary-label">Agreed Price</span>
+              <span class="summary-value">{{ summary.agreedPrice }}</span>
+            </div>
+          }
+          @if (summary.quantity) {
+            <div class="summary-row">
+              <span class="summary-label">Quantity</span>
+              <span class="summary-value">{{ summary.quantity }}</span>
+            </div>
+          }
+          @if (summary.vendorConcessions?.length) {
+            <div class="summary-section">
+              <div class="summary-label">Vendor Concessions</div>
+              @for (item of summary.vendorConcessions; track $index) {
+                <div class="summary-list-item">• {{ item }}</div>
+              }
+            </div>
+          }
+          @if (summary.procurementRequests?.length) {
+            <div class="summary-section">
+              <div class="summary-label">Procurement Requests</div>
+              @for (item of summary.procurementRequests; track $index) {
+                <div class="summary-list-item">• {{ item }}</div>
+              }
+            </div>
+          }
+          @if (summary.summary) {
+            <div class="summary-section">
+              <div class="summary-label">Summary</div>
+              <div class="summary-text">{{ summary.summary }}</div>
+            </div>
+          }
+        </div>
+      }
+
+      <div class="ai-messages" #aiChat>
+        @if (isAiLoading) {
+          <div class="state-center">Loading AI history...</div>
+        } @else if (aiMessages.length === 0) {
+          <div class="state-center ai-hint">Ask AI anything about this negotiation...</div>
+        } @else {
+          @for (msg of aiMessages; track $index) {
+            <div class="ai-msg" [class.ai-msg-user]="msg.role === 'user'" [class.ai-msg-ai]="msg.role === 'ai'">
+              <p class="ai-msg-text">{{ msg.text }}</p>
+
+              @if (msg.role === 'ai') {
+                <div class="ai-msg-actions">
+                  <button class="ai-icon-btn" title="Copy">📋</button>
+                  <button class="ai-icon-btn" title="Read aloud">🔊</button>
+                </div>
+              } @else {
+                <span class="ai-msg-time">{{ msg.time }}</span>
+              }
+            </div>
+          }
+        }
+      </div>
+
+      <div class="ai-input-area">
+        <input class="ai-input" [(ngModel)]="aiInput" placeholder="Ask AI"
+          (keydown.enter)="sendAiMessage()" />
+        <button class="ai-send-btn" (click)="sendAiMessage()" [disabled]="!aiInput.trim() || isSendingAi">
+          @if (isSendingAi) {
+            <span>...</span>
+          } @else {
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"
+                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          }
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,309 @@
+<!-- Breadcrumb -->
+<div class="ao-breadcrumb">
+  <a class="ao-breadcrumb-link" (click)="goToRfqs()">All RFQs</a>
+  <span class="ao-breadcrumb-sep">
+    <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
+      <path d="M1 1L6 6L1 11" stroke="#25B6AB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+  <a class="ao-breadcrumb-link" (click)="goToRfqDetails()">RFQ Details</a>
+  <span class="ao-breadcrumb-sep">
+    <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
+      <path d="M1 1L6 6L1 11" stroke="#25B6AB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+  <span class="ao-breadcrumb-current">{{ isReadOnly ? 'View Offer' : 'Apply An Offer' }}</span>
+</div>
+
+<!-- Loading state for read-only view -->
+<div class="ao-readonly-loading" *ngIf="isReadOnly && loadingReadOnly">
+  <div class="ao-spinner"></div>
+  <p>Loading offer details…</p>
+</div>
+
+<!-- Page wrapper -->
+<form #offerForm="ngForm" class="ao-page" *ngIf="!isReadOnly || !loadingReadOnly">
+
+  <!-- Title -->
+  <div class="ao-title-row">
+    <h1 class="ao-title">Offer on RFQ title: {{ rfqTitle }}</h1>
+    <span class="ao-status-badge" *ngIf="isReadOnly">{{ offerStatus }}</span>
+  </div>
+
+  <p class="ao-readonly-note" *ngIf="isReadOnly">
+    This offer has already been submitted, so it can only be viewed — it can no longer be edited or sent again.
+  </p>
+
+  <div class="ao-error-text" *ngIf="fieldErrors['general']" style="margin-bottom: 12px;">{{ fieldErrors['general'] }}</div>
+
+  <!-- ── Offer Info ── -->
+  <section class="ao-section">
+    <h2 class="ao-section-title">Offer Info</h2>
+
+    <div class="ao-fields-row">
+      <div class="ao-field" *ngIf="!isReadOnly">
+        <label class="ao-label">Item Name</label>
+        <div class="ao-select-wrap">
+          <select
+            class="ao-select"
+            [class.ao-select-error]="itemName.invalid && itemName.touched"
+            [disabled]="!form.category || form.category === ''"
+            name="itemName"
+            #itemName="ngModel"
+            required
+            [(ngModel)]="form.itemName"
+            (ngModelChange)="onItemNameChange($event)"
+          >
+            <option [value]="''" disabled>{{ form.category ? 'Select an item' : 'Choose category first' }}</option>
+            <option *ngFor="let product of products" [value]="product.itemName">{{ product.itemName }}</option>
+          </select>
+          <span class="ao-select-icon">
+            <img src="images/arrow-bottom.png" alt="" class="ao-select-icon-img" />
+          </span>
+        </div>
+        <span class="ao-error-text" *ngIf="itemName.invalid && itemName.touched">Item name is required</span>
+      </div>
+      <div class="ao-field ao-field-readonly" *ngIf="isReadOnly">
+        <label class="ao-label">Item Name</label>
+        <div class="ao-readonly-value">{{ form.itemName || '—' }}</div>
+      </div>
+      <div class="ao-field ao-field-select" *ngIf="!isReadOnly">
+        <label class="ao-label">Category *</label>
+        <div class="ao-select-wrap">
+          <select
+            class="ao-select"
+            [class.ao-select-error]="category.invalid && category.touched"
+            name="category"
+            #category="ngModel"
+            required
+            [(ngModel)]="form.category"
+            (ngModelChange)="onCategoryChange($event)"
+          >
+            <option [value]="''"></option>
+            <option *ngFor="let cat of categories" [ngValue]="cat.id">{{ cat.name }}</option>
+          </select>
+          <span class="ao-select-icon">
+            <img src="images/arrow-bottom.png" alt="" class="ao-select-icon-img" />
+          </span>
+        </div>
+        <span class="ao-error-text" *ngIf="category.invalid && category.touched">Please choose a category</span>
+      </div>
+      <div class="ao-field ao-field-select ao-field-readonly" *ngIf="isReadOnly">
+        <label class="ao-label">Category</label>
+        <div class="ao-readonly-value">{{ draftCategoryName || '—' }}</div>
+      </div>
+    </div>
+
+    <div class="ao-fields-row">
+      <div class="ao-field">
+        <label class="ao-label">Quantity</label>
+        <input
+          class="ao-input"
+          [class.ao-input-error]="quantity.invalid && quantity.touched"
+          type="number"
+          min="1"
+          step="1"
+          name="quantity"
+          #quantity="ngModel"
+          required
+          pattern="^[0-9]+$"
+          [disabled]="isReadOnly"
+          [(ngModel)]="form.quantity"
+          (ngModelChange)="fieldErrors['quantity'] = ''"
+          placeholder=""
+        />
+        <span class="ao-error-text" *ngIf="quantity.invalid && quantity.touched">Enter a valid positive number</span>
+        <span class="ao-error-text" *ngIf="!quantity.invalid && fieldErrors['quantity']">{{ fieldErrors['quantity'] }}</span>
+      </div>
+      <div class="ao-field ao-field-select">
+        <label class="ao-label">Unit of Measurement</label>
+        <div class="ao-select-wrap">
+          <select
+            class="ao-select"
+            [class.ao-select-error]="unit.invalid && unit.touched"
+            name="unit"
+            #unit="ngModel"
+            required
+            [disabled]="isReadOnly"
+            [(ngModel)]="form.unit"
+            (ngModelChange)="fieldErrors['unit'] = ''"
+          >
+            <option value=""></option>
+            <option value="Piece">Piece</option>
+            <option value="Kilogram">Kilogram</option>
+            <option value="Gram">Gram</option>
+            <option value="Ton">Ton</option>
+            <option value="Liter">Liter</option>
+            <option value="Box">Box</option>
+            <option value="Carton">Carton</option>
+            <option value="Meter">Meter</option>
+            <option value="Pack">Pack</option>
+          </select>
+          <span class="ao-select-icon">
+            <img src="images/arrow-bottom.png" alt="" class="ao-select-icon-img" />
+          </span>
+        </div>
+        <span class="ao-error-text" *ngIf="unit.invalid && unit.touched">Please choose a unit</span>
+      </div>
+    </div>
+
+    <div class="ao-field ao-field-full">
+      <label class="ao-label">Technical Specs</label>
+      <input class="ao-input" type="text" name="technicalSpecs" [disabled]="isReadOnly" [(ngModel)]="form.technicalSpecs" placeholder="" />
+    </div>
+
+    <div class="ao-field ao-field-full">
+      <label class="ao-label">Additional notes</label>
+      <input class="ao-input ao-input-tall" type="text" name="additionalNotes" [disabled]="isReadOnly" [(ngModel)]="form.additionalNotes" placeholder="" />
+    </div>
+  </section>
+
+  <!-- ── Cost Info ── -->
+  <section class="ao-section">
+    <h2 class="ao-section-title">Cost Info</h2>
+
+    <div class="ao-commission-notice" *ngIf="!isReadOnly">
+      <span class="ao-notice-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="#B8860B" stroke-width="1.8"/>
+          <path d="M12 8v4" stroke="#B8860B" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="12" cy="16" r="1" fill="#B8860B"/>
+        </svg>
+      </span>
+      <span class="ao-notice-text">Remember that a 1% commission will be deducted from Cost that you will write below</span>
+    </div>
+
+    <div class="ao-fields-row">
+      <div class="ao-field">
+        <label class="ao-label">Cost</label>
+        <input
+          class="ao-input"
+          [class.ao-input-error]="cost.invalid && cost.touched"
+          type="number"
+          min="0"
+          step="0.01"
+          name="cost"
+          #cost="ngModel"
+          required
+          [disabled]="isReadOnly"
+          [(ngModel)]="form.cost"
+          (ngModelChange)="fieldErrors['cost'] = ''"
+          placeholder=""
+        />
+        <span class="ao-error-text" *ngIf="cost.invalid && cost.touched">Enter a valid positive number</span>
+        <span class="ao-error-text" *ngIf="!cost.invalid && fieldErrors['cost']">{{ fieldErrors['cost'] }}</span>
+      </div>
+      <div class="ao-field ao-field-select">
+        <label class="ao-label">Currency *</label>
+        <div class="ao-select-wrap">
+          <select
+            class="ao-select"
+            [class.ao-select-error]="currency.invalid && currency.touched"
+            name="currency"
+            #currency="ngModel"
+            required
+            [disabled]="isReadOnly"
+            [(ngModel)]="form.currency"
+            (ngModelChange)="fieldErrors['currency'] = ''"
+          >
+            <option value=""></option>
+            <option value="EGP">EGP</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="SAR">SAR</option>
+          </select>
+          <span class="ao-select-icon">
+            <img src="images/arrow-bottom.png" alt="" class="ao-select-icon-img" />
+          </span>
+        </div>
+        <span class="ao-error-text" *ngIf="currency.invalid && currency.touched">Please choose a currency</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Product Photos ── -->
+  <section class="ao-section">
+    <h2 class="ao-section-title">Product Photos</h2>
+    <div class="ao-photos-grid">
+      <div *ngIf="selectedProductPhotos.length > 0">
+        <img *ngFor="let photo of selectedProductPhotos" [src]="photo" alt="Product photo" class="ao-photo-img" />
+      </div>
+      <div *ngIf="selectedProductPhotos.length === 0">
+        <div class="ao-photo-item"></div>
+        <div class="ao-photo-item"></div>
+        <div class="ao-photo-item"></div>
+        <div class="ao-photo-item"></div>
+        <div class="ao-photo-item"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Offer Deadline ── -->
+  <section class="ao-section">
+    <h2 class="ao-section-title">Offer Deadline</h2>
+    <div class="ao-field ao-field-full">
+      <label class="ao-label">Offer Deadline:</label>
+      <input
+        class="ao-input"
+        [class.ao-input-error]="fieldErrors['offerDeadline']"
+        type="date"
+        name="offerDeadline"
+        #offerDeadlineField="ngModel"
+        required
+        [disabled]="isReadOnly"
+        [(ngModel)]="form.offerDeadline"
+        (ngModelChange)="fieldErrors['offerDeadline'] = ''"
+      />
+      <span class="ao-error-text" *ngIf="fieldErrors['offerDeadline']">{{ fieldErrors['offerDeadline'] }}</span>
+    </div>
+  </section>
+
+  <!-- ── Delivery Deadline ── -->
+  <section class="ao-section">
+    <h2 class="ao-section-title">Delivery Deadline</h2>
+    <div class="ao-field ao-field-full">
+      <label class="ao-label">Delivery Deadline:</label>
+      <input
+        class="ao-input"
+        [class.ao-input-error]="fieldErrors['deliveryDeadline']"
+        type="date"
+        name="deliveryDeadline"
+        #deliveryDeadlineField="ngModel"
+        required
+        [disabled]="isReadOnly"
+        [(ngModel)]="form.deliveryDeadline"
+        (ngModelChange)="fieldErrors['deliveryDeadline'] = ''"
+      />
+      <span class="ao-error-text" *ngIf="fieldErrors['deliveryDeadline']">{{ fieldErrors['deliveryDeadline'] }}</span>
+    </div>
+  </section>
+
+  <!-- Sticky footer -->
+  <div class="ao-footer" *ngIf="!isReadOnly">
+    <button class="ao-btn-send" (click)="onSendOffer(offerForm)">Send Offer To Company</button>
+    <button class="ao-btn-draft" (click)="onSaveDraft(offerForm)">{{ isDraftEdit ? 'Update Draft' : 'Save Draft' }}</button>
+  </div>
+
+  <div class="ao-footer" *ngIf="isReadOnly">
+    <button class="ao-btn-draft" (click)="goToRfqDetails()">View RFQ Details</button>
+    <button class="ao-btn-send" (click)="goToAllOffers()">Back to All Offers</button>
+  </div>
+
+</form>
+
+<!-- ── Success Modal ── -->
+<div class="ao-modal-overlay" *ngIf="showSuccess">
+  <div class="ao-modal">
+    <h1 class="ao-modal-title">{{ successMessage || (lastAction === 'send' ? 'Offer sent' : 'Draft saved') }}</h1>
+
+    <div class="ao-modal-icon-wrap">
+      <img src="images/Vector.png" alt="Success" class="ao-modal-vector" />
+    </div>
+
+    <p class="ao-modal-text">
+      {{ lastAction === 'send' ? 'The offer has been sent successfully!' : 'The draft was saved successfully.' }}
+    </p>
+
+    <button class="ao-modal-ok" (click)="onCloseSuccess()">OK</button>
+  </div>
+</div>

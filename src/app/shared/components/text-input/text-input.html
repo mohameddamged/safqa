@@ -1,0 +1,21 @@
+<div class="field">
+  <div class="control" [class.has-error]="errorMessage && touched">
+    <input
+      [type]="type"
+      [value]="value"
+      [disabled]="disabled"
+      [autocomplete]="autocomplete"
+      (input)="handleInput($event)"
+      (blur)="handleBlur()"
+      placeholder=" "
+      class="control__input"
+    />
+    <label class="control__label">{{ label }}{{ required ? ' *' : '' }}</label>
+  </div>
+
+  @if (errorMessage && touched) {
+    <p class="field__error">{{ errorMessage }}</p>
+  } @else if (hint) {
+    <p class="field__hint">{{ hint }}</p>
+  }
+</div>

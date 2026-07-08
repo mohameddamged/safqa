@@ -1,0 +1,93 @@
+<app-header></app-header>
+
+<section class="pricing-page">
+
+  <a class="back-link" (click)="goBack()">
+    <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+    Back
+  </a>
+
+  <h1 class="pricing-title">PRICING Plans</h1>
+
+  <p class="pricing-subtitle">Please chose your role to see the right pricing Plan that matches your business</p>
+
+  <div class="pricing-tabs">
+    <button
+      class="pricing-tab"
+      [class.active]="activeRole === 'companies'"
+      (click)="setActiveRole('companies')">
+      Companies
+    </button>
+    <button
+      class="pricing-tab"
+      [class.active]="activeRole === 'vendors'"
+      (click)="setActiveRole('vendors')">
+      Vendors
+    </button>
+  </div>
+
+  <div class="pricing-cards">
+
+    <div class="plan-card">
+      <span class="plan-badge" [style.color]="pricingPlans[activeRole].free.badgeColor" [style.background]="pricingPlans[activeRole].free.badgeBg">
+        {{ pricingPlans[activeRole].free.badge }}
+      </span>
+
+      <h3 class="plan-name">{{ pricingPlans[activeRole].free.name }}</h3>
+
+      <div class="plan-price">
+        {{ pricingPlans[activeRole].free.price }}<span class="plan-period">{{ pricingPlans[activeRole].free.period }}</span>
+      </div>
+
+      <p class="plan-description">{{ pricingPlans[activeRole].free.description }}</p>
+
+      <ul class="plan-features">
+        <li *ngFor="let feature of pricingPlans[activeRole].free.features">
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>{{ feature }}</span>
+        </li>
+      </ul>
+
+      <button class="plan-btn" routerLink="/auth/signup">Get Started</button>
+    </div>
+
+    <div class="plan-card plan-card-pro">
+      <div class="plan-card-pro-inner">
+        <span class="plan-badge plan-badge-pro">
+          {{ pricingPlans[activeRole].pro.badge }}
+        </span>
+
+        <h3 class="plan-name">{{ pricingPlans[activeRole].pro.name }}</h3>
+
+        <div class="plan-price">
+          {{ pricingPlans[activeRole].pro.price }}<span class="plan-period">{{ pricingPlans[activeRole].pro.period }}</span>
+        </div>
+
+        <p class="plan-description">{{ pricingPlans[activeRole].pro.description }}</p>
+
+        <ul class="plan-features">
+          <li *ngFor="let feature of pricingPlans[activeRole].pro.features">
+            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>{{ feature }}</span>
+          </li>
+        </ul>
+
+        <button class="plan-btn" routerLink="/auth/signup">Get Started</button>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="pricing-note">
+    Note: When you sign up you will be on free plan by default. You can subscribe to Pro Plan in your Dashboard.
+  </p>
+
+</section>
+
+<app-footer></app-footer>

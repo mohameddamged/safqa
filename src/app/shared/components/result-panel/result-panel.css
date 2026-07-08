@@ -1,0 +1,23 @@
+.result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 24px;
+}
+
+.result__badge {
+  margin: 12px 0;
+}
+
+.result__message {
+  font-size: 1rem;
+  color: var(--safqa-text-primary);
+  text-align: center;
+  line-height: 1.5;
+  max-width: 360px;
+}
+
+.result__cta {
+  width: 100%;
+}

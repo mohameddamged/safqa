@@ -1,0 +1,68 @@
+<div class="mo-page">
+
+  <div class="mo-header-row">
+    <h1 class="mo-title">My Offers (Drafts):</h1>
+
+    <div class="mo-filter-wrap">
+      <button class="mo-filter-btn" (click)="toggleFilterPopover($event)">
+        Filter
+        <img src="filter-edit.png" alt="" class="mo-filter-icon" />
+      </button>
+
+      <!-- ── Filter popover ── -->
+      <div class="mo-filter-popover" *ngIf="filterOpen" (click)="$event.stopPropagation()">
+        <label class="mo-radio">
+          <input type="radio" name="negFilter" value="negotiated" [(ngModel)]="pendingFilter" />
+          <span class="mo-radio-circle"></span>
+          <span>Negotiated</span>
+        </label>
+        <label class="mo-radio">
+          <input type="radio" name="negFilter" value="requested" [(ngModel)]="pendingFilter" />
+          <span class="mo-radio-circle"></span>
+          <span>Request to Negotiate</span>
+        </label>
+
+        <button class="mo-filter-apply" (click)="applyFilter()">Apply</button>
+        <button class="mo-filter-reset" (click)="resetFilter()">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mo-table-wrap">
+    <table class="mo-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>RFQ Title</th>
+          <th>Conpany Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let draft of filteredDrafts">
+          <td>{{ draft.id }}</td>
+          <td>{{ draft.rfqTitle }}</td>
+          <td>{{ draft.companyName }}</td>
+          <td class="mo-menu-cell">
+            <button class="mo-menu-btn" (click)="onToggleMenu(draft, $event)" aria-label="More actions">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </button>
+
+            <div class="mo-dropdown" [class.drop-up]="draft.dropUp" *ngIf="draft.menuOpen">
+              <button class="mo-dropdown-item" (click)="onViewRfqDetails(draft)">View RFQ Details</button>
+              <button class="mo-dropdown-item" (click)="onEditDraft(draft)">Edit Offer</button>
+              <button class="mo-dropdown-item mo-dropdown-item-danger" (click)="onDeleteDraft(draft)">Delete Draft</button>
+            </div>
+          </td>
+        </tr>
+
+        <tr *ngIf="filteredDrafts.length === 0">
+          <td colspan="4" class="mo-empty">No drafts to show.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
