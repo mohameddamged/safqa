@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
@@ -28,6 +28,7 @@ export class DeliveredPos implements OnInit {
   constructor(
     private readonly router:    Router,
     private readonly dmService: DepartmentManagerService,
+    private readonly cdr:       ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +41,11 @@ export class DeliveredPos implements OnInit {
     this.errorMessage = '';
 
     this.dmService.getPurchaseOrders(this.pageNumber, this.pageSize)
-      .pipe(finalize(() => (this.isLoading = false)))
+      .pipe(finalize(() => {
+        this.isLoading = false;
+        // من غير كده الجدول مش بيتحدث إلا بعد ضغطة تانية على أي حاجة تانية في الصفحة
+        this.cdr.detectChanges();
+      }))
       .subscribe({
         next: (res) => {
           if (res.success) {

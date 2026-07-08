@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DepartmentService } from '../../../../core/services/department-manager/services/department';
@@ -81,7 +81,11 @@ export class MyPrsComponent implements OnInit {
   isCancelling = false;
   cancelError = '';
 
-  constructor(private router: Router, private departmentService: DepartmentService) { }
+  constructor(
+    private router: Router,
+    private departmentService: DepartmentService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.loadPurchaseRequests();
@@ -97,6 +101,7 @@ export class MyPrsComponent implements OnInit {
 
         if (!res.success) {
           this.loadError = res.message || 'Failed to load your purchase requests.';
+          this.cdr.detectChanges();
           return;
         }
 
@@ -112,10 +117,13 @@ export class MyPrsComponent implements OnInit {
         this.pageSize = res.data.pageSize;
         this.totalPages = res.data.totalPages;
         this.totalCount = res.data.totalCount;
+        // من غير كده الجدول مش بيتحدث إلا بعد ضغطة تانية على أي حاجة تانية في الصفحة
+        this.cdr.detectChanges();
       },
       error: () => {
         this.isLoading = false;
         this.loadError = 'Failed to load your purchase requests. Please try again.';
+        this.cdr.detectChanges();
       }
     });
   }
@@ -203,10 +211,12 @@ export class MyPrsComponent implements OnInit {
         } else {
           this.rejectionLoadError = res.message || 'Failed to load rejection reason.';
         }
+        this.cdr.detectChanges();
       },
       error: () => {
         this.isLoadingRejection = false;
         this.rejectionLoadError = 'Failed to load rejection reason. Please try again.';
+        this.cdr.detectChanges();
       }
     });
   }
@@ -259,6 +269,7 @@ confirmCancelPR(): void {
         const statusPrefix = err?.status ? `(${err.status}) ` : '';
         this.cancelError = `${statusPrefix}${err?.error?.message || 'Failed to cancel the purchase request.'}`;
       }
+      this.cdr.detectChanges();
     }
   });
 }
@@ -272,6 +283,7 @@ private closeModalAfterSuccess(): void {
   this.showCancelModal = false;
   this.isCancelling = false;
   this.prToCancel = null;
+  this.cdr.detectChanges();
   this.loadPurchaseRequests(); // تحديث القائمة فوراً
 }
 

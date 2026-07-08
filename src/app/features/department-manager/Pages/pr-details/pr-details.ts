@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -168,7 +168,8 @@ export class PrDetails implements OnInit {
   constructor(
     private router: Router,
     private elementRef: ElementRef,
-    private departmentService: DepartmentService
+    private departmentService: DepartmentService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -186,9 +187,11 @@ export class PrDetails implements OnInit {
         } else {
           this.optionsLoadError = res.message || 'Failed to load categories.';
         }
+        this.cdr.detectChanges();
       },
       error: () => {
         this.optionsLoadError = 'Failed to load categories. Please refresh the page.';
+        this.cdr.detectChanges();
       }
     });
 
@@ -199,9 +202,11 @@ export class PrDetails implements OnInit {
         } else {
           this.optionsLoadError = res.message || 'Failed to load units.';
         }
+        this.cdr.detectChanges();
       },
       error: () => {
         this.optionsLoadError = 'Failed to load units. Please refresh the page.';
+        this.cdr.detectChanges();
       }
     });
 
@@ -213,10 +218,12 @@ export class PrDetails implements OnInit {
           this.optionsLoadError = res.message || 'Failed to load currencies.';
         }
         this.isLoadingOptions = false;
+        this.cdr.detectChanges();
       },
       error: () => {
         this.optionsLoadError = 'Failed to load currencies. Please refresh the page.';
         this.isLoadingOptions = false;
+        this.cdr.detectChanges();
       }
     });
   }
@@ -316,10 +323,14 @@ export class PrDetails implements OnInit {
         } else {
           this.submitError = res.message || 'Failed to submit the purchase requisition. Please try again.';
         }
+        // من غير الـ detectChanges ده الموديل مكانش بيظهر إلا لما تضغط تاني -
+        // الـ subscribe callback بيرجع بره دورة الـ change detection العادية.
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.isSubmitting = false;
         this.submitError = err?.error?.message || 'Something went wrong while submitting. Please try again.';
+        this.cdr.detectChanges();
       }
     });
   }

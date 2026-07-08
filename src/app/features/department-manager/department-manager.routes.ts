@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { Dashboard } from './Pages/dashboard/dashboard';
 import { UploadPr } from './Pages/upload-pr/upload-pr';
 import { PrDetails } from './Pages/pr-details/pr-details';
 import { DeliveredPos } from './Pages/delivered-pos/delivered-pos';
@@ -9,8 +8,7 @@ import { MyPrsComponent } from './Pages/my-prs/my-prs.component';
 import { PrEditDetailsComponent } from './Pages/pr-edit-details/pr-edit-details';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: Dashboard },
+  { path: '', redirectTo: 'my-prs', pathMatch: 'full' },
   { path: 'upload-pr', component: UploadPr },
   { path: 'upload-pr/create', component: PrDetails },
   { path: 'delivered-pos', component: DeliveredPos },
@@ -18,5 +16,5 @@ export const routes: Routes = [
   { path: 'profile', component: Profile },
   { path: 'my-prs', component: MyPrsComponent },
   { path: 'my-prs/edit-details/:id', component: PrEditDetailsComponent },
-  { path: '**', redirectTo: 'dashboard' },
+  { path: '**', redirectTo: 'my-prs' },
 ];
