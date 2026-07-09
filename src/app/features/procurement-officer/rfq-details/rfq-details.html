@@ -79,10 +79,58 @@
       </div>
     </div>
 
-    <button class="turn-btn"
-      [routerLink]="['/procurement-officer/rfq', rfq.id, 'update']">
+    <button class="turn-btn" (click)="openModal()">
       Turn Into RFQ
     </button>
+
+  </div>
+</div>
+
+<!-- ── Convert-to-RFQ Modal ──────────────────────────────────────── -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+
+    <div class="modal-header">
+      <h2 class="modal-title">Convert to RFQ</h2>
+      <button class="modal-close" (click)="closeModal()" [disabled]="isSubmitting">✕</button>
+    </div>
+
+    <div class="modal-field">
+      <label class="modal-label">Closing Date <span class="modal-required">*</span></label>
+      <input
+        type="date"
+        class="modal-input"
+        [(ngModel)]="closingDate"
+        [min]="today"
+      />
+    </div>
+
+    <div class="modal-field">
+      <label class="modal-label">Notes to Vendors</label>
+      <textarea
+        class="modal-input modal-textarea"
+        [(ngModel)]="notesToVendors"
+        placeholder="Optional notes for vendors..."
+        rows="3"
+      ></textarea>
+    </div>
+
+    <div *ngIf="submitError" class="modal-error">{{ submitError }}</div>
+
+    <div class="modal-actions">
+      <button
+        class="modal-btn-cancel"
+        (click)="closeModal()"
+        [disabled]="isSubmitting"
+      >Cancel</button>
+      <button
+        class="modal-btn-submit"
+        (click)="submitConvert()"
+        [disabled]="!closingDate || isSubmitting"
+      >
+        {{ isSubmitting ? 'Converting...' : 'Confirm' }}
+      </button>
+    </div>
 
   </div>
 </div>
