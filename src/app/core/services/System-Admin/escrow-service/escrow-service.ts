@@ -28,6 +28,14 @@ export class EscrowService {
     return this.http.get<any>(`${this.baseUrl}/${poId}/details`);
   }
 
+  approvePayment(poId: number): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/${poId}/approve`, {});
+  }
+
+  rejectPayment(poId: number, rejectionReason: string): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/${poId}/reject`, { rejectionReason });
+  }
+
   // جدول "Safqa Payments" (معاملات الموردين) بييجي من GET /api/AdminEscrowPayments/VendorsTransactions
   private safqaPaymentsUrl = 'https://safka.runasp.net/api/AdminEscrowPayments/VendorsTransactions';
 
@@ -80,4 +88,3 @@ uploadReturnedFundReceipt(purchaseOrderId: number, file: File): Observable<any> 
   );
 }
 }
-
