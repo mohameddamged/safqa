@@ -12,6 +12,7 @@
 .offer-table td { padding: 16px 16px; border-bottom: 1px solid #f3f4f6; font-size: 13px; color: #2E1911; }
 .offer-table tbody tr:last-child td { border-bottom: none; }
 .matching { color: #E47C55; font-weight: 600; }
+.procurement-score { color: #4f46e5; font-weight: 600; }
 .badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
 .badge-green { background: #dcfce7; color: #16a34a; }
 .badge-yellow { background: #fef9c3; color: #ca8a04; }
