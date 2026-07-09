@@ -99,6 +99,83 @@
             </svg>
           </div>
         </div>
+
+        <!-- AI Insights toggle -->
+        <button type="button" class="ai-insights-toggle" (click)="toggleDetails(vendor.id, $event)">
+          <span>{{ isExpanded(vendor.id) ? 'Hide AI Insights' : 'View AI Insights' }}</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" [class.rotated]="isExpanded(vendor.id)">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <!-- AI Insights details panel -->
+        <div class="ai-insights-panel" *ngIf="isExpanded(vendor.id)" (click)="$event.stopPropagation()">
+
+          <div class="ai-row" *ngIf="vendor.workEmail">
+            <span class="ai-row-label">Work Email</span>
+            <span class="ai-row-value">{{ vendor.workEmail }}</span>
+          </div>
+
+          <p class="ai-summary" *ngIf="vendor.aiSummary">{{ vendor.aiSummary }}</p>
+
+          <div class="ai-list-block" *ngIf="vendor.strengths?.length">
+            <span class="ai-block-title strengths-title">Strengths</span>
+            <ul class="ai-list">
+              <li *ngFor="let s of vendor.strengths">{{ s }}</li>
+            </ul>
+          </div>
+
+          <div class="ai-list-block" *ngIf="vendor.weaknesses?.length">
+            <span class="ai-block-title weaknesses-title">Weaknesses</span>
+            <ul class="ai-list">
+              <li *ngFor="let w of vendor.weaknesses">{{ w }}</li>
+            </ul>
+          </div>
+
+          <div class="ai-recommendation" *ngIf="vendor.aiRecommendation">
+            <span class="ai-block-title recommendation-title">Recommendation</span>
+            <p>{{ vendor.aiRecommendation }}</p>
+          </div>
+
+          <div class="ai-metrics-grid">
+            <div class="metric-cell">
+              <span class="metric-value">{{ vendor.metrics.completedOrders }}</span>
+              <span class="metric-label">Completed Orders</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-value">{{ vendor.metrics.onTimeDeliveries }}</span>
+              <span class="metric-label">On-Time Deliveries</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-value">{{ vendor.metrics.lateDeliveries }}</span>
+              <span class="metric-label">Late Deliveries</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-value">{{ vendor.metrics.averageDelayDays }}</span>
+              <span class="metric-label">Avg Delay (days)</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-value">{{ vendor.metrics.averageResponseTimeHours }}</span>
+              <span class="metric-label">Avg Response (hrs)</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-value">{{ vendor.metrics.rfqResponseRate }}%</span>
+              <span class="metric-label">RFQ Response Rate</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-value">{{ vendor.metrics.damagedDeliveries }}</span>
+              <span class="metric-label">Damaged Deliveries</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-value">{{ vendor.metrics.incompleteDeliveries }}</span>
+              <span class="metric-label">Incomplete Deliveries</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-value">{{ vendor.metrics.complaintRate }}%</span>
+              <span class="metric-label">Complaint Rate</span>
+            </div>
+          </div>
+        </div>
       </div>
       <div *ngIf="vendors.length === 0" class="state-msg">No approved vendors found.</div>
     </div>

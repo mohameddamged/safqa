@@ -22,6 +22,7 @@ export class SelectVendors implements OnInit {
   isLoadingVendors = true;
   vendorsError: string | null = null;
   selectedVendors: Set<number> = new Set();
+  expandedVendors: Set<number> = new Set();
   isSending = false;
   sendError: string | null = null;
   showSuccess = false;
@@ -34,13 +35,33 @@ export class SelectVendors implements OnInit {
     this.rfqService.getEligibleVendors(Number(this.rfqId)).subscribe({
       next: (res: any) => {
         const raw = res?.data?.items ?? res?.data ?? res ?? [];
-        this.vendors = (raw as any[]).map(v => ({
-          id: v.id ?? v.vendorId,
-          name: v.name ?? v.companyName ?? v.vendorName ?? 'Unnamed Vendor',
-          fastDelivery: v.fastDelivery ?? v.fastDeliveryRating ?? 0,
-          responsive: v.responsive ?? v.responsiveRating ?? 0,
-          overallRating: v.overallRating ?? (v.overallRatingPercentage != null ? `${v.overallRatingPercentage}%` : '—'),
-        }));
+        this.vendors = (raw as any[]).map(v => {
+          const perf = v.performance ?? {};
+          const metrics = perf.metrics ?? {};
+          return {
+            id: v.id ?? v.vendorId,
+            name: v.name ?? v.companyName ?? v.vendorName ?? 'Unnamed Vendor',
+            workEmail: v.workEmail ?? v.email ?? null,
+            fastDelivery: v.fastDelivery ?? v.fastDeliveryRating ?? perf.deliveryScore ?? 0,
+            responsive: v.responsive ?? v.responsiveRating ?? perf.negotiationScore ?? 0,
+            overallRating: v.overallRating ?? (v.overallRatingPercentage != null ? `${v.overallRatingPercentage}%` : (perf.aiOverallScore != null ? `${perf.aiOverallScore}%` : '—')),
+            aiSummary: perf.summary ?? null,
+            aiRecommendation: perf.recommendation ?? null,
+            strengths: perf.strengths ?? [],
+            weaknesses: perf.weaknesses ?? [],
+            metrics: {
+              completedOrders: metrics.completedOrders ?? 0,
+              onTimeDeliveries: metrics.onTimeDeliveries ?? 0,
+              lateDeliveries: metrics.lateDeliveries ?? 0,
+              averageDelayDays: metrics.averageDelayDays ?? 0,
+              averageResponseTimeHours: metrics.averageResponseTimeHours ?? 0,
+              rfqResponseRate: metrics.rfqResponseRate ?? 0,
+              damagedDeliveries: metrics.damagedDeliveries ?? 0,
+              incompleteDeliveries: metrics.incompleteDeliveries ?? 0,
+              complaintRate: metrics.complaintRate ?? 0,
+            },
+          };
+        });
         this.allVendors = [...this.vendors];
         this.isLoadingVendors = false;
         this.cdr.detectChanges();
@@ -56,6 +77,12 @@ export class SelectVendors implements OnInit {
   toggleVendor(id: number): void { this.selectedVendors.has(id) ? this.selectedVendors.delete(id) : this.selectedVendors.add(id); }
   isSelected(id: number): boolean { return this.selectedVendors.has(id); }
   getStars(count: number): number[] { return Array(5).fill(0).map((_, i) => i < count ? 1 : 0); }
+
+  toggleDetails(id: number, event: Event): void {
+    event.stopPropagation();
+    this.expandedVendors.has(id) ? this.expandedVendors.delete(id) : this.expandedVendors.add(id);
+  }
+  isExpanded(id: number): boolean { return this.expandedVendors.has(id); }
 
   sendToVendors(): void {
     if (this.selectedVendors.size === 0 || !this.rfqId) return;
