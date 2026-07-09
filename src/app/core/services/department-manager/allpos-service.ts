@@ -15,23 +15,24 @@ export interface PurchaseOrder {
   paymentDate:      string;
 }
 
+// شكل الداتا الحقيقي زي ما بيرجع من GET /api/DepartmentManager/purchase-orders/{purchaseOrderId}
+// (اتأكد منه من الـ Swagger response الفعلي - مفيش companyName ولا paymentDate ولا paymentMethod أصلاً)
 export interface PurchaseOrderDetails {
-  id:               number;
-  vendorName:       string;
-  companyName:      string;
-  cost:             number;
-  currency:         string;
-  deliveryDeadline: string;
-  status:           string;
-  createdAt:        string;
-  paymentDate:      string;
-  // Additional detail fields (may vary based on backend)
-  rfqTitle?:        string;
-  itemName?:        string;
-  quantity?:        number;
-  unit?:            string;
-  technicalSpecs?:  string;
-  paymentMethod?:   string;
+  id:                     number;
+  rfqId?:                 number;
+  rfqTitle:               string;
+  itemName:               string;
+  categoryName:           string;
+  quantity:               number;
+  unit:                   string;
+  technicalSpecification: string;
+  additionalNotes:        string;
+  totalCost:              number;
+  currency:               string;
+  deliveryDeadline:       string;
+  vendorName:             string;
+  status:                 string;
+  createdAt:              string;
 }
 
 export interface PurchaseOrdersResponse {

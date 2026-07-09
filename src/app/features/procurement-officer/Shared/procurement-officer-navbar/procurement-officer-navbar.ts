@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { ChatbotStateService } from '../../../../shared/components/chatbot/chatbot-state.service';
 
 @Component({
@@ -9,6 +9,8 @@ import { ChatbotStateService } from '../../../../shared/components/chatbot/chatb
 })
 export class ProcurementOfficerNavbar {
   private readonly chatbotState = inject(ChatbotStateService);
+
+  @Input() showSearch: boolean = true;
 
   openChatbot(): void {
     this.chatbotState.open();

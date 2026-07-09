@@ -43,9 +43,11 @@
         <label class="box-label" for="itemName">Item Name</label>
         <input id="itemName" type="text" class="box-input" [(ngModel)]="itemName" name="itemName" />
       </div>
-      <div class="input-display-box readonly-box">
-        <label class="box-label" id="categoryLabel">Category</label>
-        <p class="box-text font-dark" aria-labelledby="categoryLabel">{{ pr.category }}</p>
+      <div class="input-display-box">
+        <label class="box-label" for="category">Category</label>
+        <select id="category" class="box-input" [(ngModel)]="categoryId" name="category">
+          <option *ngFor="let opt of categoryOptions" [ngValue]="opt.id">{{ opt.name }}</option>
+        </select>
       </div>
     </div>
 

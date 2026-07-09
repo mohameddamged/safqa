@@ -251,6 +251,39 @@ $status-cancelled-text: #8A8F98;
       .reason-text { font-size: 14.5px; color: #444; line-height: 1.5; margin: 0; }
     }
 
+    // ---- Wide variant used by the "Purchase Request Details" modal ----
+    &.modal-content-wide {
+      max-width: 720px;
+      text-align: left;
+      max-height: 85vh;
+      overflow-y: auto;
+
+      h2 { text-align: left; }
+    }
+
+    .pr-detail-body {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .pr-detail-header-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 4px;
+
+      .rejected-by { margin-bottom: 0; }
+    }
+
+    .pr-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .reason-box-full { grid-column: 1 / -1; }
+
     // ---- Cancel confirmation modal ----
     .cancel-modal-actions {
       display: flex; gap: 15px; margin-top: 10px;
@@ -334,4 +367,15 @@ $status-cancelled-text: #8A8F98;
 .page-label {
   font-size: 14px;
   color: $text-muted;
+}
+
+// ---- Responsive: Purchase Request Details modal ----
+@media (max-width: 640px) {
+  .modal-content.modal-content-wide {
+    max-width: 92vw;
+
+    .pr-detail-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 }

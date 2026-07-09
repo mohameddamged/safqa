@@ -78,20 +78,81 @@
   </div>
 
   <div class="modal-backdrop" *ngIf="showRejectionModal" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-content modal-content-wide" (click)="$event.stopPropagation()">
       <button class="close-btn" (click)="closeModal()">&times;</button>
-      <h2>Reason Of Rejection</h2>
-      <p class="rejected-by">Person rejected: <span class="highlight-text">{{ selectedPR?.rejectedBy }}</span></p>
-      <div class="reason-box" *ngIf="!isLoadingRejection && !rejectionLoadError">
-        <label class="reason-label">Reason of Rejection:</label>
-        <p class="reason-text">{{ selectedPR?.rejectionReason }}</p>
+      <h2>Purchase Request Details</h2>
+
+      <div *ngIf="isLoadingRejection" class="reason-box">
+        <p class="reason-text">Loading purchase request details...</p>
       </div>
-      <div class="reason-box" *ngIf="isLoadingRejection">
-        <p class="reason-text">Loading rejection reason...</p>
-      </div>
-      <div class="reason-box" *ngIf="rejectionLoadError">
+
+      <div *ngIf="!isLoadingRejection && rejectionLoadError" class="reason-box">
         <p class="reason-text">{{ rejectionLoadError }}</p>
       </div>
+
+      <ng-container *ngIf="!isLoadingRejection && !rejectionLoadError">
+        <div class="pr-detail-body" *ngIf="selectedPRDetail as pr">
+        <div class="pr-detail-header-row">
+          <span class="status-badge" [ngClass]="getStatusClass(pr.status)">{{ pr.status }}</span>
+          <p class="rejected-by">Rejected by: <span class="highlight-text">{{ selectedPRRejectedByLabel }}</span></p>
+        </div>
+
+        <div class="pr-detail-grid">
+          <div class="reason-box">
+            <label class="reason-label">Item Name</label>
+            <p class="reason-text">{{ pr.itemName || '—' }}</p>
+          </div>
+          <div class="reason-box">
+            <label class="reason-label">Category</label>
+            <p class="reason-text">{{ pr.category || '—' }}</p>
+          </div>
+          <div class="reason-box">
+            <label class="reason-label">Quantity</label>
+            <p class="reason-text">{{ pr.quantity ?? '—' }}</p>
+          </div>
+          <div class="reason-box">
+            <label class="reason-label">Unit</label>
+            <p class="reason-text">{{ pr.unit || '—' }}</p>
+          </div>
+          <div class="reason-box">
+            <label class="reason-label">Estimated Price</label>
+            <p class="reason-text">{{ pr.estimatedPrice ?? '—' }} {{ pr.currency }}</p>
+          </div>
+          <div class="reason-box">
+            <label class="reason-label">Required Delivery Date</label>
+            <p class="reason-text">{{ formatDate(pr.requiredDeliveryDate) }}</p>
+          </div>
+          <div class="reason-box">
+            <label class="reason-label">Created At</label>
+            <p class="reason-text">{{ formatDate(pr.createdAt) }}</p>
+          </div>
+          <div class="reason-box">
+            <label class="reason-label">Updated At</label>
+            <p class="reason-text">{{ formatDate(pr.updatedAt) }}</p>
+          </div>
+        </div>
+
+        <div class="reason-box reason-box-full" *ngIf="pr.technicalSpecifications">
+          <label class="reason-label">Technical Specs</label>
+          <p class="reason-text">{{ pr.technicalSpecifications }}</p>
+        </div>
+
+        <div class="reason-box reason-box-full" *ngIf="pr.reason">
+          <label class="reason-label">Why do You need this item?</label>
+          <p class="reason-text">{{ pr.reason }}</p>
+        </div>
+
+        <div class="reason-box reason-box-full" *ngIf="pr.additionalNotes">
+          <label class="reason-label">Additional Notes</label>
+          <p class="reason-text">{{ pr.additionalNotes }}</p>
+        </div>
+
+        <div class="reason-box reason-box-full" *ngIf="pr.rejectionReason">
+          <label class="reason-label">Reason of Rejection</label>
+          <p class="reason-text">{{ pr.rejectionReason }}</p>
+        </div>
+      </div>
+      </ng-container>
     </div>
   </div>
 

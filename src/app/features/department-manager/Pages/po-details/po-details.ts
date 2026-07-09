@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import {
@@ -23,18 +23,15 @@ export class PoDetails implements OnInit {
     private readonly route:     ActivatedRoute,
     private readonly router:    Router,
     private readonly dmService: DepartmentManagerService,
+    private readonly cdr:       ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
-    // Try router state first (passed from list — instant, no API call)
-    const state = history.state?.po as PurchaseOrderDetails | undefined;
-    if (state?.id) {
-      this.po        = state;
-      this.isLoading = false;
-      this.fetchDetails(state.id);
-      return;
-    }
-
+    // ⚠️ ملحوظة: كنا بنستخدم history.state كـ "fast path" علشان نعرض بيانات فورية
+    // من غير ما نستنى الـ API، بس الـ state اللي بييجي من صفحة الـ list شكله مختلف
+    // تمامًا عن شكل تفاصيل الـ PO الكامل (مفيهوش itemName/categoryName/quantity/unit/
+    // technicalSpecification/additionalNotes/rfqTitle أصلًا)، فكان بيسبب عرض بيانات
+    // ناقصة/غلط. دلوقتي بنجيب تفاصيل الـ PO دايمًا من الـ API عشان نضمن صحة الداتا 100%.
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
       this.fetchDetails(id);
@@ -46,24 +43,35 @@ export class PoDetails implements OnInit {
 
   // GET /api/DepartmentManager/purchase-orders/{purchaseOrderId}
   private fetchDetails(id: number): void {
+    this.isLoading = true;
+    this.error = '';
+
     this.dmService.getPurchaseOrderById(id).subscribe({
       next: (res) => {
         this.isLoading = false;
         if (res.success && res.data) {
           this.po = res.data;
-        } else if (!this.po) {
+        } else {
           this.error = res.message || 'Failed to load purchase order details.';
         }
+        // ⚠️ الأب zoneless (Angular 21 default)، فمفيش zone.js يعمل tick تلقائي بعد
+        // أي async response. من غير الـ detectChanges() اليدوي ده، الصفحة كانت
+        // بتفضل واقفة على أول حالة (Loading) حتى لو الداتا رجعت صح من الباك اند فعلاً.
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.isLoading = false;
-        if (!this.po) {
-          this.error = err?.status === 404
-            ? 'Purchase order not found.'
-            : 'Failed to load purchase order details.';
-        }
+        this.error = err?.status === 404
+          ? 'Purchase order not found.'
+          : 'Failed to load purchase order details.';
+        this.cdr.detectChanges();
       },
     });
+  }
+
+  retryLoad(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (id) this.fetchDetails(id);
   }
 
   goBack(): void {
@@ -74,5 +82,19 @@ export class PoDetails implements OnInit {
     if (!dateStr) return '—';
     const d = new Date(dateStr);
     return isNaN(d.getTime()) ? '—' : d.toLocaleDateString('en-GB');
+  }
+
+  getStatusClass(status: string | null | undefined): string {
+    switch (status) {
+      case 'Delivered':
+      case 'Completed':
+      case 'VendorAccepted':
+      case 'Paid':        return 'status-green';
+      case 'Pending':
+      case 'InProgress':  return 'status-yellow';
+      case 'Cancelled':
+      case 'Rejected':    return 'status-red';
+      default:            return 'status-gray';
+    }
   }
 }

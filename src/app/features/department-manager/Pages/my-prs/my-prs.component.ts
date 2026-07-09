@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { DepartmentService } from '../../../../core/services/department-manager/services/department';
+import { DepartmentService, PurchaseRequestDetail } from '../../../../core/services/department-manager/services/department';
 
 // الحالات الجديدة لل Internal Approval زي ما هي في الصورة بالظبط
 export type InternalApprovalStatus =
@@ -72,6 +72,9 @@ export class MyPrsComponent implements OnInit {
   isSubmenuOpen = false; // متغير للتحكم في فتح الـ Submenu
   showRejectionModal = false;
   selectedPR: PurchaseRequest | null = null;
+  // البيانات الكاملة زي ما بترجع فعليًا من GET /purchase-requests/{id} (مفيش rejectionReason ولا rejectedBy
+  // من الـ backend فعليًا، فبنعرض كل تفاصيل الـ PR الحقيقية بدل ما نستنى حقول مش موجودة)
+  selectedPRDetail: PurchaseRequestDetail | null = null;
   isLoadingRejection = false;
   rejectionLoadError = '';
 
@@ -192,9 +195,8 @@ export class MyPrsComponent implements OnInit {
     this.activeMenuIndex = null;
     this.isSubmenuOpen = false;
 
-    // نحدد فورًا مين اللي رفض حسب حالة الـ PR (Company Admin أو Financial Manager)
-    // زي الاتنين حالات الرفض في التصميم، وبعدين نجيب سبب الرفض من endpoint التفاصيل
-    this.selectedPR = { ...pr, rejectedBy: this.getRejectedByLabel(pr.internalApproval) };
+    this.selectedPR = pr;
+    this.selectedPRDetail = null;
     this.showRejectionModal = true;
     this.isLoadingRejection = true;
     this.rejectionLoadError = '';
@@ -202,12 +204,8 @@ export class MyPrsComponent implements OnInit {
     this.departmentService.getPurchaseRequestById(pr.id).subscribe({
       next: (res) => {
         this.isLoadingRejection = false;
-        if (res.success && this.selectedPR) {
-          this.selectedPR = {
-            ...this.selectedPR,
-            rejectionReason: res.data.rejectionReason || 'No reason provided.',
-            rejectedBy: (res.data.rejectedBy as any) || this.selectedPR.rejectedBy,
-          };
+        if (res.success && res.data) {
+          this.selectedPRDetail = res.data;
         } else {
           this.rejectionLoadError = res.message || 'Failed to load rejection reason.';
         }
@@ -219,6 +217,19 @@ export class MyPrsComponent implements OnInit {
         this.cdr.detectChanges();
       }
     });
+  }
+
+  // مين اللي رفض الـ PR: بنستنتجه من الـ status نفسه (Company Admin / Financial Manager)
+  // لأن الـ backend مش راجع حقل rejectedBy منفصل فعليًا
+  get selectedPRRejectedByLabel(): string {
+    const status = this.selectedPRDetail?.status ?? this.selectedPR?.internalApproval;
+    return this.getRejectedByLabel(status as InternalApprovalStatus) || '—';
+  }
+
+  formatDate(dateStr: string | null | undefined): string {
+    if (!dateStr) return '—';
+    const d = new Date(dateStr);
+    return isNaN(d.getTime()) ? '—' : d.toLocaleDateString('en-GB');
   }
 
   onResubmitWithAI(pr: PurchaseRequest): void {
@@ -290,6 +301,7 @@ private closeModalAfterSuccess(): void {
   closeModal(): void {
     this.showRejectionModal = false;
     this.selectedPR = null;
+    this.selectedPRDetail = null;
     this.isLoadingRejection = false;
     this.rejectionLoadError = '';
   }

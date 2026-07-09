@@ -5,110 +5,106 @@
   } @else if (error) {
     <div class="state-error">
       {{ error }}
+      <button class="back-btn" (click)="retryLoad()">Retry</button>
       <button class="back-btn" (click)="goBack()">← Back</button>
     </div>
   } @else if (po) {
 
     <!-- Breadcrumb -->
-    <div class="breadcrumb">
-      <a class="breadcrumb-link" (click)="goBack()" style="cursor:pointer">Delivered POs</a>
-      <span class="breadcrumb-sep">›</span>
-      <span class="breadcrumb-current">PO Details</span>
+    <div class="breadcrumbs">
+      <a class="crumb-link" (click)="goBack()" style="cursor:pointer">Delivered POs</a>
+      <span class="separator">›</span>
+      <span class="current-crumb">PO Details</span>
     </div>
 
     <div class="card">
-      <h1 class="card-title">PO #{{ po.id }}</h1>
-
-      <!-- Order Info -->
-      <h2 class="section-title">Order Info</h2>
-      <div class="field-row">
-        <div class="field">
-          <label class="field-label">Vendor Name</label>
-          <div class="field-value">{{ po.vendorName || '—' }}</div>
-        </div>
-        <div class="field">
-          <label class="field-label">Company Name</label>
-          <div class="field-value">{{ po.companyName || '—' }}</div>
-        </div>
+      <div class="card-header">
+        <h1 class="card-title">PO Title: {{ po.rfqTitle || ('PO #' + po.id) }}</h1>
+        <span class="status-badge" [ngClass]="getStatusClass(po.status)">{{ po.status || '—' }}</span>
       </div>
+
+      <!-- PO Info -->
+      <h2 class="section-title">PO Info</h2>
       <div class="field-row">
         <div class="field">
-          <label class="field-label">Status</label>
-          <div class="field-value">{{ po.status || '—' }}</div>
+          <span class="field-label">Item Name</span>
+          <div class="field-box">{{ po.itemName || '—' }}</div>
         </div>
         <div class="field">
-          <label class="field-label">Created At</label>
-          <div class="field-value">{{ formatDate(po.createdAt) }}</div>
+          <span class="field-label">Category</span>
+          <div class="field-box">{{ po.categoryName || '—' }}</div>
         </div>
       </div>
 
-      <!-- Item Info (if available) -->
-      @if (po.rfqTitle || po.itemName) {
-        <h2 class="section-title">Item Info</h2>
-        <div class="field-row">
-          @if (po.rfqTitle) {
-            <div class="field">
-              <label class="field-label">PO Title</label>
-              <div class="field-value">{{ po.rfqTitle }}</div>
-            </div>
-          }
-          @if (po.itemName) {
-            <div class="field">
-              <label class="field-label">Item Name</label>
-              <div class="field-value">{{ po.itemName }}</div>
-            </div>
-          }
+      <div class="field-row">
+        <div class="field">
+          <span class="field-label">Quantity</span>
+          <div class="field-box">{{ po.quantity ?? '—' }}</div>
         </div>
-        @if (po.quantity || po.unit) {
-          <div class="field-row">
-            <div class="field">
-              <label class="field-label">Quantity</label>
-              <div class="field-value">{{ po.quantity || '—' }}</div>
-            </div>
-            <div class="field">
-              <label class="field-label">Unit</label>
-              <div class="field-value">{{ po.unit || '—' }}</div>
-            </div>
+        <div class="field">
+          <span class="field-label">Unit of Measurement</span>
+          <div class="field-box field-box-select">
+            {{ po.unit || '—' }}
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 9L12 15L18 9" stroke="#3FCFB4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </div>
-        }
-        @if (po.technicalSpecs) {
-          <div class="field full">
-            <label class="field-label">Technical Specs</label>
-            <div class="field-value specs">{{ po.technicalSpecs }}</div>
-          </div>
-        }
+        </div>
+      </div>
+
+      @if (po.technicalSpecification) {
+        <div class="field">
+          <span class="field-label">Technical Specs</span>
+          <div class="field-box field-box-wide">{{ po.technicalSpecification }}</div>
+        </div>
+      }
+
+      @if (po.additionalNotes) {
+        <div class="field">
+          <span class="field-label">Additional Notes</span>
+          <div class="field-box field-box-wide">{{ po.additionalNotes }}</div>
+        </div>
       }
 
       <!-- Cost Info -->
       <h2 class="section-title">Cost Info</h2>
       <div class="field-row">
         <div class="field">
-          <label class="field-label">Cost</label>
-          <div class="field-value">{{ po.cost | number:'1.2-2' }} {{ po.currency }}</div>
+          <span class="field-label">Total Cost</span>
+          <div class="field-box">{{ po.totalCost | number:'1.2-2' }}</div>
         </div>
-        @if (po.paymentMethod) {
-          <div class="field">
-            <label class="field-label">Payment Method</label>
-            <div class="field-value">{{ po.paymentMethod }}</div>
+        <div class="field">
+          <span class="field-label">Currency</span>
+          <div class="field-box field-box-select">
+            {{ po.currency || '—' }}
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 9L12 15L18 9" stroke="#3FCFB4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </div>
-        }
+        </div>
       </div>
 
       <!-- Delivery Info -->
       <h2 class="section-title">Delivery Info</h2>
       <div class="field-row">
         <div class="field">
-          <label class="field-label">Delivery Deadline</label>
-          <div class="field-value">{{ formatDate(po.deliveryDeadline) }}</div>
+          <span class="field-label">Delivery Deadline</span>
+          <div class="field-box">{{ formatDate(po.deliveryDeadline) }}</div>
         </div>
         <div class="field">
-          <label class="field-label">Payment Date</label>
-          <div class="field-value">{{ formatDate(po.paymentDate) }}</div>
+          <span class="field-label">Created At</span>
+          <div class="field-box">{{ formatDate(po.createdAt) }}</div>
         </div>
+      </div>
+
+      <!-- Selected Vendor -->
+      <h2 class="section-title">Selected Vendor</h2>
+      <div class="field">
+        <span class="field-label">Vendor</span>
+        <div class="field-box">{{ po.vendorName || '—' }}</div>
       </div>
 
     </div>
   }
 
 </div>
-

@@ -51,6 +51,7 @@ export interface PurchaseRequestDetail {
   additionalNotes: string;
   status: string;
   createdAt: string;
+  updatedAt?: string;
   // مش دايمًا راجعين من الـ API (بيظهروا بس لما الحالة تبقى Rejected)
   rejectionReason?: string | null;
   rejectedBy?: string | null;

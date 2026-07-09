@@ -69,10 +69,7 @@ export class DeliveredPos implements OnInit {
   }
 
   viewDetails(po: PurchaseOrder): void {
-    this.router.navigate(
-      ['/department-manager/delivered-pos', po.id],
-      { state: { po } },
-    );
+    this.router.navigate(['/department-manager/delivered-pos', po.id]);
   }
 
   formatDate(dateStr: string | null): string {

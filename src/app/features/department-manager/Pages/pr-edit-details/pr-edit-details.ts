@@ -36,6 +36,7 @@ export class PrEditDetailsComponent implements OnInit, OnDestroy {
 
   // ---- editable form fields (دي اللي بتتبعت في الـ Upload Revision) ----
   itemName = '';
+  categoryId: number | null = null;
   quantity: number | null = null;
   unit = '';
   estimatedPrice: number | null = null;
@@ -46,7 +47,8 @@ export class PrEditDetailsComponent implements OnInit, OnDestroy {
   reason = '';
   additionalNotes = '';
 
-  // ---- dropdown options (unit / currency) محمّلة من نفس الـ API المستخدم في upload-pr ----
+  // ---- dropdown options (category / unit / currency) محمّلة من نفس الـ API المستخدم في upload-pr ----
+  categoryOptions: DepartmentOption[] = [];
   unitOptions: DepartmentOption[] = [];
   currencyOptions: DepartmentOption[] = [];
 
@@ -86,6 +88,10 @@ export class PrEditDetailsComponent implements OnInit, OnDestroy {
   }
 
   private loadDropdownOptions(): void {
+    this.departmentService.getCategories().pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res) => { if (res.success) this.categoryOptions = res.data; },
+      error: (e) => console.error('Failed to load categories:', e)
+    });
     this.departmentService.getUnits().pipe(takeUntil(this.destroy$)).subscribe({
       next: (res) => { if (res.success) this.unitOptions = res.data; },
       error: (e) => console.error('Failed to load units:', e)
@@ -154,6 +160,7 @@ export class PrEditDetailsComponent implements OnInit, OnDestroy {
   // بيملى حقول الفورم القابلة للتعديل من الداتا الراجعة من الـ API
   private populateFormFromPr(pr: PurchaseRequestDetail): void {
     this.itemName = pr.itemName ?? '';
+    this.categoryId = pr.categoryId ?? null;
     this.quantity = pr.quantity ?? null;
     this.unit = pr.unit ?? '';
     this.estimatedPrice = pr.estimatedPrice ?? null;
@@ -188,6 +195,7 @@ export class PrEditDetailsComponent implements OnInit, OnDestroy {
   private validateForm(): boolean {
     if (
       !this.itemName.trim() ||
+      !this.categoryId ||
       !this.quantity ||
       !this.unit ||
       !this.estimatedPrice ||
@@ -209,7 +217,7 @@ export class PrEditDetailsComponent implements OnInit, OnDestroy {
 
     const payload: CreatePurchaseRequestPayload = {
       itemName: this.itemName.trim(),
-      categoryId: this.pr.categoryId,
+      categoryId: this.categoryId ?? this.pr.categoryId,
       quantity: this.quantity!,
       unit: this.unit,
       estimatedPrice: this.estimatedPrice!,
