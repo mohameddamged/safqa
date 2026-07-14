@@ -45,12 +45,9 @@
           <td>{{ offer.rfqTitle }}</td>
           <td>{{ offer.companyName }}</td>
           <td>
-            <span
-              class="mo-badge"
-              [class.mo-badge-negotiated]="offer.negotiation === 'negotiated'"
+            <span class="mo-badge" [class.mo-badge-negotiated]="offer.negotiation === 'negotiated'"
               [class.mo-badge-requested]="offer.negotiation === 'requested'"
-              [class.mo-badge-none]="offer.negotiation === 'none'"
-            >{{ negotiationLabel(offer.negotiation) }}</span>
+              [class.mo-badge-none]="offer.negotiation === 'none'">{{ negotiationLabel(offer.negotiation) }}</span>
           </td>
           <td class="mo-menu-cell">
             <button class="mo-menu-btn" (click)="onToggleMenu(offer, $event)" aria-label="More actions">
@@ -62,12 +59,10 @@
             <div class="mo-dropdown" [class.drop-up]="offer.dropUp" *ngIf="offer.menuOpen">
               <button class="mo-dropdown-item" (click)="onViewRfqDetails(offer)">View RFQ Details</button>
               <button class="mo-dropdown-item" (click)="onViewMyOffer(offer)">View my Offer</button>
-              <button
-                class="mo-dropdown-item"
-                [class.mo-dropdown-item-disabled]="offer.negotiation !== 'negotiated'"
-                [disabled]="offer.negotiation !== 'negotiated'"
-                (click)="onViewNegotiationChat(offer)"
-              >View Negotiation chat</button>
+              <button class="mo-dropdown-item"
+                [class.mo-dropdown-item-disabled]="offer.negotiation !== 'negotiated' && offer.negotiation !== 'requested'"
+                [disabled]="offer.negotiation !== 'negotiated' && offer.negotiation !== 'requested'"
+                (click)="onViewNegotiationChat(offer)">View Negotiation chat</button>
             </div>
           </td>
         </tr>

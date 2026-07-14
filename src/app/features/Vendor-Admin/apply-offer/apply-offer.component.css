@@ -231,7 +231,7 @@ input[type="date"].ao-input {
 /* ══════════════════════════════
    STICKY FOOTER
 ══════════════════════════════ */
-.ao-footer {
+/* .ao-footer {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -245,6 +245,22 @@ input[type="date"].ao-input {
   gap: 16px;
   max-width: calc(100% - 205px);
   box-sizing: border-box;
+} */
+
+.ao-footer {
+  position: sticky;
+  bottom: 0;
+  margin-left: 0; 
+  padding: 16px 48px;
+  background: #F5F5FA;
+  border-top: 1px solid #EBEBF5;
+  z-index: 50;
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box; 
+  margin-top: 40px; 
 }
 
 .ao-btn-send {

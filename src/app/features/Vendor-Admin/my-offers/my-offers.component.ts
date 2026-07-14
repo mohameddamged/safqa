@@ -100,7 +100,7 @@ export class MyOffersComponent implements OnInit, OnDestroy {
   }
 
   onViewNegotiationChat(offer: OfferRecord): void {
-    if (offer.negotiation !== 'negotiated') return;
+    if (offer.negotiation !== 'negotiated' && offer.negotiation !== 'requested') return;
     offer.menuOpen = false;
     // offer.id = rfqVendorOfferId (الـ id الحقيقي للـ offer المستخدم في Chat/AiChat APIs)
     this.router.navigate(['/vendor-admin/my-offers/NegotiationChat', offer.id], { state: { offer } });
